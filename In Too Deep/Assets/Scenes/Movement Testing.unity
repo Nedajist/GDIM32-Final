@@ -1851,7 +1851,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 1836955518}
   _playercamera: {fileID: 790664250}
   _movespeed: 5
-  _UIcontroller: {fileID: 1216849800}
+  _UIcontroller: {fileID: 1216849803}
 --- !u!1 &1844592696
 GameObject:
   m_ObjectHideFlags: 0
