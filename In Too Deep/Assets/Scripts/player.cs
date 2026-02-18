@@ -101,6 +101,10 @@ public class player : MonoBehaviour
             }
             _grounded = true;
         }
+        if (collision.transform.CompareTag("Obstacle"))
+        {
+            _rigidbody.AddExplosionForce(500, collision.transform.position, 100);
+        }
     }
 
 
