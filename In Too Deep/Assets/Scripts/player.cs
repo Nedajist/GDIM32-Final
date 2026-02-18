@@ -29,9 +29,10 @@ public class player : MonoBehaviour
     void Update()
     {
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
-        if (Input.GetKey(KeyCode.Space) && _grounded == true && ( (_rigidbody.velocity.x + _rigidbody.velocity.y+_rigidbody.velocity.z)<6))
+        if (Input.GetKey(KeyCode.Space) && _grounded == true && _animator.GetBool("Walking") == false) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
-            if (_space_held_frames == 0){
+            if (_space_held_frames == 0)
+            {
                 _animator.speed = 0.05f;
                 _animator.SetTrigger("Jumping");
             }
@@ -42,11 +43,9 @@ public class player : MonoBehaviour
             _space_held_time += Time.deltaTime;
             _space_held_frames += 1;
             _charging = true;
-            
+
         }
-        
-        
-        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && _grounded == true)
+        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && _grounded == true) // check if space was released, frog jumps
         {
             _animator.SetBool("Landing", true);
             _charging = false;
@@ -70,12 +69,11 @@ public class player : MonoBehaviour
             _space_held_time = 0;
             _space_held_frames = 0;
         }
-        
 
         if (Input.GetKey(KeyCode.W) && _charging == false && _grounded == true)
         {
             _animator.SetBool("Walking", true);
-            _rigidbody.velocity=(transform.forward * _movespeed);
+            _rigidbody.velocity = (transform.forward * _movespeed);
         }
 
         if (Input.GetKey(KeyCode.S) && _charging == false && _grounded == true)
@@ -100,6 +98,8 @@ public class player : MonoBehaviour
         {
             _animator.SetBool("Walking", false);
         }
+
+
     }
 
     private void OnCollisionExit(Collision collision)
