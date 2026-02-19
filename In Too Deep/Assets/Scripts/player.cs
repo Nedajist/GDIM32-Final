@@ -33,10 +33,10 @@ public class player : MonoBehaviour
         {
             if (_space_held_frames == 0)
             {
-                _animator.speed = 0.05f;
                 _animator.SetTrigger("Jumping");
+                _animator.speed = 0.4f;
             }
-            else if (_space_held_frames > 800)
+            else if (_space_held_frames > 200)
             {
                 _animator.speed = 0;
             }
