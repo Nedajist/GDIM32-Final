@@ -60,8 +60,6 @@ public class player : MonoBehaviour
             if (_forward_momentum.z > _max_forward_momentum.z){
                 _forward_momentum = _max_forward_momentum;
             }
-
-
             Debug.Log("After " + _space_held_time.ToString() + " seconds, launched with a force of " + _upward_momentum.y.ToString() + " " + _forward_momentum.z.ToString());
             _rigidbody.AddForce(_upward_momentum);
             _rigidbody.AddForce(_forward_momentum);
@@ -69,7 +67,6 @@ public class player : MonoBehaviour
             _space_held_time = 0;
             _space_held_frames = 0;
         }
-
         if (Input.GetKey(KeyCode.W) && _charging == false && _grounded == true)
         {
             _animator.SetBool("Walking", true);
@@ -101,7 +98,6 @@ public class player : MonoBehaviour
 
 
     }
-
     private void OnCollisionExit(Collision collision)
     {
         if (collision.transform.CompareTag("Ground"))
@@ -110,7 +106,6 @@ public class player : MonoBehaviour
             _starting_fall_height = transform.position.y;
         }
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Ground"))
@@ -128,7 +123,4 @@ public class player : MonoBehaviour
             _rigidbody.AddExplosionForce(500, collision.transform.position, 100);
         }
     }
-
-
-
 }
