@@ -9,12 +9,14 @@ public class player : MonoBehaviour
     [SerializeField] private float _movespeed;
     [SerializeField] private UIController _UIcontroller;
     private bool _grounded = true;
+    public bool _canMove = true;
     private bool _charging = false;
     private float _space_held_time = 0;
     private Vector3 _max_upward_momentum;
     private Vector3 _max_forward_momentum;
 
     private float _starting_fall_height;
+
 
     // Start is called before the first frame update
     void Start()
@@ -78,6 +80,12 @@ public class player : MonoBehaviour
             _rigidbody.velocity = (transform.right * _movespeed);
         }
 
+        if(!_canMove)
+        {
+            _rigidbody.velocity = Vector3.zero;
+            return;
+        }
+
     }
 
     private void OnCollisionExit(Collision collision)
@@ -102,7 +110,5 @@ public class player : MonoBehaviour
             _grounded = true;
         }
     }
-
-
 
 }
