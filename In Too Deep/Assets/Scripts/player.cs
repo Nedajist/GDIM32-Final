@@ -10,6 +10,7 @@ public class player : MonoBehaviour
     [SerializeField] private UIController _UIcontroller;
     [SerializeField] private Animator _animator;
     private bool _grounded = true;
+    public bool _canMove = true;
     private bool _charging = false;
     private float _space_held_time = 0;
     private float _space_held_frames = 0;
@@ -17,6 +18,7 @@ public class player : MonoBehaviour
     private Vector3 _max_forward_momentum;
 
     private float _starting_fall_height;
+
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +97,13 @@ public class player : MonoBehaviour
         {
             _animator.SetBool("Walking", false);
         }
+        if(!_canMove)
+        {
+            _rigidbody.velocity = Vector3.zero;
+            return;
+        }
+
+    }
 
 
     }
