@@ -3,8 +3,11 @@
 ## Devlog
 ### W7
 Downloaded and imported visual assets
+
 Generated terrain as backdrop for gameplay
+
 Began creating platforming section
+
 Began playtesting after importing player character and NPCs into scene
 
 ## Open-Source Assets
