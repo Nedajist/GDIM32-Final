@@ -40,6 +40,7 @@ public class UIController : MonoBehaviour
             _healthbar.value += Time.deltaTime * _healingrate;
         }
 
+
     }
 
     public void losehealth(float damage)
