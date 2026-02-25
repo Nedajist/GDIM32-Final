@@ -13,10 +13,12 @@ public class player : MonoBehaviour
     [SerializeField] private Camera _playercamera;
     [SerializeField] private float _movespeed;
     [SerializeField] private UIController _UIcontroller;
+    [SerializeField] private Animator _animator;
     private bool _grounded = true;
     public bool _canMove = true;
     private bool _charging = false;
     private float _space_held_time = 0;
+    private float _space_held_frames = 0;
     private Vector3 _max_upward_momentum;
     private Vector3 _max_forward_momentum;
 
@@ -25,7 +27,15 @@ public class player : MonoBehaviour
     //Quest variables
 
     private State _currentState;
-    [SerializeField] private PlayerInteract _playerInteract;
+
+    //UI variables
+
+    [SerializeField] private GameObject _dialogueText;
+    [SerializeField] private GameObject _enabler;
+
+    //NPC variables
+    [SerializeField] public bool _dialogueActive;
+    [SerializeField] private bool _nearNPC;
 
 
     void Start()
@@ -38,67 +48,94 @@ public class player : MonoBehaviour
     void Update()
     {
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
-        if (Input.GetKey(KeyCode.Space) && _grounded == true && ( (_rigidbody.velocity.x + _rigidbody.velocity.y+_rigidbody.velocity.z)<6))
+        if (Input.GetKey(KeyCode.Space) && _grounded == true && _animator.GetBool("Walking") == false) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
-            _space_held_time += Time.deltaTime;
-            _charging = true;
-        }
-        else
-        {
-            if (_space_held_time > 0 && _grounded == true)
+            if (_space_held_frames == 0)
             {
-                _charging = false;
-                _grounded = false;
-                Vector3 _upward_momentum = (600 * transform.up * _space_held_time) + 250 * transform.up;
-                Vector3 _forward_momentum = (300 * transform.forward * _space_held_time) + 150 * transform.forward;
-
-                if (_upward_momentum.y > _max_upward_momentum.y){
-                    _upward_momentum = _max_upward_momentum;
-                }
-
-                if (_forward_momentum.z > _max_forward_momentum.z){
-                    _forward_momentum = _max_forward_momentum;
-                }
-
-
-                Debug.Log("After " + _space_held_time.ToString() + " seconds, launched with a force of " + _upward_momentum.y.ToString() + " " + _forward_momentum.z.ToString());
-                _rigidbody.AddForce(_upward_momentum);
-                _rigidbody.AddForce(_forward_momentum);
-                _space_held_time = 0;
-
+                _animator.SetTrigger("Jumping");
+                _animator.speed = 0.4f;
             }
-        }
+            else if (_space_held_frames > 200)
+            {
+                _animator.speed = 0;
+            }
+            _space_held_time += Time.deltaTime;
+            _space_held_frames += 1;
+            _charging = true;
 
+        }
+        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && _grounded == true) // check if space was released, frog jumps
+        {
+            _animator.SetBool("Landing", true);
+            _charging = false;
+            _grounded = false;
+            Vector3 _upward_momentum = (600 * transform.up * _space_held_time) + 250 * transform.up;
+            Vector3 _forward_momentum = (300 * transform.forward * _space_held_time) + 150 * transform.forward;
+
+            if (_upward_momentum.y > _max_upward_momentum.y){
+                _upward_momentum = _max_upward_momentum;
+            }
+
+            if (_forward_momentum.z > _max_forward_momentum.z){
+                _forward_momentum = _max_forward_momentum;
+            }
+            Debug.Log("After " + _space_held_time.ToString() + " seconds, launched with a force of " + _upward_momentum.y.ToString() + " " + _forward_momentum.z.ToString());
+            _rigidbody.AddForce(_upward_momentum);
+            _rigidbody.AddForce(_forward_momentum);
+            _animator.speed = 1;
+            _space_held_time = 0;
+            _space_held_frames = 0;
+        }
         if (Input.GetKey(KeyCode.W) && _charging == false && _grounded == true)
         {
-            _rigidbody.velocity=(transform.forward * _movespeed);
+            _animator.SetBool("Walking", true);
+            _rigidbody.velocity = (transform.forward * _movespeed);
         }
 
         if (Input.GetKey(KeyCode.S) && _charging == false && _grounded == true)
         {
+            _animator.SetBool("Walking", true);
             _rigidbody.velocity = (transform.forward * _movespeed * -1);
         }
 
         if (Input.GetKey(KeyCode.A) && _charging == false && _grounded == true)
         {
+            _animator.SetBool("Walking", true);
             _rigidbody.velocity = (transform.right * _movespeed * -1);
         }
 
         if (Input.GetKey(KeyCode.D) && _charging == false && _grounded == true)
         {
+            _animator.SetBool("Walking", true);
             _rigidbody.velocity = (transform.right * _movespeed);
         }
 
+        if (Input.anyKey == false)
+        {
+            _animator.SetBool("Walking", false);
+        }
+        
         if(!_canMove)
         {
             _rigidbody.velocity = Vector3.zero;
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.E) && _nearNPC && _dialogueActive == false)
+        {
+            Show();
+        }
+        
+        
+        if (Input.GetKeyDown(KeyCode.Q) && _dialogueActive == true)
+        {
+            Debug.Log("Pressing Q");
+            Hide();
+        }
+
         UpdateState();
 
     }
-
     private void OnCollisionExit(Collision collision)
     {
         if (collision.transform.CompareTag("Ground"))
@@ -107,7 +144,6 @@ public class player : MonoBehaviour
             _starting_fall_height = transform.position.y;
         }
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Ground"))
@@ -120,21 +156,48 @@ public class player : MonoBehaviour
             }
             _grounded = true;
         }
+        if (collision.transform.CompareTag("Obstacle"))
+        {
+            _rigidbody.AddExplosionForce(500, collision.transform.position, 100);
+        }
+    }
+    
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.CompareTag("NPC"))
+        {
+            _nearNPC = true;
+            _enabler.SetActive(true);
+        }
+    }
+
+        public void Show()
+    {
+        _canMove = false;
+        _dialogueActive = true;
+        _dialogueText.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        _canMove = true;
+        _dialogueActive = false;
+        _dialogueText.SetActive(false);
     }
 
 
     private void UpdateState()
     {
-        if (_playerInteract._dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha1))
+        if (_dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha1))
         {
             Debug.Log("Working");
             //StateChanged(State.Accepted);
-            _playerInteract.Hide();
+            Hide();
             _UIcontroller._currentQuestStatus = "Accepted";
         }
-        else if (_playerInteract._dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha2))
+        else if (_dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha2))
         {
-            _playerInteract.Hide();
+            Hide();
         }
     }
 
