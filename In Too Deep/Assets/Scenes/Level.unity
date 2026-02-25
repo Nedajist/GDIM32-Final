@@ -1312,15 +1312,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d7da5ec6f2fcfba449dfcec729cb4157, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 345.5
+      value: 257
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7da5ec6f2fcfba449dfcec729cb4157, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 366.2
+      value: 409
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7da5ec6f2fcfba449dfcec729cb4157, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 532
+      value: 518.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7da5ec6f2fcfba449dfcec729cb4157, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6015,6 +6015,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentCheckpointID: 1
+  _player: {fileID: 1553795454}
+  spawnPoint: {fileID: 0}
 --- !u!1 &2045019399
 GameObject:
   m_ObjectHideFlags: 0
