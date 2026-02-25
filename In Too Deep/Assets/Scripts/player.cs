@@ -31,8 +31,14 @@ public class player : MonoBehaviour
     void Update()
     {
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
-        if (Input.GetKey(KeyCode.Space) && _grounded == true && _animator.GetBool("Walking") == false) // checks if player is holding down space bar. Can't be walking or in the air. 
+        if (Input.GetKey(KeyCode.Space) && _grounded == true) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
+            if (_animator.GetBool("Walking") == true)
+            {
+                _rigidbody.velocity = new Vector3(0, 0, 0);
+                _animator.SetBool("Walking", false);
+            }
+
             if (_space_held_frames == 0)
             {
                 _animator.SetTrigger("Jumping");
@@ -126,7 +132,9 @@ public class player : MonoBehaviour
         }
         if (collision.transform.CompareTag("Obstacle"))
         {
-            _rigidbody.AddExplosionForce(500, collision.transform.position, 100);
+            bouncy_object obstacle = collision.transform.GetComponent<bouncy_object>();
+            _rigidbody.AddExplosionForce(obstacle.repel_force, transform.position, 100);
+
         }
     }
 }
