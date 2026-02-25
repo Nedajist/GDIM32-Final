@@ -5,11 +5,10 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     private bool _nearNPC;
-    private bool _dialogueActive;
+    public bool _dialogueActive;
     [SerializeField] private player _player;
     [SerializeField] private GameObject _dialogueText;
     [SerializeField] private GameObject _enabler;
-    private NPC _npc;
 
     void Update()
     {
@@ -46,14 +45,14 @@ public class PlayerInteract : MonoBehaviour
     }
 
 
-    void Show()
+    public void Show()
     {
         _player._canMove = false;
         _dialogueActive = true;
         _dialogueText.SetActive(true);
     }
 
-    void Hide()
+    public void Hide()
     {
         _player._canMove = true;
         _dialogueActive = false;

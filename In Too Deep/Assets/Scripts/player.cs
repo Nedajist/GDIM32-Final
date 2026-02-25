@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum State
+{
+    Accepted, 
+    Ready,
+    Completed
+}
 public class player : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
@@ -17,15 +22,19 @@ public class player : MonoBehaviour
 
     private float _starting_fall_height;
 
+    //Quest variables
 
-    // Start is called before the first frame update
+    private State _currentState;
+    [SerializeField] private PlayerInteract _playerInteract;
+
+
     void Start()
     {
         _max_upward_momentum = 1200 * transform.up;
         _max_forward_momentum = 600 * transform.forward;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
@@ -86,6 +95,8 @@ public class player : MonoBehaviour
             return;
         }
 
+        UpdateState();
+
     }
 
     private void OnCollisionExit(Collision collision)
@@ -109,6 +120,27 @@ public class player : MonoBehaviour
             }
             _grounded = true;
         }
+    }
+
+
+    private void UpdateState()
+    {
+        if (_playerInteract._dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("Working");
+            //StateChanged(State.Accepted);
+            _playerInteract.Hide();
+            _UIcontroller._currentQuestStatus = "Accepted";
+        }
+        else if (_playerInteract._dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _playerInteract.Hide();
+        }
+    }
+
+    private void StateChanged(State newState)
+    {
+        
     }
 
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject _player;
     [SerializeField] private float _maximum_height;
     [SerializeField] private TextMeshProUGUI _depth_text;
+    [SerializeField] private TextMeshProUGUI _questStatusText;
+    public string _currentQuestStatus;
     private float seconds_of_healing=0;
 
     // Start is called before the first frame update
@@ -22,6 +25,7 @@ public class UIController : MonoBehaviour
     {
         losehealth(50);
         gainhealth(30);
+        _currentQuestStatus = "None";
     }
 
     // Update is called once per frame
@@ -39,6 +43,8 @@ public class UIController : MonoBehaviour
             seconds_of_healing -= Time.deltaTime;
             _healthbar.value += Time.deltaTime * _healingrate;
         }
+
+        _questStatusText.text = "Quest Status: " + _currentQuestStatus;
 
     }
 

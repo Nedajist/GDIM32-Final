@@ -1,20 +1,10 @@
 using UnityEngine;
-public enum questState
+
+public class NPC : MonoBehaviour
 {
-    Accepted, 
-    Ready, 
-    Completed
-}
-public abstract class NPC : MonoBehaviour
-{
-    [SerializeField] protected string npcName;
-    protected questState _currentQuestState;
-    
 
     void Start()
     {
         
     }
-
-    public abstract void Interact(player player);
 }
