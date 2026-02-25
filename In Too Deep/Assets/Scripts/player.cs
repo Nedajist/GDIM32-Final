@@ -104,9 +104,6 @@ public class player : MonoBehaviour
         }
 
     }
-
-
-    }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.transform.CompareTag("Ground"))
