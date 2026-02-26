@@ -2229,7 +2229,6 @@ MonoBehaviour:
   _rigidbody: {fileID: 1771860135}
   _playercamera: {fileID: 0}
   _movespeed: 5
-  _fallspeed: 6
   _UIcontroller: {fileID: 1216849803}
   _animator: {fileID: 1771860132}
   _canMove: 1
@@ -2442,7 +2441,6 @@ MonoBehaviour:
   _rigidbody: {fileID: 1836955518}
   _playercamera: {fileID: 0}
   _movespeed: 5
-  _fallspeed: 0
   _UIcontroller: {fileID: 1216849803}
   _animator: {fileID: 0}
   _canMove: 1
