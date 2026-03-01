@@ -33,7 +33,6 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(_falling);
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
         if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
@@ -133,6 +132,12 @@ public class player : MonoBehaviour
             {
                 _rigidbody.AddForce(0.15f * transform.right * _movespeed);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Debug.Log("LSHIFT");
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         if (Input.anyKey == false)
