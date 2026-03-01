@@ -136,8 +136,15 @@ public class player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            Debug.Log("LSHIFT");
-            Cursor.lockState = CursorLockMode.Locked;
+            if (Cursor.lockState == CursorLockMode.Locked) {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
 
         if (Input.anyKey == false)
