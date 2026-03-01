@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DialogueNPC : NPC
 {
-    void Start()
+    [SerializeField] private TMP_Text _text;
+    public override void Interact(string dialogue)
     {
-        Interact();
+        _text.text = dialogue;
+        
     }
 }

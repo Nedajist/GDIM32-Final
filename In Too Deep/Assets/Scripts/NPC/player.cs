@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 public enum State
 {
@@ -14,6 +12,7 @@ public class player : MonoBehaviour
     [SerializeField] private float _movespeed;
     [SerializeField] private UIController _UIcontroller;
     [SerializeField] private Animator _animator;
+    public static player Instance {get; private set; }
     private bool _grounded = true;
     public bool _canMove = true;
     private bool _charging = false;
@@ -30,12 +29,24 @@ public class player : MonoBehaviour
 
     //UI variables
 
-    [SerializeField] private GameObject _dialogueText;
-    [SerializeField] private GameObject _enabler;
 
     //NPC variables
     [SerializeField] public bool _dialogueActive;
     [SerializeField] private bool _nearNPC;
+
+    private NPC _currentNPC;
+
+    
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
+    }
 
 
     void Start()
@@ -115,23 +126,25 @@ public class player : MonoBehaviour
             _animator.SetBool("Walking", false);
         }
         
+        
+        
+        if (Input.GetKeyDown(KeyCode.E) && _nearNPC && _dialogueActive == false && _currentNPC != null)
+        {
+            TalkToNPC(_currentNPC);
+        }
+        
+        
+        if (Input.GetKeyDown(KeyCode.Escape) && _dialogueActive == true)
+        {
+            Hide();
+        }
         if(!_canMove)
         {
             _rigidbody.velocity = Vector3.zero;
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && _nearNPC && _dialogueActive == false)
-        {
-            Show();
-        }
         
-        
-        if (Input.GetKeyDown(KeyCode.Q) && _dialogueActive == true)
-        {
-            Debug.Log("Pressing Q");
-            Hide();
-        }
 
         UpdateState();
 
@@ -166,23 +179,41 @@ public class player : MonoBehaviour
     {
         if (collider.CompareTag("NPC"))
         {
-            _nearNPC = true;
-            _enabler.SetActive(true);
+            _currentNPC = collider.GetComponent<NPC>();
+            if (_currentNPC != null)
+            {
+                _nearNPC = true;
+          
+            }
+            
         }
+    }
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.CompareTag("NPC"))
+        {
+            _nearNPC = false;
+          
+        }
+    }
+
+    public void TalkToNPC(NPC npc)
+    {
+        
     }
 
         public void Show()
     {
         _canMove = false;
         _dialogueActive = true;
-        _dialogueText.SetActive(true);
+  
     }
 
     public void Hide()
     {
         _canMove = true;
         _dialogueActive = false;
-        _dialogueText.SetActive(false);
+       
     }
 
 
@@ -191,7 +222,7 @@ public class player : MonoBehaviour
         if (_dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha1))
         {
             Debug.Log("Working");
-            //StateChanged(State.Accepted);
+            StateChanged(State.Accepted);
             Hide();
             _UIcontroller._currentQuestStatus = "Accepted";
         }

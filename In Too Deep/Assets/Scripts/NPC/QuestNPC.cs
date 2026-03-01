@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class QuestNPC : NPC
 {
-    // Start is called before the first frame update
-    
-
-    // Update is called once per frame
+    public override void Interact(string dialogue)
+    {
+        
+    }
     
 }
