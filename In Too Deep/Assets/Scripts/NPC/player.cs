@@ -14,8 +14,11 @@ public class player : MonoBehaviour
     [SerializeField] private Animator _animator;
     public static player Instance {get; private set; }
     private bool _grounded = true;
+    private ArrayList _list_of_colliders = new ArrayList();
     public bool _canMove = true;
     private bool _charging = false;
+    private bool _falling = false;
+    private bool _on_slope = false;
     private float _space_held_time = 0;
     private float _space_held_frames = 0;
     private Vector3 _max_upward_momentum;
@@ -51,16 +54,23 @@ public class player : MonoBehaviour
 
     void Start()
     {
-        _max_upward_momentum = 1200 * transform.up;
+        _max_upward_momentum = 1000 * transform.up;
         _max_forward_momentum = 600 * transform.forward;
     }
 
     
     void Update()
     {
+        print(_falling);
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
-        if (Input.GetKey(KeyCode.Space) && _grounded == true && _animator.GetBool("Walking") == false) // checks if player is holding down space bar. Can't be walking or in the air. 
+        if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
+            if (_animator.GetBool("Walking") == true)
+            {
+                _rigidbody.velocity = new Vector3(0, 0, 0);
+                _animator.SetBool("Walking", false);
+            }
+
             if (_space_held_frames == 0)
             {
                 _animator.SetTrigger("Jumping");
@@ -97,28 +107,60 @@ public class player : MonoBehaviour
             _space_held_time = 0;
             _space_held_frames = 0;
         }
-        if (Input.GetKey(KeyCode.W) && _charging == false && _grounded == true)
+        if (Input.GetKey(KeyCode.W) && _charging == false)
         {
-            _animator.SetBool("Walking", true);
-            _rigidbody.velocity = (transform.forward * _movespeed);
+            if (_falling != true)
+            {
+                _animator.SetBool("Walking", true);
+                _rigidbody.velocity = (transform.forward * _movespeed);
+
+            }
+            else
+            {
+                _rigidbody.AddForce(0.15f * transform.forward * _movespeed);
+            }
         }
 
-        if (Input.GetKey(KeyCode.S) && _charging == false && _grounded == true)
+        if (Input.GetKey(KeyCode.S) && _charging == false)
         {
-            _animator.SetBool("Walking", true);
-            _rigidbody.velocity = (transform.forward * _movespeed * -1);
+            if (_falling != true)
+            {
+                _animator.SetBool("Walking", true);
+                _rigidbody.velocity = (transform.forward * _movespeed * -1);
+
+            }
+            else
+            {
+                _rigidbody.AddForce(-0.15f * transform.forward * _movespeed);
+            }
         }
 
-        if (Input.GetKey(KeyCode.A) && _charging == false && _grounded == true)
+        if (Input.GetKey(KeyCode.A) && _charging == false)
         {
-            _animator.SetBool("Walking", true);
-            _rigidbody.velocity = (transform.right * _movespeed * -1);
+            if (_falling != true)
+            {
+                _animator.SetBool("Walking", true);
+                _rigidbody.velocity = (transform.right * _movespeed * -1);
+
+            }
+            else
+            {
+                _rigidbody.AddForce(-0.15f * transform.right * _movespeed);
+            }
         }
 
-        if (Input.GetKey(KeyCode.D) && _charging == false && _grounded == true)
+        if (Input.GetKey(KeyCode.D) && _charging == false)
         {
-            _animator.SetBool("Walking", true);
-            _rigidbody.velocity = (transform.right * _movespeed);
+            if (_falling != true)
+            {
+                _animator.SetBool("Walking", true);
+                _rigidbody.velocity = (transform.right * _movespeed);
+
+            }
+            else
+            {
+                _rigidbody.AddForce(0.15f * transform.right * _movespeed);
+            }
         }
 
         if (Input.anyKey == false)
@@ -153,7 +195,22 @@ public class player : MonoBehaviour
     {
         if (collision.transform.CompareTag("Ground"))
         {
+            _list_of_colliders.Remove(collision);
+        }
+        if (collision.transform.CompareTag("Obstacle"))
+        {
+            _list_of_colliders.Remove(collision);
+        }
+        if (collision.transform.CompareTag("Slope"))
+        {
+            _list_of_colliders.Remove(collision);
+            _on_slope = false;
+        }
+
+        if (_list_of_colliders.Count == 0)
+        {
             _grounded = false;
+            _falling = true;
             _starting_fall_height = transform.position.y;
         }
     }
@@ -161,6 +218,7 @@ public class player : MonoBehaviour
     {
         if (collision.transform.CompareTag("Ground"))
         {
+            _list_of_colliders.Add(collision);
             float fall_distance = _starting_fall_height - transform.position.y;
             Debug.Log("Fell a distance of :" + fall_distance);
             if (fall_distance > 10)
@@ -168,10 +226,21 @@ public class player : MonoBehaviour
                 _UIcontroller.losehealth(10 * fall_distance);
             }
             _grounded = true;
+            _falling = false;
         }
         if (collision.transform.CompareTag("Obstacle"))
         {
-            _rigidbody.AddExplosionForce(500, collision.transform.position, 100);
+            _list_of_colliders.Add(collision);
+            bouncy_object obstacle = collision.transform.GetComponent<bouncy_object>();
+            _rigidbody.AddExplosionForce(obstacle.repel_force, transform.position, 100);
+
+        }
+        if (collision.transform.CompareTag("Slope"))
+        {
+            _list_of_colliders.Add(collision);
+            _grounded = true;
+            _on_slope = true;
+            _falling = false;
         }
     }
     

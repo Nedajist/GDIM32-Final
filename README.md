@@ -1,8 +1,14 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/dDoYVaRL)
 # HW2
 ## Devlog
-Write your Devlog here!
+### W7
+Downloaded and imported visual assets
 
+Generated terrain as backdrop for gameplay
+
+Began creating platforming section
+
+Began playtesting after importing player character and NPCs into scene
 
 ## Open-Source Assets
 If you added any other outside assets, list them here!
