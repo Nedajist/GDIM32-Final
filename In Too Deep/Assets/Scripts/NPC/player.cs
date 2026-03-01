@@ -24,6 +24,7 @@ public class player : MonoBehaviour
     private float _space_held_frames = 0;
     private Vector3 _max_upward_momentum;
     private Vector3 _max_forward_momentum;
+    private RaycastHit _raycast_results;
 
     private float _starting_fall_height;
 
@@ -182,17 +183,23 @@ public class player : MonoBehaviour
         }
         
         
-        
-        if (Input.GetKeyDown(KeyCode.E) && _nearNPC && _dialogueActive == false && _currentNPC != null)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            TalkToNPC(_currentNPC);
-        }
-        
+            Ray interaction_detector = _playercamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(interaction_detector, out _raycast_results, 30f)){
+                if (_raycast_results.transform.CompareTag("NPC") && _dialogueActive == false){
+                    _currentNPC = _raycast_results.transform.GetComponent<NPC>();
+                    TalkToNPC(_currentNPC);
+                    Debug.Log("talking to npc");
+                }
+            }
+        }        
         
         if (Input.GetKeyDown(KeyCode.Escape) && _dialogueActive == true)
         {
             Hide();
         }
+
         if(!_canMove)
         {
             _rigidbody.velocity = Vector3.zero;
@@ -257,27 +264,8 @@ public class player : MonoBehaviour
         }
     }
     
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.CompareTag("NPC"))
-        {
-            _currentNPC = collider.GetComponent<NPC>();
-            if (_currentNPC != null)
-            {
-                _nearNPC = true;
-          
-            }
-            
-        }
-    }
-    private void OnTriggerExit(Collider collider)
-    {
-        if (collider.CompareTag("NPC"))
-        {
-            _nearNPC = false;
-          
-        }
-    }
+
+
 
     public void TalkToNPC(NPC npc)
     {

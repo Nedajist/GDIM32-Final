@@ -1711,7 +1711,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f35e5e67745628459b44fb577a2dd2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueScriptableObject: {fileID: 0}
 --- !u!1 &1313540559
 GameObject:
   m_ObjectHideFlags: 0
@@ -2142,7 +2141,6 @@ GameObject:
   - component: {fileID: 1836955518}
   - component: {fileID: 1836955519}
   - component: {fileID: 1836955522}
-  - component: {fileID: 1836955521}
   - component: {fileID: 1836955523}
   m_Layer: 0
   m_Name: Player
@@ -2263,31 +2261,8 @@ MonoBehaviour:
   _UIcontroller: {fileID: 1216849803}
   _animator: {fileID: 1836955523}
   _canMove: 1
-  _dialogueText: {fileID: 185482093}
-  _enabler: {fileID: 366388267}
   _dialogueActive: 0
   _nearNPC: 0
---- !u!65 &1836955521
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836955513}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.1615338, y: 2, z: 1.8298235}
-  m_Center: {x: -0.14, y: 0, z: 1.7}
 --- !u!136 &1836955522
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2585,7 +2560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3047bd1d0e56e045b71eda33a7b2535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueScriptableObject: {fileID: 11400000, guid: bcc4e34e10ea31f45a4efb1b9c7acbbf, type: 2}
   _text: {fileID: 185482095}
 --- !u!1 &2006409800
 GameObject:
