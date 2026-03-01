@@ -61,7 +61,6 @@ public class player : MonoBehaviour
     
     void Update()
     {
-        print(_falling);
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
         if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
@@ -160,6 +159,19 @@ public class player : MonoBehaviour
             else
             {
                 _rigidbody.AddForce(0.15f * transform.right * _movespeed);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (Cursor.lockState == CursorLockMode.Locked) {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
         }
 
