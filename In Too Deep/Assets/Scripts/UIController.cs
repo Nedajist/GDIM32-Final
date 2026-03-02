@@ -29,8 +29,6 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        unselect_left_hand();
-        select_right_hand();
         _currentQuestStatus = "None";
     }
 

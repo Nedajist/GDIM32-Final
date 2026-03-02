@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public enum State
 {
@@ -12,7 +13,7 @@ public class player : MonoBehaviour
     [SerializeField] private Camera _playercamera;
     [SerializeField] private float _movespeed;
     [SerializeField] private Animator _animator;
-    [SerializeField] private ArrayList _playerInventory;
+    [SerializeField] private List<Interactable> _playerInventory;
     public static player Instance {get; private set; }
     private bool _grounded = true;
     private ArrayList _list_of_colliders = new ArrayList();
