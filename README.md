@@ -18,3 +18,5 @@ If you added any other outside assets, list them here!
 - [Pixel Penguin 32x32 Asset pack](https://legends-games.itch.io/pixel-penguin-32x32-asset-pack) - penguin sprites
 - [Coins 2D](https://artist2d3d.itch.io/2d) - coin sprites
 - [Adventurous Music](https://fan-zoo.itch.io/adventure-music-pack) - ost
+- [Classic Asset Pack](https://craigsnedeker.itch.io/classic64-asset-library) - textures
+  
