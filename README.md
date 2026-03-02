@@ -9,6 +9,8 @@ Final Project: Check-In Devlog
 
   Going forward and in creating new game projects, I need to do a better job managing the team repository. I had made mistakes regarding forks, pushes, pulls, etc that set myself back and created frustration during this development process so far (plus my Git account got banned). While there haven’t been any irreversible consequences from my oversight so far, failing to properly maintain the repository in the future can be costly to me and my team.
 
+  //also the second light source can be hard to find but it is over a levitating mushroom man
+
 
 ## Open-Source Assets
 If you added any other outside assets, list them here!
