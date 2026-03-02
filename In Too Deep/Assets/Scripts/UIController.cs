@@ -29,6 +29,7 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        losehealth(100);
         _currentQuestStatus = "None";
     }
 

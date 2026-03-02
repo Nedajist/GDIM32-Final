@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 public enum State
 {
@@ -63,11 +65,15 @@ public class player : MonoBehaviour
     {
         _max_upward_momentum = 1000 * transform.up;
         _max_forward_momentum = 600 * transform.forward;
+        _ClearInteractable(0);
+        _ClearInteractable(1);
     }
 
     
     void Update()
     {
+        Debug.Log(_playerInventory[0]);
+        _DisplayInteractable();
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
         if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
@@ -197,18 +203,32 @@ public class player : MonoBehaviour
                     TalkToNPC(_currentNPC);
                     Debug.Log("talking to npc");
                 }
+
+                if (_raycast_results.transform.CompareTag("Interactable")){
+                    Interactable _item = _raycast_results.transform.GetComponent<Interactable>();
+                    _AddInteractable(_item);
+                }
+
             }
-        }        
+        }
+        
+        if (Input.GetKeyDown(KeyCode.E) && _dialogueActive == false)
+        {
+            _playerInventory[_inventory_selected_index].interact();
+            _ClearInteractable(_inventory_selected_index);
+        }
 
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && _dialogueActive == false)
         {
             HandSelected?.Invoke("left");
+            _playerInventory[1].gameObject.SetActive(false);
             _inventory_selected_index = 0;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && _dialogueActive == false)
         {
             HandSelected?.Invoke("right");
+            _playerInventory[0].gameObject.SetActive(false);
             _inventory_selected_index = 1;
         }
        
@@ -282,8 +302,36 @@ public class player : MonoBehaviour
         }
     }
     
+    private void _ClearInteractable(int index)
+    {
+        _playerInventory[index].name = "None";
+        _playerInventory[index].type = "None";
+        _playerInventory[index].GetComponent<MeshRenderer>().gameObject.SetActive(false);
+    }
 
+    private void _DisplayInteractable()
+    {
+        Interactable selected_interactable = _playerInventory[_inventory_selected_index];
+        if (selected_interactable.type != "None")
+        {
+            selected_interactable.gameObject.SetActive(true);
+            selected_interactable.transform.position = transform.position + new Vector3(0, 2, 0);
+        }
+    }
 
+    private void _AddInteractable(Interactable item)
+    {
+        foreach (int i in Enumerable.Range(0, 2))
+        {
+            if (_playerInventory[i].name == "None")
+            {
+                _playerInventory[i] = item;
+                item.GetComponent<BoxCollider>().enabled = (false);
+                item.gameObject.SetActive(false);
+                break;
+            }
+        }
+    }
 
     public void TalkToNPC(NPC npc)
     {

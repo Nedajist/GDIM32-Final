@@ -20,15 +20,17 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        _camera_rotation.x += Input.GetAxis("Mouse X") * _rotationspeed;
-        _camera_rotation.y -= Input.GetAxis("Mouse Y") * _rotationspeed;
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            _camera_rotation.x += Input.GetAxis("Mouse X") * _rotationspeed;
+            _camera_rotation.y -= Input.GetAxis("Mouse Y") * _rotationspeed;
 
-        _camera_rotation.y=Mathf.Clamp(_camera_rotation.y, -13f, 50f);
-        Quaternion _camera_quaternion = Quaternion.Euler(_camera_rotation.y, _camera_rotation.x, 0);
-        transform.rotation = Quaternion.Lerp(transform.rotation, _camera_quaternion, Time.deltaTime*_cameraSpeed);
+            _camera_rotation.y = Mathf.Clamp(_camera_rotation.y, -13f, 50f);
+            Quaternion _camera_quaternion = Quaternion.Euler(_camera_rotation.y, _camera_rotation.x, 0);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _camera_quaternion, Time.deltaTime * _cameraSpeed);
 
-        Quaternion _player_quaternion = Quaternion.Euler(0, _camera_rotation.x, 0);
-        _player.transform.rotation = Quaternion.Lerp(_player.transform.rotation, _player_quaternion, _cameraSpeed);
+            Quaternion _player_quaternion = Quaternion.Euler(0, _camera_rotation.x, 0);
+            _player.transform.rotation = Quaternion.Lerp(_player.transform.rotation, _player_quaternion, _cameraSpeed);
+        }
     }   
 }
