@@ -7,7 +7,6 @@ public class FoodItem : Interactable
 {
     [SerializeField] public float healing_seconds;
     [SerializeField] Rigidbody _rigidbody;
-
     private void Start()
     {
         type = "food";

@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
         UIController = UIControllerObj.GetComponent<UIController>();
 
         Instance.Player.HandSelected += PlayerHandSelected;
+        Instance.Player.InventoryUpdated += PlayerInventoryUpdated;
 
     }
 
@@ -41,6 +42,11 @@ public class GameController : MonoBehaviour
             UIController.select_right_hand();
             UIController.unselect_left_hand();
         }
+    }
+
+    void PlayerInventoryUpdated(List<Interactable> inventory)
+    {
+        UIController.update_hotbar_display(inventory);
     }
 
 

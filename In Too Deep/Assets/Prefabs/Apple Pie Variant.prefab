@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1797929641651920494
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4964671451798940777, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_Name
+      value: Apple Pie Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4964671451798940777, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.739
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 59.50012
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.987
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741490073028785875, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4964671451798940777, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5249453435855155407}
+    - targetCorrespondingSourceObject: {fileID: 4964671451798940777, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 59855283710775889}
+    - targetCorrespondingSourceObject: {fileID: 4964671451798940777, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4408182125995643627}
+  m_SourcePrefab: {fileID: 100100000, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+--- !u!1 &6635360371084456455 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4964671451798940777, guid: 36bbf71e49a65b14b9d87fbad0e12533, type: 3}
+  m_PrefabInstance: {fileID: 1797929641651920494}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &5249453435855155407
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6635360371084456455}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &59855283710775889
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6635360371084456455}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 0.2, z: 0.5}
+  m_Center: {x: 0, y: 0.099883266, z: 0}
+--- !u!114 &4408182125995643627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6635360371084456455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9cec82ac4dd8a34ab4369fc1990cb6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: Food
+  item_name: Pie
+  healing_seconds: 12
+  _rigidbody: {fileID: 5249453435855155407}

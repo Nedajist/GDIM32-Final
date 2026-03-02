@@ -34,6 +34,8 @@ public class player : MonoBehaviour
     public delegate void HandDelegate(string hand);
     public event HandDelegate HandSelected;
 
+    public delegate void InventoryDelegate(List<Interactable> inventory);
+    public event InventoryDelegate InventoryUpdated;
 
     //Quest variables
 
@@ -72,7 +74,6 @@ public class player : MonoBehaviour
     
     void Update()
     {
-        Debug.Log(_playerInventory[0]);
         _DisplayInteractable();
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
         if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
@@ -178,6 +179,7 @@ public class player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (Cursor.lockState == CursorLockMode.Locked) {
+                _playercamera.GetComponent<CameraController>()._frozen_rotation = transform.rotation;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
@@ -307,6 +309,7 @@ public class player : MonoBehaviour
         _playerInventory[index].name = "None";
         _playerInventory[index].type = "None";
         _playerInventory[index].GetComponent<MeshRenderer>().gameObject.SetActive(false);
+        InventoryUpdated?.Invoke(_playerInventory);
     }
 
     private void _DisplayInteractable()
@@ -316,6 +319,7 @@ public class player : MonoBehaviour
         {
             selected_interactable.gameObject.SetActive(true);
             selected_interactable.transform.position = transform.position + new Vector3(0, 2, 0);
+            selected_interactable.transform.rotation = transform.rotation;
         }
     }
 
@@ -328,6 +332,7 @@ public class player : MonoBehaviour
                 _playerInventory[i] = item;
                 item.GetComponent<BoxCollider>().enabled = (false);
                 item.gameObject.SetActive(false);
+                InventoryUpdated?.Invoke(_playerInventory);
                 break;
             }
         }

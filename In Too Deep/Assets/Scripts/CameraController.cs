@@ -10,11 +10,12 @@ public class CameraController : MonoBehaviour
     [SerializeField] private GameObject _player;
 
     private Vector3 _camera_rotation = new Vector3(0f, 0f, 0f);
+    public Quaternion _frozen_rotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -32,5 +33,10 @@ public class CameraController : MonoBehaviour
             Quaternion _player_quaternion = Quaternion.Euler(0, _camera_rotation.x, 0);
             _player.transform.rotation = Quaternion.Lerp(_player.transform.rotation, _player_quaternion, _cameraSpeed);
         }
+        else
+        {
+            _player.transform.rotation = _frozen_rotation;
+        }
+
     }   
 }
