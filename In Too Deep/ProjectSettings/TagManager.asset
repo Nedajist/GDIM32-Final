@@ -8,6 +8,7 @@ TagManager:
   - NPC
   - Obstacle
   - Slope
+  - UIController
   layers:
   - Default
   - TransparentFX

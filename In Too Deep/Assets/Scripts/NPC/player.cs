@@ -11,8 +11,8 @@ public class player : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Camera _playercamera;
     [SerializeField] private float _movespeed;
-    [SerializeField] private UIController _UIcontroller;
     [SerializeField] private Animator _animator;
+    [SerializeField] private ArrayList _playerInventory;
     public static player Instance {get; private set; }
     private bool _grounded = true;
     private ArrayList _list_of_colliders = new ArrayList();
@@ -25,8 +25,12 @@ public class player : MonoBehaviour
     private Vector3 _max_upward_momentum;
     private Vector3 _max_forward_momentum;
     private RaycastHit _raycast_results;
-
     private float _starting_fall_height;
+    private int _inventory_selected_index = 0;
+
+    public delegate void HandDelegate(string hand);
+    public event HandDelegate HandSelected;
+
 
     //Quest variables
 
@@ -194,6 +198,19 @@ public class player : MonoBehaviour
                 }
             }
         }        
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && _dialogueActive == false)
+        {
+            HandSelected?.Invoke("left");
+            _inventory_selected_index = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && _dialogueActive == false)
+        {
+            HandSelected?.Invoke("right");
+            _inventory_selected_index = 1;
+        }
+       
         
         if (Input.GetKeyDown(KeyCode.Escape) && _dialogueActive == true)
         {
@@ -205,7 +222,7 @@ public class player : MonoBehaviour
             _rigidbody.velocity = Vector3.zero;
             return;
         }
-
+        
         
 
         UpdateState();
@@ -243,7 +260,7 @@ public class player : MonoBehaviour
             Debug.Log("Fell a distance of :" + fall_distance);
             if (fall_distance > 10)
             {
-                _UIcontroller.losehealth(10 * fall_distance);
+                GameController.Instance.UIController.losehealth(10 * fall_distance);
             }
             _grounded = true;
             _falling = false;
@@ -294,7 +311,7 @@ public class player : MonoBehaviour
             Debug.Log("Working");
             StateChanged(State.Accepted);
             Hide();
-            _UIcontroller._currentQuestStatus = "Accepted";
+            GameController.Instance.UIController._currentQuestStatus = "Accepted";
         }
         else if (_dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha2))
         {

@@ -13,25 +13,31 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider _lazybar;
     [SerializeField] private float _sliderspeed;
     [SerializeField] private float _healingrate;
-    [SerializeField] private GameObject _player;
     [SerializeField] private float _maximum_height;
     [SerializeField] private TextMeshProUGUI _depth_text;
     [SerializeField] private TextMeshProUGUI _questStatusText;
+    [SerializeField] private Image _right_hand;
+    [SerializeField] private Image _left_hand;
+    [SerializeField] private Sprite _left_hand_unselected;
+    [SerializeField] private Sprite _left_hand_selected;
+    [SerializeField] private Sprite _right_hand_unselected;
+    [SerializeField] private Sprite _right_hand_selected;
+
     public string _currentQuestStatus;
     private float seconds_of_healing=0;
 
     // Start is called before the first frame update
     void Start()
     {
-        losehealth(50);
-        gainhealth(30);
+        unselect_left_hand();
+        select_right_hand();
         _currentQuestStatus = "None";
     }
 
     // Update is called once per frame
     void Update()
     {
-        _depth_text.text = "Depth: " + Mathf.Round(1000 * (1- (_player.transform.position.y / _maximum_height))).ToString() + " M";
+        _depth_text.text = "Depth: " + Mathf.Round(1000 * (1- (GameController.Instance.Player.transform.position.y / _maximum_height))).ToString() + " M";
 
         if (_lazybar.value > _healthbar.value)
         {
@@ -59,4 +65,21 @@ public class UIController : MonoBehaviour
         seconds_of_healing += healing_seconds;
     }
 
+    public void select_right_hand()
+    {
+        _right_hand.sprite = _right_hand_selected;
+    }
+    public void select_left_hand()
+    {
+        _left_hand.sprite = _left_hand_selected;
+    }
+    public void unselect_right_hand()
+    {
+        _right_hand.sprite = _right_hand_unselected;
+    }
+
+    public void unselect_left_hand()
+    {
+        _left_hand.sprite = _left_hand_unselected;
+    }
 }
