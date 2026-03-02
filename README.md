@@ -11,9 +11,9 @@ Final Project: Check-In Devlog
 
   //also the second light source can be hard to find but it is over a levitating mushroom man
 
-## Kai
+### Kai
 
-## Marcelo
+### Marcelo
 
 
 ## Open-Source Assets
