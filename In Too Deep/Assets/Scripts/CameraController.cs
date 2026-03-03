@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private float _rotationspeed = 20;
     [SerializeField] private float _cameraSpeed = 10;
+    [SerializeField] private float _cameraFollowSpeed = 3;
     [SerializeField] private GameObject _player;
+    private Transform destination;
 
     private Vector3 _camera_rotation = new Vector3(0f, 0f, 0f);
     public Quaternion _frozen_rotation;
@@ -16,11 +19,15 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         //Cursor.lockState = CursorLockMode.Locked;
+        destination = _player.transform.Find("CameraDestination");
     }
 
     // Update is called once per frame
     public void UpdateCamera()
     {
+        
+       transform.position=Vector3.Lerp(transform.position, destination.transform.position, Time.deltaTime * _cameraFollowSpeed);
+
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             _camera_rotation.x += Input.GetAxis("Mouse X") * _rotationspeed;
@@ -37,6 +44,9 @@ public class CameraController : MonoBehaviour
         {
             _player.transform.rotation = _frozen_rotation;
         }
+
+
+
 
     }   
 }
