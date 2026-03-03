@@ -74,7 +74,7 @@ public class player : MonoBehaviour
     
     void Update()
     {
-        _DisplayInteractable();
+        //_DisplayInteractable();
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
         if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
@@ -235,10 +235,7 @@ public class player : MonoBehaviour
         }
        
         
-        if (Input.GetKeyDown(KeyCode.Escape) && _dialogueActive == true)
-        {
-            Hide();
-        }
+       
 
         if(!_canMove)
         {
@@ -248,7 +245,6 @@ public class player : MonoBehaviour
         
         
 
-        UpdateState();
 
     }
     private void OnCollisionExit(Collision collision)
@@ -312,7 +308,7 @@ public class player : MonoBehaviour
         InventoryUpdated?.Invoke(_playerInventory);
     }
 
-    private void _DisplayInteractable()
+    /*private void _DisplayInteractable()
     {
         Interactable selected_interactable = _playerInventory[_inventory_selected_index];
         if (selected_interactable.type != "None")
@@ -321,7 +317,7 @@ public class player : MonoBehaviour
             selected_interactable.transform.position = transform.position + new Vector3(0, 2, 0);
             selected_interactable.transform.rotation = transform.rotation;
         }
-    }
+    }*/
 
     private void _AddInteractable(Interactable item)
     {
@@ -339,41 +335,6 @@ public class player : MonoBehaviour
     }
 
     public void TalkToNPC(NPC npc)
-    {
-        
-    }
-
-        public void Show()
-    {
-        _canMove = false;
-        _dialogueActive = true;
-  
-    }
-
-    public void Hide()
-    {
-        _canMove = true;
-        _dialogueActive = false;
-       
-    }
-
-
-    private void UpdateState()
-    {
-        if (_dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Debug.Log("Working");
-            StateChanged(State.Accepted);
-            Hide();
-            GameController.Instance.UIController._currentQuestStatus = "Accepted";
-        }
-        else if (_dialogueActive == true && Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Hide();
-        }
-    }
-
-    private void StateChanged(State newState)
     {
         
     }

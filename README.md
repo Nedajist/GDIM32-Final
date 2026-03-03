@@ -30,6 +30,8 @@ Our proposal was detailed enough on the basic game mechanics that we all general
 
 ### Marcelo
 
+
+
 ## Final Submission
 ### Group Devlog
 Put your group Devlog here.

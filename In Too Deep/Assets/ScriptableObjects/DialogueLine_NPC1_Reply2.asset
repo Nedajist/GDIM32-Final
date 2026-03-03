@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
   m_Name: DialogueLine_NPC1_Reply2
   m_EditorClassIdentifier: 
-  _lines: []
+  _lines:
+  - mmm...Okay
   _thoughtBubbleSprite: {fileID: 0}
   _playerReplyOptions: []
   _npcReplies: []

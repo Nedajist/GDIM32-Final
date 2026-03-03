@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
   m_Name: DialogueLine_NPC1_Reply1
   m_EditorClassIdentifier: 
-  _lines: []
+  _lines:
+  - That's great to hear! I have a quest for you. Do you accept?
   _thoughtBubbleSprite: {fileID: 0}
-  _playerReplyOptions: []
+  _playerReplyOptions:
+  - Yes
+  - No
   _npcReplies: []

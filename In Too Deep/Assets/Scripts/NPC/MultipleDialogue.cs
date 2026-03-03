@@ -27,7 +27,7 @@ public class MultipleDialogue : MonoBehaviour
         {
             _thoughtBubble.gameObject.SetActive(true);
 
-            if(!_waitingForPlayerResponse && Input.GetKeyDown(KeyCode.E))
+            if(!_waitingForPlayerResponse && Input.GetKeyDown(KeyCode.Mouse0))
             {
                 AdvanceDialogue();
             }

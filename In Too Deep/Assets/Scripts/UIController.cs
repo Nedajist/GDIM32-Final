@@ -50,7 +50,7 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _depth_text.text = "Depth: " + Mathf.Round(1000 * (1- (GameController.Instance.Player.transform.position.y / _maximum_height))).ToString() + " M";
+        //_depth_text.text = "Depth: " + Mathf.Round(1000 * (1- (GameController.Instance.Player.transform.position.y / _maximum_height))).ToString() + " M";
 
         if (_lazybar.value > _healthbar.value)
         {
@@ -63,7 +63,7 @@ public class UIController : MonoBehaviour
             _healthbar.value += Time.deltaTime * _healingrate;
         }
 
-        _questStatusText.text = "Quest Status: " + _currentQuestStatus;
+        //_questStatusText.text = "Quest Status: " + _currentQuestStatus;
 
     }
 
