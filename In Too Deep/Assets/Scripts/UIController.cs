@@ -63,7 +63,7 @@ public class UIController : MonoBehaviour
             _healthbar.value += Time.deltaTime * _healingrate;
         }
 
-        _questStatusText.text = "Quest Status: " + _currentQuestStatus;
+        // _questStatusText.text = "Quest Status: " + _currentQuestStatus;
 
     }
 
