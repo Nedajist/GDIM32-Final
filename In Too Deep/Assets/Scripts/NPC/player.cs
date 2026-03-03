@@ -235,12 +235,18 @@ public class player : MonoBehaviour
         }
 
         _grounded = (Physics.Raycast(transform.position, Vector3.down, 1f));
-        if (_grounded == false)
+        bool _grounded2 = (Physics.Raycast(transform.position - transform.forward, Vector3.down, 1f));
+
+        if (_grounded == false && _grounded2 == false)
         {
+            if (_falling == false)
+            {
+                _starting_fall_height = transform.position.y;
+            }
             _falling = true;
-            _starting_fall_height = transform.position.y;
         }
-        else if (_grounded == true)
+
+        else if (_grounded && _grounded2)
         {
             _falling = false;
         }
@@ -250,10 +256,9 @@ public class player : MonoBehaviour
             _rigidbody.velocity = Vector3.zero;
             return;
         }
-        
-        
 
 
+        _playercamera.GetComponent<CameraController>().UpdateCamera();
     }
     private void OnCollisionExit(Collision collision)
     {
