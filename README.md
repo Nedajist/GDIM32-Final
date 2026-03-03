@@ -30,7 +30,9 @@ Our proposal was detailed enough on the basic game mechanics that we all general
 
 ### Marcelo
 
+I created the different NPC's found in Marcelo Testing Scene, and created the dialogue classes (Multiple Dialogue, DialogueUI, worked on parts of the player script, DialogueNode, and NPC inheritance scripts). Within Unity, I created the NPC gameobjects, as well as all the working UI regarding the dialogue (buttons, canvas for the NPC thought bubble, Dialogue text options). Methods and scirpting was inspired heavily on the W9 pre-learing activity after realizing that system was the requirement for NPC dialogue. Methods including EndDialogue(), AdvanceDialogue(), SelectedOption(), and using ScriptableObjects (as was required). The scriptable objects have lines that can be changed whenever (making it convenient, especially for this system).
 
+In terms of the NPC Dialogue in the project proposal, there were changes that were made to the original plan. Originally our plan was to have quest content that started with, "Given by NPC #1, turn in to NPC #3. Find the mysterious treasure somewhere near the bottom of the hole. Given by NPC #2, turn in to NPC #3. Escape the hole, and return to the surface. Given by NPC #3, turn in to NPC #1." Recent changes were made and now the player is supposed to reach NPC #2 given by the NPC #1, and after that must give a treasure to NPC #3. We used Trello, and discord messages to communitcate with eachother, and keep track of progress as a group. In the future, I will definitely try to meet up in person more often as it keeps me and the group productive, plus ensures that everyone is working together.
 
 ## Final Submission
 ### Group Devlog
