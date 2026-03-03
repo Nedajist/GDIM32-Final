@@ -41,7 +41,7 @@ public class UIController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        losehealth(100);
+        losehealth(30);
         _currentQuestStatus = "None";
         _item_display_list.Add(_left_hand_item);
         _item_display_list.Add(_right_hand_item);
