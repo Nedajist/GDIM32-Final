@@ -1115,6 +1115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cheese Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5331992206137748389, guid: 2951739e10376da44ba3d9ad35c79524, type: 3}
+      propertyPath: item_name
+      value: Cheese
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9382,6 +9386,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3752029348423522463, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6792038712179062136, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: m_Name
       value: UIController
@@ -9395,7 +9403,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6252267869907942820, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
@@ -9792,7 +9801,6 @@ MonoBehaviour:
 
     E to eat currently held food
 
-    Click on NPC to speak
 
 '
   m_isRightToLeft: 0

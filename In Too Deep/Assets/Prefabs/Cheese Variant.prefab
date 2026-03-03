@@ -68,7 +68,7 @@ PrefabInstance:
       addedObject: {fileID: 5891476684605361168}
     - targetCorrespondingSourceObject: {fileID: 7261840040522936186, guid: cb90429c68cc5894d97ffcd0301288f0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4466996297374466478}
+      addedObject: {fileID: -4727420878883016055}
   m_SourcePrefab: {fileID: 100100000, guid: cb90429c68cc5894d97ffcd0301288f0, type: 3}
 --- !u!1 &4425545113741353484 stripped
 GameObject:
@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: Food
+  item_name: Cheese
   healing_seconds: 5
   _rigidbody: {fileID: 5891476684605361168}
 --- !u!54 &5891476684605361168
@@ -117,8 +118,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &4466996297374466478
-SphereCollider:
+--- !u!65 &-4727420878883016055
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -136,5 +137,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.16556728
+  m_Size: {x: 0.33113456, y: 0.16148035, z: 0.25975466}
   m_Center: {x: 0.00021552294, y: 0.08097454, z: -0.00017484277}
