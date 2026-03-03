@@ -36,6 +36,7 @@ public class UIController : MonoBehaviour
 
     public string _currentQuestStatus;
     private float seconds_of_healing=0;
+    private Vector3 _first_position = new Vector3(267, 409, 516);
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +62,11 @@ public class UIController : MonoBehaviour
         {
             seconds_of_healing -= Time.deltaTime;
             _healthbar.value += Time.deltaTime * _healingrate;
+        }
+
+        if (_healthbar.value <= 0)
+        {
+            GameController.Instance.Player.transform.position = _first_position;
         }
 
         // _questStatusText.text = "Quest Status: " + _currentQuestStatus;
