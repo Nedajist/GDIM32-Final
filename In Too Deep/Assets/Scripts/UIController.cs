@@ -42,7 +42,6 @@ public class UIController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        losehealth(30);
         _currentQuestStatus = "None";
         _item_display_list.Add(_left_hand_item);
         _item_display_list.Add(_right_hand_item);
@@ -51,7 +50,7 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //_depth_text.text = "Depth: " + Mathf.Round(1000 * (1- (GameController.Instance.Player.transform.position.y / _maximum_height))).ToString() + " M";
+        _depth_text.text = "Depth: " + Mathf.Round(1000 * (1- (GameController.Instance.Player.transform.position.y / _maximum_height))).ToString() + " M";
 
         if (_lazybar.value > _healthbar.value)
         {
@@ -66,6 +65,7 @@ public class UIController : MonoBehaviour
 
         if (_healthbar.value <= 0)
         {
+            gainhealth(100);
             GameController.Instance.Player.transform.position = _first_position;
         }
 
