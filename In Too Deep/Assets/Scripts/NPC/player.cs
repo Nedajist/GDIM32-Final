@@ -233,11 +233,19 @@ public class player : MonoBehaviour
             _playerInventory[0].gameObject.SetActive(false);
             _inventory_selected_index = 1;
         }
-       
-        
-       
 
-        if(!_canMove)
+        _grounded = (Physics.Raycast(transform.position, Vector3.down, 1f));
+        if (_grounded == false)
+        {
+            _falling = true;
+            _starting_fall_height = transform.position.y;
+        }
+        else if (_grounded == true)
+        {
+            _falling = false;
+        }
+
+        if (!_canMove)
         {
             _rigidbody.velocity = Vector3.zero;
             return;
@@ -263,12 +271,6 @@ public class player : MonoBehaviour
             _on_slope = false;
         }
 
-        if (_list_of_colliders.Count == 0)
-        {
-            _grounded = false;
-            _falling = true;
-            _starting_fall_height = transform.position.y;
-        }
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -281,9 +283,8 @@ public class player : MonoBehaviour
             {
                 GameController.Instance.UIController.losehealth(10 * fall_distance);
             }
-            _grounded = true;
-            _falling = false;
         }
+
         if (collision.transform.CompareTag("Obstacle"))
         {
             _list_of_colliders.Add(collision);
@@ -291,12 +292,11 @@ public class player : MonoBehaviour
             _rigidbody.AddExplosionForce(obstacle.repel_force, transform.position, 100);
 
         }
+
         if (collision.transform.CompareTag("Slope"))
         {
             _list_of_colliders.Add(collision);
-            _grounded = true;
             _on_slope = true;
-            _falling = false;
         }
     }
     
