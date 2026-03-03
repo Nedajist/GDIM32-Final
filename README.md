@@ -26,7 +26,7 @@ Going forward and in creating new game projects, I need to do a better job manag
 ### Kai
 I created the Player game object found in the Kai Movement Testing Scene, and wrote most of the player script attached. I handled player WASD movement and charging jumps with space in the player's Update() method, the player animator component, the inventory system (HandSelected and InventoryUpdated signals, _ClearInteractable(), _DisplayInteratable(), _AddInteractable() methods in player), picking up and eating food, player collision detection (OnCollisionEnter(), OnCollisionExit() in player), the lazy health bar (LazySlider child of UIController), the depth meter, the UIController script, and the GameController singleton. 
 
-
+Our proposal was detailed enough on the basic game mechanics that we all generally knew what to implement, but left out plenty of blanks for us to fill in as we developed. For example, we knew that the player would be able to charge their jump with space, but not how far they would jump or how long they could charge it. We knew the player would pick up health-raising consumables, but not what those consumables would look like or how much they would heal. The proposal described the base mechanics, and we were free to tune their specifics. Our biggest change was making the game a one-way trip. The player no longer has to climb back up out of the hole. 
 
 ### Marcelo
 
