@@ -75,6 +75,7 @@ public class MultipleDialogue : MonoBehaviour
 
     public void SelectedOption(int option)
     {
+        Debug.Log("Selected option");
         _currentLine = 0;
         _waitingForPlayerResponse = false;
 

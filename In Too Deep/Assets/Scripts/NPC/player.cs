@@ -74,7 +74,7 @@ public class player : MonoBehaviour
     
     void Update()
     {
-        //_DisplayInteractable();
+        _DisplayInteractable();
         // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
         if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
@@ -308,7 +308,7 @@ public class player : MonoBehaviour
         InventoryUpdated?.Invoke(_playerInventory);
     }
 
-    /*private void _DisplayInteractable()
+    private void _DisplayInteractable()
     {
         Interactable selected_interactable = _playerInventory[_inventory_selected_index];
         if (selected_interactable.type != "None")
@@ -317,7 +317,7 @@ public class player : MonoBehaviour
             selected_interactable.transform.position = transform.position + new Vector3(0, 2, 0);
             selected_interactable.transform.rotation = transform.rotation;
         }
-    }*/
+    }
 
     private void _AddInteractable(Interactable item)
     {
