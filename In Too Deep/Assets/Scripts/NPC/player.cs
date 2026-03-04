@@ -235,8 +235,8 @@ public class player : MonoBehaviour
             _inventory_selected_index = 1;
         }
 
-        bool _groundcheck1 = (Physics.Raycast(transform.position, Vector3.down, 1f));
-        bool _groundcheck2 = (Physics.Raycast(transform.position - transform.forward, Vector3.down, 1f));
+        bool _groundcheck1 = (Physics.Raycast(transform.position, Vector3.down, 0.1f));
+        bool _groundcheck2 = (Physics.Raycast(transform.position - transform.forward, Vector3.down, 0.1f));
 
         if (_groundcheck1 == false && _groundcheck2 == false)
         {
