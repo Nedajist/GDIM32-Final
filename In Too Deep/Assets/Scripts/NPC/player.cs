@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.VFX;
 public enum State
 {
     Accepted, 
@@ -18,13 +19,24 @@ public class player : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private List<Interactable> _playerInventory;
     [SerializeField] private float _max_upward_momentum;
-    [SerializeField] public float _max_forward_momentum;
+    [SerializeField] private float _max_forward_momentum;
     [SerializeField] float _min_upward_momentum;
-    [SerializeField] public float _min_forward_momentum;
+    [SerializeField] private float _min_forward_momentum;
     [SerializeField] float _upward_charge_velocity;
     [SerializeField] float _forward_charge_velocity;
 
-    public static player Instance {get; private set; }
+    // VFX 
+    [SerializeField] GameObject _tiny_explosion;
+    [SerializeField] GameObject _small_explosion;
+    [SerializeField] GameObject _large_explosion;
+    [SerializeField] GameObject _heat_distortion;
+    [SerializeField] GameObject _tiny_dust_blast;
+    [SerializeField] GameObject _medium_dust_blast;
+    [SerializeField] GameObject _large_dust_blast;
+    [SerializeField] GameObject _flame_trail;
+
+
+    public static player Instance { get; private set; }
     private bool _grounded = true;
     private ArrayList _list_of_colliders = new ArrayList();
     public bool _canMove = true;
@@ -36,6 +48,7 @@ public class player : MonoBehaviour
     private Vector3 _max_forward_momentum_vector;
     private RaycastHit _raycast_results;
     private float _starting_fall_height;
+    private float _seconds_airborne;
     private int _inventory_selected_index = 0;
 
     public float _health = 200;
@@ -48,10 +61,12 @@ public class player : MonoBehaviour
     public event InventoryDelegate InventoryUpdated;
 
     public float _held_forward_momentum;
+    public float _charge_percent;
 
     //Quest variables
 
     private State _currentState;
+    
 
     //UI variables
 
@@ -62,7 +77,7 @@ public class player : MonoBehaviour
 
     private NPC _currentNPC;
 
-    
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -81,14 +96,19 @@ public class player : MonoBehaviour
         _max_forward_momentum_vector = _max_forward_momentum * transform.forward;
         _ClearInteractable(0);
         _ClearInteractable(1);
+        _flame_trail.GetComponent<FollowPlayer>().transform_additive = transform.up * 1.5f;
+        _heat_distortion.GetComponent<FollowPlayer>().transform_additive = transform.up * -1.0f;
+
     }
 
-    
+
     void Update()
     {
+
         _DisplayInteractable();
-        if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
+        if (Input.GetKey(KeyCode.Space) && (_grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
+
             if (_animator.GetBool("Walking") == true)
             {
                 _rigidbody.velocity = new Vector3(0, 0, 0);
@@ -100,7 +120,7 @@ public class player : MonoBehaviour
                 _animator.SetTrigger("Jumping");
                 _animator.speed = 0.4f;
             }
-            else if (_space_held_frames > 200)
+            else if (_space_held_frames > 80)
             {
                 _animator.speed = 0;
             }
@@ -113,11 +133,17 @@ public class player : MonoBehaviour
             {
                 _held_forward_momentum = _max_forward_momentum;
             }
+
+            _charge_percent = (_held_forward_momentum / (_max_forward_momentum - _min_forward_momentum));
+
         }
-        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && _grounded == true) // check if space was released, frog jumps
+
+        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && (_grounded == true || _on_slope == true)) // check if space was released, frog jumps
         {
             _animator.SetBool("Landing", true);
             _charging = false;
+
+
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
             Vector3 _forward_momentum = (_forward_charge_velocity * transform.forward * _space_held_time) + _min_forward_momentum * transform.forward;
 
@@ -134,8 +160,27 @@ public class player : MonoBehaviour
             _animator.speed = 1;
             _space_held_time = 0;
             _space_held_frames = 0;
+
+            _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += _charge_percent;
+
+            if (_charge_percent < 0.20)
+            {
+                Instantiate(_tiny_explosion, transform.position + transform.up*2, Quaternion.identity);
+            }
+            else if (_charge_percent < 0.40)
+            {
+                Instantiate(_small_explosion, transform.position + transform.up*2, Quaternion.identity);
+                Instantiate(_heat_distortion, transform.position, Quaternion.identity);
+                Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(_large_explosion, transform.position + transform.up*2, Quaternion.identity);
+                Instantiate(_heat_distortion, transform.position, Quaternion.identity);
+                Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
+            }
         }
-        if (Input.GetKey(KeyCode.W) && _charging == false)
+        if (Input.GetKey(KeyCode.W) && _charging == false && _on_slope == false)
         {
             if (_grounded == true)
             {
@@ -149,7 +194,7 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.S) && _charging == false)
+        if (Input.GetKey(KeyCode.S) && _charging == false && _on_slope == false)
         {
             if (_grounded == true)
             {
@@ -163,7 +208,7 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.A) && _charging == false)
+        if (Input.GetKey(KeyCode.A) && _charging == false && _on_slope == false)
         {
             if (_grounded == true)
             {
@@ -177,7 +222,7 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && _charging == false)
+        if (Input.GetKey(KeyCode.D) && _charging == false && _on_slope == false)
         {
             if (_grounded == true)
             {
@@ -257,11 +302,10 @@ public class player : MonoBehaviour
             if (_grounded == true)
             {
                 _starting_fall_height = transform.position.y;
-                Debug.Log("Started falling at "+_starting_fall_height.ToString());
             }
 
             _grounded = false;
-            
+            _seconds_airborne += Time.deltaTime;
         }
         else
         {
@@ -275,6 +319,30 @@ public class player : MonoBehaviour
                 }
             }
             _grounded = true;
+
+
+            if (_seconds_airborne > 3)
+            {
+                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
+                Instantiate(_large_dust_blast, transform.position, Quaternion.identity);
+            }
+
+            else if (_seconds_airborne > 2)
+            {
+                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.10f;
+                Instantiate(_medium_dust_blast, transform.position, Quaternion.identity);
+            }
+
+            else if (_seconds_airborne > 1)
+            {
+                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
+                Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
+            }
+
+
+
+
+            _seconds_airborne = 0;
         }
 
 
@@ -308,8 +376,6 @@ public class player : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("COLLISIN ENTEREED at y level " + transform.position.y.ToString());
-
         if (collision.transform.CompareTag("Obstacle"))
         {
             _starting_fall_height = transform.position.y;
