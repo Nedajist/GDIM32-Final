@@ -75,9 +75,8 @@ public class player : MonoBehaviour
 
 
     //Quest variables
-
-    private State _currentState;
     
+    public State _currentState {get; private set; }
 
     //UI variables
 
@@ -490,6 +489,14 @@ public class player : MonoBehaviour
         _movement_state = new_state;
     }
 
+
+    public void ChangeState (State newState)
+    {
+        _currentState = newState;
+        Debug.Log ("Player state changed to: " + newState);
+
+        GameController.Instance.UIController.UpdateQuestState(newState);
+    }
 
 }
         

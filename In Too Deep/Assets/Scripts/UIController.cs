@@ -187,5 +187,11 @@ public class UIController : MonoBehaviour
         //store the transform of the most recent checkpoint
         _respawnPoint = respawn;
     }
+
+
+    public void UpdateQuestState(State newState)
+    {
+        
+    }
     
 }
