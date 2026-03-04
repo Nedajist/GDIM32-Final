@@ -443,7 +443,7 @@ public class player : MonoBehaviour
         
     }
 
-    private void _transition_movement_state(_movement_states new_state)
+    public void _transition_movement_state(_movement_states new_state)
     {
         Debug.Log(new_state);
         switch (new_state)

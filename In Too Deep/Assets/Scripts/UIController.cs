@@ -179,6 +179,7 @@ public class UIController : MonoBehaviour
         _healthbar.value = GameController.Instance.Player._maxHealth;
         GameController.Instance.Player._health = GameController.Instance.Player._maxHealth;
         GameController.Instance.Player.transform.position = _respawnPoint.position;
+        GameController.Instance.Player.GetComponent<player>()._transition_movement_state(player._movement_states.Idle);
         
     }
     public void SetRespawnPoint(Transform respawn)
