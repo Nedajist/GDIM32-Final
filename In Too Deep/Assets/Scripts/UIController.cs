@@ -115,8 +115,16 @@ public class UIController : MonoBehaviour
             _lazybar.value = _healthbar.value;
         }
 
+ 
+
         _healthbar.value = _healthbar.value -= damage_seconds * _damagerate;
         seconds_of_damage += damage_seconds;
+
+        if (_healthbar.value - damage_seconds * _damagerate < -50) // auto respawns player if takes too much damage. Prevents large skips. 
+        {
+            Respawn();
+        }
+
     }
 
     public void gainhealth(float healing_seconds)
@@ -177,9 +185,12 @@ public class UIController : MonoBehaviour
     {
         //resets player transform to the most recent checkpoint
         _healthbar.value = GameController.Instance.Player._maxHealth;
+        seconds_of_healing = 0;
+        seconds_of_damage = 0;
         GameController.Instance.Player._health = GameController.Instance.Player._maxHealth;
+        GameController.Instance.Player.BigDeathExplosion();
         GameController.Instance.Player.transform.position = _respawnPoint.position;
-        GameController.Instance.Player.GetComponent<player>()._transition_movement_state(player._movement_states.Idle);
+        GameController.Instance.Player._transition_movement_state(player._movement_states.Idle);
         
     }
     public void SetRespawnPoint(Transform respawn)

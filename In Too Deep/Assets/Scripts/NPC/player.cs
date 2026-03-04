@@ -212,8 +212,22 @@ public class player : MonoBehaviour
         {
             _transition_movement_state(_movement_states.Idle);
         }
-        
-        
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                _playercamera.GetComponent<CameraController>()._frozen_rotation = transform.rotation;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Ray interaction_detector = _playercamera.ScreenPointToRay(Input.mousePosition);
@@ -448,6 +462,11 @@ public class player : MonoBehaviour
         Debug.Log ("Player state changed to: " + newState);
 
         GameController.Instance.UIController.UpdateQuestState(newState);
+    }
+
+    public void BigDeathExplosion()
+    {
+        Instantiate(_large_explosion, transform.position + transform.up * 2, Quaternion.identity);
     }
 
 }
