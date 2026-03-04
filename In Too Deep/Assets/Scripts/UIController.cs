@@ -180,7 +180,9 @@ public class UIController : MonoBehaviour
     {
         //resets player transform to the most recent checkpoint
         _healthbar.value = GameController.Instance.Player._maxHealth;
+        GameController.Instance.Player._health = GameController.Instance.Player._maxHealth;
         GameController.Instance.Player.transform.position = _respawnPoint.position;
+        
     }
     public void SetRespawnPoint(Transform respawn)
     {
