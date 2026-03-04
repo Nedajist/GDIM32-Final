@@ -106,7 +106,7 @@ public class UIController : MonoBehaviour
             _chargebar.value = 0;
         }
 
-        // _questStatusText.text = "Quest Status: " + _currentQuestStatus;
+        /////////////// _questStatusText.text = "Quest Status: " + _currentQuestStatus;
 
     }
 
@@ -189,4 +189,5 @@ public class UIController : MonoBehaviour
         //store the transform of the most recent checkpoint
         _respawnPoint = respawn;
     }
+    
 }
