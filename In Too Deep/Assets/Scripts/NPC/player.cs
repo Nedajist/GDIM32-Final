@@ -86,7 +86,6 @@ public class player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_grounded);
         _DisplayInteractable();
         if (Input.GetKey(KeyCode.Space) && (_grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
