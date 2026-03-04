@@ -5,20 +5,12 @@ using UnityEngine;
 
 public class CheckpointController : MonoBehaviour
 {
-    [SerializeField] private int _currentCheckpointID;
-    //declared a public variable to store the spawn point transform
-    public Transform spawnPoint;
-    void Start()
+    void OnTriggerEnter(Collider other)
     {
-        //sets the initial spawn point
-        spawnPoint = GameController.Instance.Player.transform;
-    }
-    private void OnTriggerEnter(Collider isPlayer)
-    {
-        if (isPlayer.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            //resets the spawn point whenever player collides with checkpoint collider
-            spawnPoint = GameController.Instance.Player.transform;
+            UIController ui = FindObjectOfType<UIController>();
+            ui.SetRespawnPoint(transform);   
         }
     }
 }

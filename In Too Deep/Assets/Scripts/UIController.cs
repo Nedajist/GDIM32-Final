@@ -30,6 +30,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Sprite _cheese_wheel;
     [SerializeField] private Sprite _pie;
     [SerializeField] private Sprite _stew;
+    [SerializeField] private float _startHealth = 100;
 
     private List<Image> _item_display_list = new List<Image>();
 
@@ -37,6 +38,7 @@ public class UIController : MonoBehaviour
     public string _currentQuestStatus;
     private float seconds_of_healing=0;
     private float seconds_of_damage = 0;
+   
 
     private Vector3 _first_position = new Vector3(267, 409, 516);
 
@@ -89,7 +91,7 @@ public class UIController : MonoBehaviour
             _healthbar.value = player._health;
         }
 
-        // _questStatusText.text = "Quest Status: " + _currentQuestStatus;
+        _questStatusText.text = "Quest Status: " + _currentQuestStatus;
 
     }
 
@@ -158,5 +160,16 @@ public class UIController : MonoBehaviour
             }
 
         }
+    }
+    private void Respawn()
+    {
+        //resets player transform to the most recent checkpoint
+        _healthbar.value = _startHealth;
+
+    }
+    public void SetRespawnPoint(Transform respawn)
+    {
+        //store the transform of the most recent checkpoint
+        
     }
 }
