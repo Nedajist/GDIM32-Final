@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 1849657502920718977}
   - component: {fileID: 4888969995881353026}
   m_Layer: 0
-  m_Name: Slider
+  m_Name: Health Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -644,7 +644,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 200
   m_WholeNumbers: 0
-  m_Value: 114
+  m_Value: 200
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2070,7 +2070,8 @@ MonoBehaviour:
   _lazybar: {fileID: 8755577655684546883}
   _sliderspeed: 10
   _healingrate: 10
-  _maximum_height: 70
+  _damagerate: 20
+  _maximum_height: 420
   _depth_text: {fileID: 5661496705417311705}
   _questStatusText: {fileID: 0}
   _right_hand: {fileID: 6800027540369779570}

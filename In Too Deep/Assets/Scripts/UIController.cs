@@ -12,8 +12,8 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private Slider _healthbar;
     [SerializeField] private Slider _lazybar;
-    [SerializeField] private float _sliderspeed;
     [SerializeField] private float _healingrate;
+    [SerializeField] private float _damagerate;
     [SerializeField] private float _maximum_height;
     [SerializeField] private TextMeshProUGUI _depth_text;
     [SerializeField] private TextMeshProUGUI _questStatusText;
@@ -36,6 +36,8 @@ public class UIController : MonoBehaviour
 
     public string _currentQuestStatus;
     private float seconds_of_healing=0;
+    private float seconds_of_damage = 0;
+
     private Vector3 _first_position = new Vector3(267, 409, 516);
 
     // Start is called before the first frame update
@@ -45,28 +47,46 @@ public class UIController : MonoBehaviour
         _currentQuestStatus = "None";
         _item_display_list.Add(_left_hand_item);
         _item_display_list.Add(_right_hand_item);
+        losehealth(5);
     }
 
+    
     // Update is called once per frame
     void Update()
     {
+        player player = GameController.Instance.Player;
         _depth_text.text = "Depth: " + Mathf.Round(1000 * (1- (GameController.Instance.Player.transform.position.y / _maximum_height))).ToString() + " M";
 
         if (_lazybar.value > _healthbar.value)
         {
-            _lazybar.value -= _sliderspeed * Time.deltaTime;
+            _lazybar.value -= _damagerate * Time.deltaTime;
         }
 
         if (seconds_of_healing > 0)
         {
             seconds_of_healing -= Time.deltaTime;
+            player._health += Time.deltaTime * _healingrate;
+            if (player._health > player._maxHealth)
+            {
+                player._health = player._maxHealth;
+            }
+
+            
             _healthbar.value += Time.deltaTime * _healingrate;
+
         }
 
-        if (_healthbar.value <= 0)
+        if (seconds_of_damage > 0)
         {
-            gainhealth(100);
-            GameController.Instance.Player.transform.position = _first_position;
+            seconds_of_damage -= Time.deltaTime;
+            player._health -= Time.deltaTime * _damagerate;
+        }
+
+        if (player._health <= 0)
+        {
+            player._health = player._maxHealth;
+            player.transform.position = _first_position;
+            _healthbar.value = player._health;
         }
 
         // _questStatusText.text = "Quest Status: " + _currentQuestStatus;
@@ -74,10 +94,15 @@ public class UIController : MonoBehaviour
     }
 
 
-    public void losehealth(float damage)
+    public void losehealth(float damage_seconds)
     {
-        _lazybar.value = _healthbar.value;
-        _healthbar.value -= damage;
+        if (_lazybar.value < _healthbar.value)
+        {
+            _lazybar.value = _healthbar.value;
+        }
+
+        _healthbar.value = _healthbar.value -= damage_seconds * _damagerate;
+        seconds_of_damage += damage_seconds;
     }
 
     public void gainhealth(float healing_seconds)

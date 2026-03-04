@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 public enum State
 {
     Accepted, 
@@ -21,7 +22,6 @@ public class player : MonoBehaviour
     private ArrayList _list_of_colliders = new ArrayList();
     public bool _canMove = true;
     private bool _charging = false;
-    private bool _falling = false;
     private bool _on_slope = false;
     private float _space_held_time = 0;
     private float _space_held_frames = 0;
@@ -30,6 +30,9 @@ public class player : MonoBehaviour
     private RaycastHit _raycast_results;
     private float _starting_fall_height;
     private int _inventory_selected_index = 0;
+
+    public float _health = 200;
+    public float _maxHealth = 200;
 
     public delegate void HandDelegate(string hand);
     public event HandDelegate HandSelected;
@@ -75,7 +78,6 @@ public class player : MonoBehaviour
     void Update()
     {
         _DisplayInteractable();
-        // print("grounded: " + _grounded.ToString() + " velocity: " + _rigidbody.velocity.ToString());
         if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
             if (_animator.GetBool("Walking") == true)
@@ -102,7 +104,6 @@ public class player : MonoBehaviour
         {
             _animator.SetBool("Landing", true);
             _charging = false;
-            _grounded = false;
             Vector3 _upward_momentum = (600 * transform.up * _space_held_time) + 250 * transform.up;
             Vector3 _forward_momentum = (300 * transform.forward * _space_held_time) + 150 * transform.forward;
 
@@ -113,7 +114,7 @@ public class player : MonoBehaviour
             if (_forward_momentum.z > _max_forward_momentum.z){
                 _forward_momentum = _max_forward_momentum;
             }
-            Debug.Log("After " + _space_held_time.ToString() + " seconds, launched with a force of " + _upward_momentum.y.ToString() + " " + _forward_momentum.z.ToString());
+            //Debug.Log("After " + _space_held_time.ToString() + " seconds, launched with a force of " + _upward_momentum.y.ToString() + " " + _forward_momentum.z.ToString());
             _rigidbody.AddForce(_upward_momentum);
             _rigidbody.AddForce(_forward_momentum);
             _animator.speed = 1;
@@ -122,7 +123,7 @@ public class player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.W) && _charging == false)
         {
-            if (_falling != true)
+            if (_grounded == true)
             {
                 _animator.SetBool("Walking", true);
                 _rigidbody.velocity = (transform.forward * _movespeed);
@@ -136,7 +137,7 @@ public class player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S) && _charging == false)
         {
-            if (_falling != true)
+            if (_grounded == true)
             {
                 _animator.SetBool("Walking", true);
                 _rigidbody.velocity = (transform.forward * _movespeed * -1);
@@ -150,7 +151,7 @@ public class player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) && _charging == false)
         {
-            if (_falling != true)
+            if (_grounded == true)
             {
                 _animator.SetBool("Walking", true);
                 _rigidbody.velocity = (transform.right * _movespeed * -1);
@@ -164,7 +165,7 @@ public class player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D) && _charging == false)
         {
-            if (_falling != true)
+            if (_grounded == true)
             {
                 _animator.SetBool("Walking", true);
                 _rigidbody.velocity = (transform.right * _movespeed);
@@ -234,22 +235,32 @@ public class player : MonoBehaviour
             _inventory_selected_index = 1;
         }
 
-        _grounded = (Physics.Raycast(transform.position, Vector3.down, 1f));
-        bool _grounded2 = (Physics.Raycast(transform.position - transform.forward, Vector3.down, 1f));
+        bool _groundcheck1 = (Physics.Raycast(transform.position, Vector3.down, 1f));
+        bool _groundcheck2 = (Physics.Raycast(transform.position - transform.forward, Vector3.down, 1f));
 
-        if (_grounded == false && _grounded2 == false)
+        if (_groundcheck1 == false && _groundcheck2 == false)
         {
-            if (_falling == false)
+            bool grounded_collider_found = false;
+            foreach (Collider collider in _list_of_colliders)
             {
-                _starting_fall_height = transform.position.y;
+                if (collider.transform.CompareTag("Grounded")){
+                    grounded_collider_found = true;
+                    _grounded = true;
+                }
             }
-            _falling = true;
+
+            if (grounded_collider_found == false)
+            {
+                if (_grounded == true)
+                {
+                    _starting_fall_height = transform.position.y;
+                }
+                _grounded = false;
+            }
         }
 
-        else if (_grounded && _grounded2)
-        {
-            _falling = false;
-        }
+
+
 
         if (!_canMove)
         {
@@ -279,19 +290,11 @@ public class player : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("Ground"))
-        {
-            _list_of_colliders.Add(collision);
-            float fall_distance = _starting_fall_height - transform.position.y;
-            Debug.Log("Fell a distance of :" + fall_distance);
-            if (fall_distance > 10)
-            {
-                GameController.Instance.UIController.losehealth(10 * fall_distance);
-            }
-        }
+        Debug.Log("COLLISIN ENTEREED at y level " + transform.position.y.ToString());
 
         if (collision.transform.CompareTag("Obstacle"))
         {
+            _starting_fall_height = transform.position.y;
             _list_of_colliders.Add(collision);
             bouncy_object obstacle = collision.transform.GetComponent<bouncy_object>();
             _rigidbody.AddExplosionForce(obstacle.repel_force, transform.position, 100);
@@ -300,8 +303,21 @@ public class player : MonoBehaviour
 
         if (collision.transform.CompareTag("Slope"))
         {
+            _starting_fall_height = transform.position.y;
             _list_of_colliders.Add(collision);
             _on_slope = true;
+        }
+
+        if (collision.transform.CompareTag("Ground"))
+        {
+            _grounded = true;
+            _list_of_colliders.Add(collision);
+            float fall_distance = _starting_fall_height - transform.position.y;
+            Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
+            if (fall_distance > 10)
+            {
+                GameController.Instance.UIController.losehealth((fall_distance - 5) / 2);
+            }
         }
     }
     
