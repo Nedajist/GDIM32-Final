@@ -59,6 +59,7 @@ public class player : MonoBehaviour
     private RaycastHit _raycast_results;
     private float _starting_fall_height;
     private float _seconds_airborne;
+    private float _jump_grace_period = 0;
     private int _inventory_selected_index = 0;
 
     public float _health = 200;
@@ -115,6 +116,8 @@ public class player : MonoBehaviour
     void Update()
     {
         _DisplayInteractable();
+        _jump_grace_period += Time.deltaTime;
+
         if (Input.GetKey(KeyCode.Space) && (_grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be in the air. 
         {
 
@@ -144,7 +147,7 @@ public class player : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && (_grounded == true || _on_slope == true)) // check if space was released, player jumps
         {
             _transition_movement_state(_movement_states.Falling);
-
+            _jump_grace_period = 0;
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
             Vector3 _forward_momentum = (_forward_charge_velocity * transform.forward * _space_held_time) + _min_forward_momentum * transform.forward;
 
@@ -179,79 +182,30 @@ public class player : MonoBehaviour
                 Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
             }
         }
-        bool force_added = false;
-        if (Input.GetKey(KeyCode.W) && _movement_state != _movement_states.Charging && _on_slope == false)
+        List<bool> keylist = new List<bool> { Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.D) }; //WASD movement
+        List<Vector3> normal_move_list = new List<Vector3> { transform.forward * _movespeed, transform.forward * _movespeed * -1 , transform.right * _movespeed * -1 , transform.right * _movespeed };
+        List<Vector3> falling_move_list = new List<Vector3> { 0.15f * transform.forward * _movespeed, -0.15f * transform.forward * _movespeed, -0.15f * transform.right * _movespeed , 0.15f * transform.right * _movespeed };
+
+        foreach (int i in new List<int> {0,1,2,3})
         {
-            force_added = true;
-            if (_grounded == true)
+            if (keylist[i] == true && _movement_state != _movement_states.Charging)
             {
-                _rigidbody.velocity = (transform.forward * _movespeed);
-            }
-            else
-            {
-                _rigidbody.AddForce(0.15f * transform.forward * _movespeed);
+                if (_grounded == true && _jump_grace_period>0.1f)
+                {
+                    _rigidbody.velocity = normal_move_list[i];
+                }
+                else
+                {
+                    _rigidbody.AddForce(falling_move_list[i]);
+                }
+
+                if (_movement_state == _movement_states.Idle)
+                {
+                    _transition_movement_state(_movement_states.Walking);
+                }
+
             }
         }
-
-        if (Input.GetKey(KeyCode.S) && _movement_state != _movement_states.Charging && _on_slope == false)
-        {
-            force_added = true;
-            if (_grounded == true)
-            {
-                _rigidbody.velocity = (transform.forward * _movespeed * -1);
-            }
-            else
-            {
-                _rigidbody.AddForce(-0.15f * transform.forward * _movespeed);
-            }
-        }
-
-        if (Input.GetKey(KeyCode.A) && _movement_state != _movement_states.Charging && _on_slope == false)
-        {
-            force_added = true;
-            if (_grounded == true)
-            {
-                _rigidbody.velocity = (transform.right * _movespeed * -1);
-            }
-            else
-            {
-                _rigidbody.AddForce(-0.15f * transform.right * _movespeed);
-            }
-        }
-
-        if (Input.GetKey(KeyCode.D) && _movement_state != _movement_states.Charging && _on_slope == false)
-        {
-            force_added = true;
-            if (_grounded == true)
-            {
-                _rigidbody.velocity = (transform.right * _movespeed);
-            }
-            else
-            {
-                _rigidbody.AddForce(0.15f * transform.right * _movespeed);
-            }
-        }
-
-        if (force_added == true && _movement_state == _movement_states.Idle)
-        {
-            _transition_movement_state(_movement_states.Walking);
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            if (Cursor.lockState == CursorLockMode.Locked) {
-                _playercamera.GetComponent<CameraController>()._frozen_rotation = transform.rotation;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-        }
-
 
 
         if (Input.anyKey == false && _movement_state == _movement_states.Walking)
