@@ -243,6 +243,7 @@ public class player : MonoBehaviour
             if (_grounded == true)
             {
                 _starting_fall_height = transform.position.y;
+                Debug.Log("Started falling at "+_starting_fall_height.ToString());
             }
 
             _grounded = false;
@@ -250,6 +251,15 @@ public class player : MonoBehaviour
         }
         else
         {
+            if (_grounded == false)
+            {
+                float fall_distance = _starting_fall_height - transform.position.y;
+                Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
+                if (fall_distance > 10)
+                {
+                    GameController.Instance.UIController.losehealth((fall_distance - 5) / 2);
+                }
+            }
             _grounded = true;
         }
 
@@ -305,12 +315,6 @@ public class player : MonoBehaviour
         if (collision.transform.CompareTag("Ground"))
         {
             _list_of_colliders.Add(collision);
-            float fall_distance = _starting_fall_height - transform.position.y;
-            Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
-            if (fall_distance > 10)
-            {
-                GameController.Instance.UIController.losehealth((fall_distance - 5) / 2);
-            }
         }
     }
     

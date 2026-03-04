@@ -11102,7 +11102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8605659387011306516, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: _damagerate
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8605659387011306516, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: _maximum_height
