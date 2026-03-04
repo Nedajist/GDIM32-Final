@@ -240,23 +240,17 @@ public class player : MonoBehaviour
 
         if (_groundcheck1 == false && _groundcheck2 == false)
         {
-            bool grounded_collider_found = false;
-            foreach (Collider collider in _list_of_colliders)
+            if (_grounded == true)
             {
-                if (collider.transform.CompareTag("Grounded")){
-                    grounded_collider_found = true;
-                    _grounded = true;
-                }
+                _starting_fall_height = transform.position.y;
             }
 
-            if (grounded_collider_found == false)
-            {
-                if (_grounded == true)
-                {
-                    _starting_fall_height = transform.position.y;
-                }
-                _grounded = false;
-            }
+            _grounded = false;
+            
+        }
+        else
+        {
+            _grounded = true;
         }
 
 
@@ -310,7 +304,6 @@ public class player : MonoBehaviour
 
         if (collision.transform.CompareTag("Ground"))
         {
-            _grounded = true;
             _list_of_colliders.Add(collision);
             float fall_distance = _starting_fall_height - transform.position.y;
             Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
