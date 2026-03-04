@@ -81,6 +81,8 @@ public class MultipleDialogue : MonoBehaviour
 
         _currentNode = _currentNode._npcReplies[option];
         AdvanceDialogue();
+
+        player.Instance.ChangeState(State.Accepted);
     }
 
 }
