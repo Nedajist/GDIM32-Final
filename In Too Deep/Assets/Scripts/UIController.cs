@@ -73,7 +73,6 @@ public class UIController : MonoBehaviour
                 player._health = player._maxHealth;
             }
 
-            
             _healthbar.value += Time.deltaTime * _healingrate;
 
         }
