@@ -97,6 +97,8 @@ public class player : MonoBehaviour
         _ClearInteractable(0);
         _ClearInteractable(1);
         _flame_trail.GetComponent<FollowPlayer>().transform_additive = transform.up * 1.5f;
+        _heat_distortion.GetComponent<FollowPlayer>().transform_additive = transform.up * -1.0f;
+
     }
 
 
