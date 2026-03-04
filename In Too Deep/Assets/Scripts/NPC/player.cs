@@ -11,6 +11,8 @@ public enum State
     Ready,
     Completed
 }
+
+
 public class player : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
@@ -35,12 +37,20 @@ public class player : MonoBehaviour
     [SerializeField] GameObject _large_dust_blast;
     [SerializeField] GameObject _flame_trail;
 
+    public enum _movement_states
+    {
+        Charging,
+        Walking,
+        Falling,
+        Idle
+    }
+
+    public _movement_states _movement_state;
 
     public static player Instance { get; private set; }
     private bool _grounded = true;
     private ArrayList _list_of_colliders = new ArrayList();
     public bool _canMove = true;
-    public bool _charging = false;
     private bool _on_slope = false;
     private float _space_held_time = 0;
     private float _space_held_frames = 0;
@@ -62,6 +72,7 @@ public class player : MonoBehaviour
 
     public float _held_forward_momentum;
     public float _charge_percent;
+
 
     //Quest variables
 
@@ -98,35 +109,28 @@ public class player : MonoBehaviour
         _ClearInteractable(1);
         _flame_trail.GetComponent<FollowPlayer>().transform_additive = transform.up * 1.5f;
         _heat_distortion.GetComponent<FollowPlayer>().transform_additive = transform.up * -1.0f;
-
+        _movement_state = _movement_states.Idle;
     }
 
 
     void Update()
     {
-
         _DisplayInteractable();
-        if (Input.GetKey(KeyCode.Space) && (_grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
+        if (Input.GetKey(KeyCode.Space) && (_grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be in the air. 
         {
-
-            if (_animator.GetBool("Walking") == true)
-            {
-                _rigidbody.velocity = new Vector3(0, 0, 0);
-                _animator.SetBool("Walking", false);
-            }
 
             if (_space_held_frames == 0)
             {
-                _animator.SetTrigger("Jumping");
-                _animator.speed = 0.4f;
+                _transition_movement_state(_movement_states.Charging);
             }
-            else if (_space_held_frames > 80)
+
+            else if (_movement_state == _movement_states.Charging && _space_held_frames > 80)
             {
                 _animator.speed = 0;
             }
+
             _space_held_time += Time.deltaTime;
             _space_held_frames += 1;
-            _charging = true;
 
             _held_forward_momentum = _forward_charge_velocity * _space_held_time;
             if (_held_forward_momentum > _max_forward_momentum)
@@ -138,11 +142,10 @@ public class player : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && (_grounded == true || _on_slope == true)) // check if space was released, frog jumps
+        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && (_grounded == true || _on_slope == true)) // check if space was released, player jumps
         {
-            _animator.SetBool("Landing", true);
-            _charging = false;
-
+            Debug.Log("SPACE RELEASED, TRANSITIONING TO FALLING");
+            _transition_movement_state(_movement_states.Falling);
 
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
             Vector3 _forward_momentum = (_forward_charge_velocity * transform.forward * _space_held_time) + _min_forward_momentum * transform.forward;
@@ -157,9 +160,7 @@ public class player : MonoBehaviour
             //Debug.Log("After " + _space_held_time.ToString() + " seconds, launched with a force of " + _upward_momentum.y.ToString() + " " + _forward_momentum.z.ToString());
             _rigidbody.AddForce(_upward_momentum);
             _rigidbody.AddForce(_forward_momentum);
-            _animator.speed = 1;
-            _space_held_time = 0;
-            _space_held_frames = 0;
+
 
             _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += _charge_percent;
 
@@ -180,13 +181,13 @@ public class player : MonoBehaviour
                 Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
             }
         }
-        if (Input.GetKey(KeyCode.W) && _charging == false && _on_slope == false)
+        bool force_added = false;
+        if (Input.GetKey(KeyCode.W) && _movement_state != _movement_states.Charging && _on_slope == false)
         {
+            force_added = true;
             if (_grounded == true)
             {
-                _animator.SetBool("Walking", true);
                 _rigidbody.velocity = (transform.forward * _movespeed);
-
             }
             else
             {
@@ -194,13 +195,12 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.S) && _charging == false && _on_slope == false)
+        if (Input.GetKey(KeyCode.S) && _movement_state != _movement_states.Charging && _on_slope == false)
         {
+            force_added = true;
             if (_grounded == true)
             {
-                _animator.SetBool("Walking", true);
                 _rigidbody.velocity = (transform.forward * _movespeed * -1);
-
             }
             else
             {
@@ -208,13 +208,12 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.A) && _charging == false && _on_slope == false)
+        if (Input.GetKey(KeyCode.A) && _movement_state != _movement_states.Charging && _on_slope == false)
         {
+            force_added = true;
             if (_grounded == true)
             {
-                _animator.SetBool("Walking", true);
                 _rigidbody.velocity = (transform.right * _movespeed * -1);
-
             }
             else
             {
@@ -222,19 +221,24 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && _charging == false && _on_slope == false)
+        if (Input.GetKey(KeyCode.D) && _movement_state != _movement_states.Charging && _on_slope == false)
         {
+            force_added = true;
             if (_grounded == true)
             {
-                _animator.SetBool("Walking", true);
                 _rigidbody.velocity = (transform.right * _movespeed);
-
             }
             else
             {
                 _rigidbody.AddForce(0.15f * transform.right * _movespeed);
             }
         }
+
+        if (force_added == true && _movement_state == _movement_states.Idle)
+        {
+            _transition_movement_state(_movement_states.Walking);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -250,9 +254,11 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.anyKey == false)
+
+
+        if (Input.anyKey == false && _movement_state == _movement_states.Walking)
         {
-            _animator.SetBool("Walking", false);
+            _transition_movement_state(_movement_states.Idle);
         }
         
         
@@ -301,6 +307,7 @@ public class player : MonoBehaviour
         {
             if (_grounded == true)
             {
+                _transition_movement_state(_movement_states.Falling);
                 _starting_fall_height = transform.position.y;
             }
 
@@ -312,12 +319,14 @@ public class player : MonoBehaviour
             if (_grounded == false)
             {
                 float fall_distance = _starting_fall_height - transform.position.y;
+                _transition_movement_state(_movement_states.Idle);
                 Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
                 if (fall_distance > 10)
                 {
                     GameController.Instance.UIController.losehealth((fall_distance - 5) / 2);
                 }
             }
+
             _grounded = true;
 
 
@@ -338,9 +347,6 @@ public class player : MonoBehaviour
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
                 Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
             }
-
-
-
 
             _seconds_airborne = 0;
         }
@@ -437,4 +443,53 @@ public class player : MonoBehaviour
         
     }
 
+    private void _transition_movement_state(_movement_states new_state)
+    {
+        Debug.Log(new_state);
+        switch (new_state)
+        {
+            case _movement_states.Charging:
+
+                _space_held_time = 0;
+
+                switch (_movement_state)
+                {
+                    case _movement_states.Walking:
+                        _rigidbody.velocity = new Vector3(0, 0, 0);
+                        _animator.SetBool("Walking", false);
+                        _animator.SetBool("Falling", false);
+                        _animator.SetTrigger("Charging");
+                        _animator.speed = 0.4f;
+                        break;
+                }
+
+                _animator.SetBool("Falling", false);
+                _animator.SetTrigger("Charging");
+                _animator.speed = 0.4f;
+
+                break;
+
+            case _movement_states.Falling:
+                _space_held_frames = 0;
+                _animator.SetBool("Falling", true);
+                _animator.SetBool("Walking", false);
+                _animator.speed = 1;
+                break;
+
+            case _movement_states.Walking:
+                _animator.SetBool("Falling", false);
+                _animator.SetBool("Walking", true);
+                break;
+
+            case _movement_states.Idle:
+                _animator.SetBool("Walking", false);
+                _animator.SetBool("Falling", false);
+                break;
+        }
+
+        _movement_state = new_state;
+    }
+
+
 }
+        
