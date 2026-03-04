@@ -143,7 +143,6 @@ public class player : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && (_grounded == true || _on_slope == true)) // check if space was released, player jumps
         {
-            Debug.Log("SPACE RELEASED, TRANSITIONING TO FALLING");
             _transition_movement_state(_movement_states.Falling);
 
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
@@ -444,7 +443,6 @@ public class player : MonoBehaviour
 
     public void _transition_movement_state(_movement_states new_state)
     {
-        Debug.Log(new_state);
         switch (new_state)
         {
             case _movement_states.Charging:
