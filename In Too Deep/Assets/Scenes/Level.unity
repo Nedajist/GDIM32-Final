@@ -14296,7 +14296,7 @@ MonoBehaviour:
   _playerInventory:
   - {fileID: 1953231157}
   - {fileID: 1953231157}
-  _max_upward_momentum: 1000
+  _max_upward_momentum: 800
   _max_forward_momentum: 600
   _min_upward_momentum: 250
   _min_forward_momentum: 50

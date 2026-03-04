@@ -24,7 +24,7 @@ public class player : MonoBehaviour
     [SerializeField] float _upward_charge_velocity;
     [SerializeField] float _forward_charge_velocity;
 
-    public static player Instance {get; private set; }
+    public static player Instance { get; private set; }
     private bool _grounded = true;
     private ArrayList _list_of_colliders = new ArrayList();
     public bool _canMove = true;
@@ -62,7 +62,7 @@ public class player : MonoBehaviour
 
     private NPC _currentNPC;
 
-    
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -83,11 +83,12 @@ public class player : MonoBehaviour
         _ClearInteractable(1);
     }
 
-    
+
     void Update()
     {
+        Debug.Log(_grounded);
         _DisplayInteractable();
-        if (Input.GetKey(KeyCode.Space) && ( _grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
+        if (Input.GetKey(KeyCode.Space) && (_grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be walking or in the air. 
         {
             if (_animator.GetBool("Walking") == true)
             {
@@ -114,7 +115,7 @@ public class player : MonoBehaviour
                 _held_forward_momentum = _max_forward_momentum;
             }
         }
-        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && _grounded == true) // check if space was released, frog jumps
+        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && (_grounded == true || _on_slope == true)) // check if space was released, frog jumps
         {
             _animator.SetBool("Landing", true);
             _charging = false;
@@ -135,7 +136,7 @@ public class player : MonoBehaviour
             _space_held_time = 0;
             _space_held_frames = 0;
         }
-        if (Input.GetKey(KeyCode.W) && _charging == false)
+        if (Input.GetKey(KeyCode.W) && _charging == false && _on_slope == false)
         {
             if (_grounded == true)
             {
@@ -149,7 +150,7 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.S) && _charging == false)
+        if (Input.GetKey(KeyCode.S) && _charging == false && _on_slope == false)
         {
             if (_grounded == true)
             {
@@ -163,7 +164,7 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.A) && _charging == false)
+        if (Input.GetKey(KeyCode.A) && _charging == false && _on_slope == false)
         {
             if (_grounded == true)
             {
@@ -177,7 +178,7 @@ public class player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D) && _charging == false)
+        if (Input.GetKey(KeyCode.D) && _charging == false && _on_slope == false)
         {
             if (_grounded == true)
             {
@@ -257,7 +258,6 @@ public class player : MonoBehaviour
             if (_grounded == true)
             {
                 _starting_fall_height = transform.position.y;
-                Debug.Log("Started falling at "+_starting_fall_height.ToString());
             }
 
             _grounded = false;
@@ -308,8 +308,6 @@ public class player : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("COLLISIN ENTEREED at y level " + transform.position.y.ToString());
-
         if (collision.transform.CompareTag("Obstacle"))
         {
             _starting_fall_height = transform.position.y;
