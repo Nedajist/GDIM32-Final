@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Sprite _pie;
     [SerializeField] private Sprite _stew;
     [SerializeField] private float _startHealth = 100;
+    private Transform _respawnPoint;
 
     private List<Image> _item_display_list = new List<Image>();
 
@@ -39,8 +40,6 @@ public class UIController : MonoBehaviour
     private float seconds_of_healing=0;
     private float seconds_of_damage = 0;
    
-
-    private Vector3 _first_position = new Vector3(267, 409, 516);
 
     // Start is called before the first frame update
     void Start()
@@ -87,12 +86,11 @@ public class UIController : MonoBehaviour
         if (player._health <= 0)
         {
             player._health = player._maxHealth;
-            player.transform.position = _first_position;
             _healthbar.value = player._health;
+            Respawn();
         }
 
-        _questStatusText.text = "Quest Status: " + _currentQuestStatus;
-
+       // _questStatusText.text = "Quest Status: " + _currentQuestStatus;
     }
 
 
@@ -161,15 +159,15 @@ public class UIController : MonoBehaviour
 
         }
     }
-    private void Respawn()
+    public void Respawn()
     {
         //resets player transform to the most recent checkpoint
-        _healthbar.value = _startHealth;
-
+        _healthbar.value = GameController.Instance.Player._maxHealth;
+        GameController.Instance.Player.transform.position = _respawnPoint.position;
     }
     public void SetRespawnPoint(Transform respawn)
     {
         //store the transform of the most recent checkpoint
-        
+        _respawnPoint = respawn;
     }
 }

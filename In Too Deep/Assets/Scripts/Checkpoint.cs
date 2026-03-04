@@ -7,10 +7,11 @@ public class CheckpointController : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             UIController ui = FindObjectOfType<UIController>();
             ui.SetRespawnPoint(transform);   
+            Debug.Log("respawn point set to " + transform.position);
         }
     }
 }

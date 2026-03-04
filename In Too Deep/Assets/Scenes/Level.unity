@@ -2024,8 +2024,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentCheckpointID: 0
-  spawnPoint: {fileID: 0}
 --- !u!108 &211746993
 Light:
   m_ObjectHideFlags: 0
@@ -10650,15 +10648,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bf3faee395fea754e8062a850689f359, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 267.88
+      value: 271.66
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf3faee395fea754e8062a850689f359, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 405.49
+      value: 405.96
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf3faee395fea754e8062a850689f359, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 518.15
+      value: 512.76
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf3faee395fea754e8062a850689f359, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10695,6 +10693,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bf3faee395fea754e8062a850689f359, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201688735356099501, guid: bf3faee395fea754e8062a850689f359, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201688735356099501, guid: bf3faee395fea754e8062a850689f359, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.81
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14078,8 +14084,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentCheckpointID: 0
-  spawnPoint: {fileID: 0}
 --- !u!108 &1760743483
 Light:
   m_ObjectHideFlags: 0
@@ -15086,8 +15090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentCheckpointID: 0
-  spawnPoint: {fileID: 0}
 --- !u!108 &1842743600
 Light:
   m_ObjectHideFlags: 0
@@ -17113,8 +17115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentCheckpointID: 0
-  spawnPoint: {fileID: 0}
 --- !u!108 &2116738536
 Light:
   m_ObjectHideFlags: 0
