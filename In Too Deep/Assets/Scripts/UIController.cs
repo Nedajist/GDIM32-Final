@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private Slider _healthbar;
     [SerializeField] private Slider _lazybar;
+    [SerializeField] private Slider _chargebar;
+    [SerializeField] private Image _chargebarfill;
     [SerializeField] private float _healingrate;
     [SerializeField] private float _damagerate;
     [SerializeField] private float _maximum_height;
@@ -90,7 +92,22 @@ public class UIController : MonoBehaviour
             Respawn();
         }
 
-       // _questStatusText.text = "Quest Status: " + _currentQuestStatus;
+
+        if (player._charging == true)
+        {
+            float _chargepercent = (player._held_forward_momentum / (player._max_forward_momentum - player._min_forward_momentum));
+            _chargebar.value = _chargepercent * 200;
+            _chargebarfill.color = new Color( (38 + _chargepercent * (255 -38)) / 255, (255 - _chargepercent * (255 - 38)) / 255, (59 - _chargepercent * (59-38)) / 255, 1);
+            //_chargebarfill.color = new Color(255,                             38, 38, 1);
+
+        }
+        else
+        {
+            _chargebar.value = 0;
+        }
+
+        // _questStatusText.text = "Quest Status: " + _currentQuestStatus;
+
     }
 
 
