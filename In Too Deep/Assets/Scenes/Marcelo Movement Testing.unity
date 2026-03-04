@@ -572,12 +572,12 @@ MonoBehaviour:
   _playerInventory:
   - {fileID: 1596700811}
   - {fileID: 1596700811}
-  _max_upward_momentum: 0
-  _max_forward_momentum: 0
-  _min_upward_momentum: 0
-  _min_forward_momentum: 0
-  _upward_charge_velocity: 0
-  _forward_charge_velocity: 0
+  _max_upward_momentum: 800
+  _max_forward_momentum: 600
+  _min_upward_momentum: 250
+  _min_forward_momentum: 50
+  _upward_charge_velocity: 600
+  _forward_charge_velocity: 300
   _canMove: 1
   _charging: 0
   _health: 200
