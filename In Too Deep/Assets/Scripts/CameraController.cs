@@ -13,9 +13,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _cameraFollowSpeed = 3;
     [SerializeField] private GameObject _player;
     private Transform destination;
-
     private Vector3 _camera_rotation = new Vector3(0f, 0f, 0f);
-    private float _seconds_of_camera_shake = 0;
+
+    public float _seconds_of_camera_shake = 0;
     public Quaternion _frozen_rotation;
 
     // Start is called before the first frame update
@@ -23,7 +23,6 @@ public class CameraController : MonoBehaviour
     {
         //Cursor.lockState = CursorLockMode.Locked;
         destination = _player.transform.Find("CameraDestination");
-        _seconds_of_camera_shake += 3;
     }
 
     // Update is called once per frame
@@ -56,7 +55,7 @@ public class CameraController : MonoBehaviour
         
     }
     
-    public void ShakeCamera()
+    private void ShakeCamera()
     {
         transform.localEulerAngles += _RandomNormalVector3();
     }

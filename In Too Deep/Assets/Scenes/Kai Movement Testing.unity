@@ -204,6 +204,7 @@ MonoBehaviour:
   _cameraSpeed: 5
   _cameraFollowSpeed: 3
   _player: {fileID: 582580935}
+  _seconds_of_camera_shake: 0
   _frozen_rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!81 &173764640
 AudioListener:
@@ -273,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 173764636}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.34, y: 62.17, z: -8.45}
+  m_LocalPosition: {x: -1.34, y: 60.229996, z: -8.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -355,14 +356,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9201688735356099501, guid: bf3faee395fea754e8062a850689f359, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 9201688735356099501, guid: bf3faee395fea754e8062a850689f359, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.81
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4b05e95e3b801b4419f4048b2d4df6fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.34
@@ -403,6 +396,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5779387234154160233, guid: 4b05e95e3b801b4419f4048b2d4df6fa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.806
+      objectReference: {fileID: 0}
+    - target: {fileID: -5779387234154160233, guid: 4b05e95e3b801b4419f4048b2d4df6fa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.356
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4b05e95e3b801b4419f4048b2d4df6fa, type: 3}
       propertyPath: m_Name
       value: Player
@@ -410,6 +411,26 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4b05e95e3b801b4419f4048b2d4df6fa, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930122639089758947, guid: 4b05e95e3b801b4419f4048b2d4df6fa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.801
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930122639089758947, guid: 4b05e95e3b801b4419f4048b2d4df6fa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.779
+      objectReference: {fileID: 0}
+    - target: {fileID: 7750955816942380895, guid: 4b05e95e3b801b4419f4048b2d4df6fa, type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201688735356099501, guid: bf3faee395fea754e8062a850689f359, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9201688735356099501, guid: bf3faee395fea754e8062a850689f359, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.81
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -487,11 +508,20 @@ MonoBehaviour:
   _min_forward_momentum: 50
   _upward_charge_velocity: 600
   _forward_charge_velocity: 300
+  _tiny_explosion: {fileID: 5089345408583171516, guid: 22a86ef0397be244b9ee666a015f399d, type: 3}
+  _small_explosion: {fileID: 3741100186905376693, guid: 4d89eb537d40fbf46bbf4a0b0db18a4e, type: 3}
+  _large_explosion: {fileID: 5756782579114612967, guid: 6d5929fa91d06ec489c226a669783eae, type: 3}
+  _heat_distortion: {fileID: 59854638831641168, guid: 8b4fe2f049b92a94cb166bde3940a585, type: 3}
+  _tiny_dust_blast: {fileID: 1199917932318901172, guid: 48268aa4329770948abae4e31135f80e, type: 3}
+  _medium_dust_blast: {fileID: 611469880701647985, guid: d8081fd43ab35404486215f3aa52cc2e, type: 3}
+  _large_dust_blast: {fileID: 7999428005769134281, guid: 6b35112bc7cb33c4caf3a028ae378d49, type: 3}
+  _flame_trail: {fileID: 266884904672817930, guid: ca472fc3a766db44e95faa1117c8c326, type: 3}
   _canMove: 1
   _charging: 0
   _health: 200
   _maxHealth: 200
   _held_forward_momentum: 0
+  _charge_percent: 0
   _dialogueActive: 0
   _nearNPC: 0
 --- !u!136 &582580939

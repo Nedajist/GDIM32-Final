@@ -94,9 +94,8 @@ public class UIController : MonoBehaviour
 
         if (player._charging == true)
         {
-            float _chargepercent = (player._held_forward_momentum / (player._max_forward_momentum - player._min_forward_momentum));
-            _chargebar.value = _chargepercent * 200;
-            _chargebarfill.color = new Color( (38 + _chargepercent * (255 -38)) / 255, (255 - _chargepercent * (255 - 38)) / 255, (59 - _chargepercent * (59-38)) / 255, 1);
+            _chargebar.value = player._charge_percent * 200;
+            _chargebarfill.color = new Color( (38 + player._charge_percent * (255 -38)) / 255, (255 - player._charge_percent * (255 - 38)) / 255, (59 - player._charge_percent * (59-38)) / 255, 1);
             //_chargebarfill.color = new Color(255,                             38, 38, 1);
 
         }
