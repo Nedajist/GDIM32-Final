@@ -32,7 +32,6 @@ public class UIController : MonoBehaviour
     [SerializeField] private Sprite _cheese_wheel;
     [SerializeField] private Sprite _pie;
     [SerializeField] private Sprite _stew;
-    [SerializeField] private float _startHealth = 100;
     private Transform _respawnPoint;
 
     private List<Image> _item_display_list = new List<Image>();
