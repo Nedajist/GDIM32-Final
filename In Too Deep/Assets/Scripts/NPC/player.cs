@@ -88,6 +88,8 @@ public class player : MonoBehaviour
 
     public float _health = 200;
     public float _maxHealth = 200;
+    public float _max_air_jump_charges = 0;
+    public float _air_jump_charges = 0;
 
     public delegate void HandDelegate(string hand);
     public event HandDelegate HandSelected;
@@ -102,8 +104,8 @@ public class player : MonoBehaviour
     private float _seconds_after_ending = 0;
 
     //Quest variables
-    
-    public State _currentState {get; private set; }
+
+    public State _currentState { get; private set; }
 
     //UI variables
 
@@ -149,11 +151,17 @@ public class player : MonoBehaviour
         _DisplayInteractable();
         _jump_grace_period += Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.Space) && (_grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be in the air. 
+        if (Input.GetKey(KeyCode.Space) && ((_grounded == true || _on_slope == true) || _air_jump_charges > 0)) // checks if player is holding down space bar. Can't be in the air. 
         {
+
             if (_space_held_frames == 0)
             {
                 _transition_movement_state(_movement_states.Charging);
+            }
+
+            if (_grounded == false && _on_slope == false) // if in air, slows player down 
+            {
+                _rigidbody.AddForce(transform.up * 0.7f * Mathf.Abs(_rigidbody.velocity.y));
             }
 
 
@@ -180,7 +188,9 @@ public class player : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && (_grounded == true || _on_slope == true)) // check if space was released, player jumps
+
+
+        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && ((_grounded == true || _on_slope == true) || _air_jump_charges> 0)) // check if space was released, player jumps
         {
             _jump_grace_period = 0;
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
@@ -330,38 +340,40 @@ public class player : MonoBehaviour
                 {
                     GameController.Instance.UIController.losehealth((fall_distance - 5) / 2);
                 }
+
+                if (_seconds_airborne > 2.5)
+                {
+                    _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
+                    Instantiate(_large_dust_blast, transform.position, Quaternion.identity);
+                    _audio_manager.pitch = 0.9f;
+                    _audio_manager.clip = _tiny_landing_SFX;
+                    _audio_manager.Play();
+                }
+
+                else if (_seconds_airborne > 2)
+                {
+                    _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.10f;
+                    Instantiate(_medium_dust_blast, transform.position, Quaternion.identity);
+                    _audio_manager.pitch = 0.7f;
+                    _audio_manager.clip = _tiny_landing_SFX;
+                    _audio_manager.Play();
+                }
+
+                else if (_seconds_airborne > 1)
+                {
+                    _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
+                    Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
+                    _audio_manager.pitch = 0.5f;
+                    _audio_manager.clip = _tiny_landing_SFX;
+                    _audio_manager.Play();
+                }
+
+                _seconds_airborne = 0;
             }
 
             _grounded = true;
 
-            if (_seconds_airborne > 2.5)
-            {
-                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
-                Instantiate(_large_dust_blast, transform.position, Quaternion.identity);
-                _audio_manager.pitch = 0.9f;
-                _audio_manager.clip = _tiny_landing_SFX;
-                _audio_manager.Play();
-            }
-
-            else if (_seconds_airborne > 2)
-            {
-                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.10f;
-                Instantiate(_medium_dust_blast, transform.position, Quaternion.identity);
-                _audio_manager.pitch = 0.7f;
-                _audio_manager.clip = _tiny_landing_SFX;
-                _audio_manager.Play();
-            }
-
-            else if (_seconds_airborne > 1)
-            {
-                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
-                Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
-                _audio_manager.pitch = 0.5f;
-                _audio_manager.clip = _tiny_landing_SFX;
-                _audio_manager.Play();
-            }
-
-            _seconds_airborne = 0;
+           
         }
 
 
@@ -461,7 +473,6 @@ public class player : MonoBehaviour
         switch (new_state)
         {
             case _movement_states.Charging:
-
                 _space_held_time = 0;
                 _audio_manager.clip = _charging_SFX;
                 _audio_manager.loop = true;
@@ -469,17 +480,22 @@ public class player : MonoBehaviour
                 _audio_manager.Play();
                 _audio_manager.pitch = 0.9f;
 
-                switch (_movement_state)
+                if (_grounded == true || _on_slope == true)
                 {
-                    case _movement_states.Walking:
-                        _rigidbody.velocity = new Vector3(0, 0, 0);
-                        _animator.SetBool("Walking", false);
-                        _animator.SetBool("Falling", false);
-                        _animator.SetTrigger("Charging");
-                        break;
+                    _animator.SetBool("Falling", false);
                 }
+                
 
-                _animator.SetBool("Falling", false);
+                switch (_movement_state)
+                    {
+                        case _movement_states.Walking:
+                            _rigidbody.velocity = new Vector3(0, 0, 0);
+                            _animator.SetBool("Walking", false);
+                            _animator.SetBool("Falling", false);
+                            _animator.SetTrigger("Charging");
+                            break;
+                    }
+
                 _animator.SetTrigger("Charging");
                 _animator.speed = 0.4f;
 
@@ -498,6 +514,11 @@ public class player : MonoBehaviour
                     }
                 }
 
+                if (_grounded == false && _on_slope == false)
+                {
+                    _air_jump_charges -= 1;
+                    _rigidbody.velocity = new Vector3(0, 0, 0);
+                }
 
                 _space_held_frames = 0;
                 _animator.SetBool("Falling", true);
@@ -506,12 +527,14 @@ public class player : MonoBehaviour
                 break;
 
             case _movement_states.Walking:
+                _air_jump_charges = _max_air_jump_charges;
                 _footsteps_audio_manager.Play();
                 _animator.SetBool("Falling", false);
                 _animator.SetBool("Walking", true);
                 break;
 
             case _movement_states.Idle:
+                _air_jump_charges = _max_air_jump_charges;
                 _audio_manager.loop = false;
                 _audio_manager.Stop();
                 _footsteps_audio_manager.Stop();
