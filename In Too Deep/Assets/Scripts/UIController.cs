@@ -34,12 +34,20 @@ public class UIController : MonoBehaviour
     [SerializeField] private Sprite _stew;
     [SerializeField] private Sprite _warning;
 
+    [SerializeField] private Image _pure_white;
+
+    [SerializeField] private Image _cinema;
+
+
     private Transform _respawnPoint;
 
     private List<Image> _item_display_list = new List<Image>();
 
 
     public string _currentQuestStatus;
+    public bool _game_end;
+    public bool _display_cinema;
+
     private float seconds_of_healing=0;
     private float seconds_of_damage = 0;
    
@@ -97,12 +105,27 @@ public class UIController : MonoBehaviour
         {
             _chargebar.value = player._charge_percent * 200;
             _chargebarfill.color = new Color( (38 + player._charge_percent * (255 -38)) / 255, (255 - player._charge_percent * (255 - 38)) / 255, (59 - player._charge_percent * (59-38)) / 255, 1);
-            //_chargebarfill.color = new Color(255,                             38, 38, 1);
 
         }
         else
         {
             _chargebar.value = 0;
+        }
+
+        if (_game_end == true)
+        {
+            _pure_white.color = new Color(1, 1, 1, _pure_white.color.a + 0.0005f);
+        }
+
+        if (_display_cinema == true)
+        {
+            float new_a = _cinema.color.a + 0.00025f;
+            if (new_a < 0)
+            {
+                new_a = 0;
+                _display_cinema = false;
+            }
+            _cinema.color = new Color(1, 1, 1, new_a);
         }
 
         /////////////// _questStatusText.text = "Quest Status: " + _currentQuestStatus;
@@ -205,6 +228,7 @@ public class UIController : MonoBehaviour
         _respawnPoint = respawn;
     }
 
+   
 
     public void UpdateQuestState(State newState)
     {

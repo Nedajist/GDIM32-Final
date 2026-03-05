@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -28,6 +29,8 @@ public class player : MonoBehaviour
     [SerializeField] float _upward_charge_velocity;
     [SerializeField] float _forward_charge_velocity;
     [SerializeField] AudioSource _audio_manager;
+    [SerializeField] AudioSource _music_manager;
+
 
     // VFX 
     [SerializeField] GameObject _tiny_explosion;
@@ -48,7 +51,11 @@ public class player : MonoBehaviour
     [SerializeField] AudioClip _tiny_explosion_SFX;
     [SerializeField] AudioClip _small_explosion_SFX;
     [SerializeField] AudioClip _large_explosion_SFX;
+    [SerializeField] AudioClip _giant_explosion_SFX;
     [SerializeField] AudioClip _tiny_landing_SFX;
+    [SerializeField] AudioClip _iris_out;
+
+
 
 
     public enum _movement_states
@@ -89,6 +96,7 @@ public class player : MonoBehaviour
     public float _charge_percent;
 
     private bool bomb_ending = false;
+    private float _seconds_after_ending = 0;
 
     //Quest variables
     
@@ -132,7 +140,7 @@ public class player : MonoBehaviour
     {
         if (bomb_ending)
         {
-            _rigidbody.velocity = transform.up * _movespeed * 4;
+            _BombEndingProgression();
         }
 
         _DisplayInteractable();
@@ -535,10 +543,46 @@ public class player : MonoBehaviour
         Instantiate(_rocket_trail, transform.position, rocket_angle);
         Instantiate(_giant_explosion, transform.position, Quaternion.identity);
 
-        _playercamera.GetComponent<CameraController>().bomb_ending = true;
         _playercamera.GetComponent<CameraController>()._cameraFollowSpeed = 10;
         _camera_destination.transform.localPosition = transform.up * 12 + transform.forward * -3;
+        _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 60;
         bomb_ending = true;
+        _playercamera.GetComponent<CameraController>().bomb_ending = true;
+
+        _audio_manager.pitch = 1f;
+        _audio_manager.clip = _giant_explosion_SFX;
+        _audio_manager.Play();
+
+        _music_manager.loop = false;
+        _music_manager.volume = 1;
+        _music_manager.clip = _large_explosion_SFX;
+        _music_manager.pitch = 0.7f;
+        _music_manager.Play();
+    }
+
+    private void _BombEndingProgression()
+    {
+        _rigidbody.velocity = transform.up * _movespeed * 4;
+        _seconds_after_ending += Time.deltaTime;
+        Debug.Log(_seconds_after_ending);
+
+        if (_seconds_after_ending > 8f && _seconds_after_ending < 9f)
+        {
+            _music_manager.pitch = 1f;
+            _music_manager.clip = _iris_out;
+            _music_manager.Play();
+        }
+
+        if (_seconds_after_ending >= 15f)
+        {
+            GameController.Instance.UIController._game_end = true;
+        }
+
+        if (_seconds_after_ending >= 20f)
+        {
+            GameController.Instance.UIController._display_cinema = true;
+        }
+
     }
 
 }
