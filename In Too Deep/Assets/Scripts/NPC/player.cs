@@ -45,6 +45,7 @@ public class player : MonoBehaviour
     [SerializeField] GameObject _flame_trail;
     [SerializeField] GameObject _rocket_trail;
     [SerializeField] GameObject _giant_explosion;
+    [SerializeField] GameObject _sparks;
 
 
 
@@ -297,6 +298,11 @@ public class player : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.E) && _dialogueActive == false)
         {
+            if (_playerInventory[_inventory_selected_index].name != "None")
+            {
+                Debug.Log("SPARKS DISPLAY");
+                Instantiate(_sparks, transform.position + transform.up * 1.9f, Quaternion.identity);
+            }
             _playerInventory[_inventory_selected_index].interact();
             _ClearInteractable(_inventory_selected_index);
         }
