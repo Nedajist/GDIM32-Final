@@ -51,7 +51,7 @@ Put your individual final Devlog here.
 - [Mushroom NPC](https://assetstore.unity.com/packages/3d/characters/humanoids/lowpoly-mushroomman-character-287820)
 - [Frog NPC](https://assetstore.unity.com/packages/3d/characters/frog-marauder-pixelated-texture-316487)
 - [Mutant NPC](https://assetstore.unity.com/packages/3d/characters/creatures/creature-horror-mutant-113565)
-- [Main Player Model, "The Boss"](https://www.mixamo.com/#/?page=1&type=Character)
+- [Main Player Model, Reze](https://www.cgtrader.com/3d-models/character/woman/reze-chainsaw)
 - [Eyeball Model](https://assetstore.unity.com/packages/3d/characters/humanoids/humans/realistic-fantasy-eyes-67861)
 - [Treasure Chest Model](https://assetstore.unity.com/packages/3d/props/interior/treasure-chest-pbr-72498) 
 - [Food Consumable Models](https://assetstore.unity.com/packages/3d/props/food/rpg-fantasy-food-items-pack-280556)
@@ -59,3 +59,4 @@ Put your individual final Devlog here.
 - [Stew](https://www.vecteezy.com/png/60597586-pixel-art-cooking-pan-with-lid-and-handles)
 - [Cheese Wheel](https://es.pixilart.com/art/cheese-wheel-a0f215ec5d94dfd)
 - [Cheese](https://favpng.com/png_view/milk-milk-cheese-pixel-art-bead-png/8NT6fG2e)
+

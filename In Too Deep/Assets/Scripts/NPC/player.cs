@@ -26,6 +26,7 @@ public class player : MonoBehaviour
     [SerializeField] private float _min_forward_momentum;
     [SerializeField] float _upward_charge_velocity;
     [SerializeField] float _forward_charge_velocity;
+    [SerializeField] AudioSource _audio_manager;
 
     // VFX 
     [SerializeField] GameObject _tiny_explosion;
@@ -36,6 +37,15 @@ public class player : MonoBehaviour
     [SerializeField] GameObject _medium_dust_blast;
     [SerializeField] GameObject _large_dust_blast;
     [SerializeField] GameObject _flame_trail;
+
+    // AUDIO
+    [SerializeField] AudioClip _charging_SFX;
+    [SerializeField] AudioClip _tiny_explosion_SFX;
+    [SerializeField] AudioClip _small_explosion_SFX;
+    [SerializeField] AudioClip _large_explosion_SFX;
+    [SerializeField] AudioClip _tiny_landing_SFX;
+    [SerializeField] AudioClip _small_landing_SFX;
+    [SerializeField] AudioClip _large_landing_SFX;
 
     public enum _movement_states
     {
@@ -120,15 +130,20 @@ public class player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && (_grounded == true || _on_slope == true)) // checks if player is holding down space bar. Can't be in the air. 
         {
-
             if (_space_held_frames == 0)
             {
                 _transition_movement_state(_movement_states.Charging);
             }
 
+
             else if (_movement_state == _movement_states.Charging && _space_held_frames > 80)
             {
                 _animator.speed = 0;
+            }
+
+            if (_audio_manager.pitch < 1.5)
+            {
+                _audio_manager.pitch += 0.001f;
             }
 
             _space_held_time += Time.deltaTime;
@@ -146,7 +161,6 @@ public class player : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && (_grounded == true || _on_slope == true)) // check if space was released, player jumps
         {
-            _transition_movement_state(_movement_states.Falling);
             _jump_grace_period = 0;
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
             Vector3 _forward_momentum = (_forward_charge_velocity * transform.forward * _space_held_time) + _min_forward_momentum * transform.forward;
@@ -167,20 +181,24 @@ public class player : MonoBehaviour
 
             if (_charge_percent < 0.20)
             {
+                _audio_manager.clip = _tiny_explosion_SFX;
                 Instantiate(_tiny_explosion, transform.position + transform.up*2, Quaternion.identity);
             }
             else if (_charge_percent < 0.40)
             {
+                _audio_manager.clip = _small_explosion_SFX;
                 Instantiate(_small_explosion, transform.position + transform.up*2, Quaternion.identity);
                 Instantiate(_heat_distortion, transform.position, Quaternion.identity);
                 Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
             }
             else
             {
+                _audio_manager.clip = _large_explosion_SFX;
                 Instantiate(_large_explosion, transform.position + transform.up*2, Quaternion.identity);
                 Instantiate(_heat_distortion, transform.position, Quaternion.identity);
                 Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
             }
+            _transition_movement_state(_movement_states.Falling);
         }
         List<bool> keylist = new List<bool> { Input.GetKey(KeyCode.W), Input.GetKey(KeyCode.S), Input.GetKey(KeyCode.A), Input.GetKey(KeyCode.D) }; //WASD movement
         List<Vector3> normal_move_list = new List<Vector3> { transform.forward * _movespeed, transform.forward * _movespeed * -1 , transform.right * _movespeed * -1 , transform.right * _movespeed };
@@ -295,23 +313,35 @@ public class player : MonoBehaviour
 
             _grounded = true;
 
-
-            if (_seconds_airborne > 3)
+            if (_seconds_airborne > 0.5)
+            {
+                Debug.Log(_seconds_airborne);
+            }
+            if (_seconds_airborne > 2.5)
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
                 Instantiate(_large_dust_blast, transform.position, Quaternion.identity);
+                _audio_manager.pitch = 0.9f;
+                _audio_manager.clip = _tiny_landing_SFX;
+                _audio_manager.Play();
             }
 
             else if (_seconds_airborne > 2)
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.10f;
                 Instantiate(_medium_dust_blast, transform.position, Quaternion.identity);
+                _audio_manager.pitch = 0.7f;
+                _audio_manager.clip = _tiny_landing_SFX;
+                _audio_manager.Play();
             }
 
             else if (_seconds_airborne > 1)
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
                 Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
+                _audio_manager.pitch = 0.5f;
+                _audio_manager.clip = _tiny_landing_SFX;
+                _audio_manager.Play();
             }
 
             _seconds_airborne = 0;
@@ -411,11 +441,16 @@ public class player : MonoBehaviour
 
     public void _transition_movement_state(_movement_states new_state)
     {
+        Debug.Log(new_state);
         switch (new_state)
         {
             case _movement_states.Charging:
 
                 _space_held_time = 0;
+                _audio_manager.clip = _charging_SFX;
+                _audio_manager.loop = true;
+                _audio_manager.Play();
+                _audio_manager.pitch = 0.9f;
 
                 switch (_movement_state)
                 {
@@ -435,6 +470,18 @@ public class player : MonoBehaviour
                 break;
 
             case _movement_states.Falling:
+                _audio_manager.loop = false;
+                _audio_manager.pitch = 1f;
+                switch (_movement_state)
+                {
+                    case (_movement_states.Charging):
+                    {
+                        _audio_manager.Play();
+                        break;
+                    }
+                }
+
+
                 _space_held_frames = 0;
                 _animator.SetBool("Falling", true);
                 _animator.SetBool("Walking", false);
@@ -467,6 +514,8 @@ public class player : MonoBehaviour
     public void BigDeathExplosion()
     {
         Instantiate(_large_explosion, transform.position + transform.up * 2, Quaternion.identity);
+        _audio_manager.clip = _large_explosion_SFX;
+        _audio_manager.Play();
     }
 
 }
