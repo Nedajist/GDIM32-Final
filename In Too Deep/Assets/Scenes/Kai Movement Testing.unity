@@ -662,6 +662,7 @@ MonoBehaviour:
   _rocket_trail: {fileID: 5890878922804822326, guid: 7c730428fdde2f5468c8779e03695e3c, type: 3}
   _giant_explosion: {fileID: 1342198676684568545, guid: 0f396953ed88f5d48a67663336738d0b, type: 3}
   _charging_SFX: {fileID: 8300000, guid: c15443c26a91ea541abdccd38693c7f5, type: 3}
+  _footsteps_SFX: {fileID: 8300000, guid: 23e2107159d688044a5ab258e86bef46, type: 3}
   _tiny_explosion_SFX: {fileID: 8300000, guid: 8b3f676fe7b41044495a2964396b8ba3, type: 3}
   _small_explosion_SFX: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
   _large_explosion_SFX: {fileID: 8300000, guid: 5dcbd8664ee1bf34690bd2fd7016086d, type: 3}

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
@@ -29,6 +30,7 @@ public class player : MonoBehaviour
     [SerializeField] float _upward_charge_velocity;
     [SerializeField] float _forward_charge_velocity;
     [SerializeField] AudioSource _audio_manager;
+    [SerializeField] AudioSource _footsteps_audio_manager;
     [SerializeField] AudioSource _music_manager;
 
 
@@ -48,6 +50,7 @@ public class player : MonoBehaviour
 
     // AUDIO
     [SerializeField] AudioClip _charging_SFX;
+    [SerializeField] AudioClip _footsteps_SFX;
     [SerializeField] AudioClip _tiny_explosion_SFX;
     [SerializeField] AudioClip _small_explosion_SFX;
     [SerializeField] AudioClip _large_explosion_SFX;
@@ -462,6 +465,7 @@ public class player : MonoBehaviour
                 _space_held_time = 0;
                 _audio_manager.clip = _charging_SFX;
                 _audio_manager.loop = true;
+                _footsteps_audio_manager.Stop();
                 _audio_manager.Play();
                 _audio_manager.pitch = 0.9f;
 
@@ -472,7 +476,6 @@ public class player : MonoBehaviour
                         _animator.SetBool("Walking", false);
                         _animator.SetBool("Falling", false);
                         _animator.SetTrigger("Charging");
-                        _animator.speed = 0.4f;
                         break;
                 }
 
@@ -485,6 +488,7 @@ public class player : MonoBehaviour
             case _movement_states.Falling:
                 _audio_manager.loop = false;
                 _audio_manager.pitch = 1f;
+                _footsteps_audio_manager.Stop();
                 switch (_movement_state)
                 {
                     case (_movement_states.Charging):
@@ -502,11 +506,15 @@ public class player : MonoBehaviour
                 break;
 
             case _movement_states.Walking:
+                _footsteps_audio_manager.Play();
                 _animator.SetBool("Falling", false);
                 _animator.SetBool("Walking", true);
                 break;
 
             case _movement_states.Idle:
+                _audio_manager.loop = false;
+                _audio_manager.Stop();
+                _footsteps_audio_manager.Stop();
                 _animator.SetBool("Walking", false);
                 _animator.SetBool("Falling", false);
                 break;
@@ -537,6 +545,9 @@ public class player : MonoBehaviour
         Quaternion rocket_angle = Quaternion.Euler(new Vector3(-90, 0, 68));
         Instantiate(_rocket_trail, transform.position, rocket_angle);
         Instantiate(_giant_explosion, transform.position, Quaternion.identity);
+
+        transform.position += transform.up * 4.5f;
+
 
         _playercamera.GetComponent<CameraController>()._cameraFollowSpeed = 10;
         _camera_destination.transform.localPosition = transform.up * 12 + transform.forward * -3;
