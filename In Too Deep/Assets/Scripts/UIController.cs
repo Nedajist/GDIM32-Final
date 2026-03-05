@@ -32,6 +32,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private Sprite _cheese_wheel;
     [SerializeField] private Sprite _pie;
     [SerializeField] private Sprite _stew;
+    [SerializeField] private Sprite _warning;
+
     private Transform _respawnPoint;
 
     private List<Image> _item_display_list = new List<Image>();
@@ -171,6 +173,10 @@ public class UIController : MonoBehaviour
                     case "Stew":
                         _item_display_list[i].sprite = _stew;
                         break;
+                    case "Bomb":
+                        _item_display_list[i].sprite = _warning;
+                        break;
+
                 }
 
             }

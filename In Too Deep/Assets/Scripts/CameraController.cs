@@ -10,14 +10,14 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private float _rotationspeed = 20;
     [SerializeField] private float _cameraSpeed = 10;
-    [SerializeField] private float _cameraFollowSpeed = 3;
+    [SerializeField] public float _cameraFollowSpeed = 3;
     [SerializeField] private GameObject _player;
     private Transform destination;
     private Vector3 _camera_rotation = new Vector3(0f, 0f, 0f);
 
     public float _seconds_of_camera_shake = 0;
     public Quaternion _frozen_rotation;
-
+    public bool bomb_ending = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +36,12 @@ public class CameraController : MonoBehaviour
             _camera_rotation.y -= Input.GetAxis("Mouse Y") * _rotationspeed;
 
             _camera_rotation.y = Mathf.Clamp(_camera_rotation.y, -13f, 50f);
+
+            if (bomb_ending)
+            {
+                _camera_rotation.y = 90;
+            }
+
             Quaternion _camera_quaternion = Quaternion.Euler(_camera_rotation.y, _camera_rotation.x, 0);
             transform.rotation = Quaternion.Lerp(transform.rotation, _camera_quaternion, Time.deltaTime * _cameraSpeed);
 

@@ -17,6 +17,7 @@ public class player : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Camera _playercamera;
+    [SerializeField] private GameObject _camera_destination;
     [SerializeField] private float _movespeed;
     [SerializeField] private Animator _animator;
     [SerializeField] private List<Interactable> _playerInventory;
@@ -37,6 +38,10 @@ public class player : MonoBehaviour
     [SerializeField] GameObject _medium_dust_blast;
     [SerializeField] GameObject _large_dust_blast;
     [SerializeField] GameObject _flame_trail;
+    [SerializeField] GameObject _rocket_trail;
+    [SerializeField] GameObject _giant_explosion;
+
+
 
     // AUDIO
     [SerializeField] AudioClip _charging_SFX;
@@ -83,6 +88,7 @@ public class player : MonoBehaviour
     public float _held_forward_momentum;
     public float _charge_percent;
 
+    private bool bomb_ending = false;
 
     //Quest variables
     
@@ -124,6 +130,11 @@ public class player : MonoBehaviour
 
     void Update()
     {
+        if (bomb_ending)
+        {
+            _rigidbody.velocity = transform.up * _movespeed * 4;
+        }
+
         _DisplayInteractable();
         _jump_grace_period += Time.deltaTime;
 
@@ -515,6 +526,19 @@ public class player : MonoBehaviour
         Instantiate(_large_explosion, transform.position + transform.up * 2, Quaternion.identity);
         _audio_manager.clip = _large_explosion_SFX;
         _audio_manager.Play();
+    }
+
+    public void BombEnd()
+    {
+        _transition_movement_state(_movement_states.Falling);
+        Quaternion rocket_angle = Quaternion.Euler(new Vector3(-90, 0, 68));
+        Instantiate(_rocket_trail, transform.position, rocket_angle);
+        Instantiate(_giant_explosion, transform.position, Quaternion.identity);
+
+        _playercamera.GetComponent<CameraController>().bomb_ending = true;
+        _playercamera.GetComponent<CameraController>()._cameraFollowSpeed = 10;
+        _camera_destination.transform.localPosition = transform.up * 12 + transform.forward * -3;
+        bomb_ending = true;
     }
 
 }

@@ -2314,6 +2314,7 @@ MonoBehaviour:
   _cheese_wheel: {fileID: 21300000, guid: 3862d071a4dfc924e8061d1eb25dbd59, type: 3}
   _pie: {fileID: 21300000, guid: 4fcdd48bc37f60848881176d42b26034, type: 3}
   _stew: {fileID: 21300000, guid: c61571ae0762abb4084805997ae15651, type: 3}
+  _warning: {fileID: 21300000, guid: 0d798451cd4205d498e4ae9664123573, type: 3}
   _currentQuestStatus: 
 --- !u!114 &2264454352099515758
 MonoBehaviour:
