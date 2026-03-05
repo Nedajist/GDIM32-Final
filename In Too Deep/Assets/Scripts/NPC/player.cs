@@ -44,8 +44,7 @@ public class player : MonoBehaviour
     [SerializeField] AudioClip _small_explosion_SFX;
     [SerializeField] AudioClip _large_explosion_SFX;
     [SerializeField] AudioClip _tiny_landing_SFX;
-    [SerializeField] AudioClip _small_landing_SFX;
-    [SerializeField] AudioClip _large_landing_SFX;
+
 
     public enum _movement_states
     {
