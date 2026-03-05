@@ -331,10 +331,6 @@ public class player : MonoBehaviour
 
             _grounded = true;
 
-            if (_seconds_airborne > 0.5)
-            {
-                Debug.Log(_seconds_airborne);
-            }
             if (_seconds_airborne > 2.5)
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
@@ -459,7 +455,6 @@ public class player : MonoBehaviour
 
     public void _transition_movement_state(_movement_states new_state)
     {
-        Debug.Log(new_state);
         switch (new_state)
         {
             case _movement_states.Charging:

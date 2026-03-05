@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -199,10 +200,11 @@ public class UIController : MonoBehaviour
                     case "Bomb":
                         _item_display_list[i].sprite = _warning;
                         break;
+                }
 
                 }
 
-            }
+            
             else
             {
                 _item_display_list[i].gameObject.SetActive(false);
