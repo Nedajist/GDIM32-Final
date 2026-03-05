@@ -138,6 +138,7 @@ public class player : MonoBehaviour
         _flame_trail.GetComponent<FollowPlayer>().transform_additive = transform.up * 1.5f;
         _heat_distortion.GetComponent<FollowPlayer>().transform_additive = transform.up * -1.0f;
         _movement_state = _movement_states.Idle;
+
     }
 
 
@@ -153,7 +154,6 @@ public class player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && ((_grounded == true || _on_slope == true) || _air_jump_charges > 0)) // checks if player is holding down space bar. Can't be in the air. 
         {
-
             if (_space_held_frames == 0)
             {
                 _transition_movement_state(_movement_states.Charging);
