@@ -18,4 +18,6 @@ MonoBehaviour:
   _playerReplyOptions:
   - Yes
   - No
-  _npcReplies: []
+  _npcReplies:
+  - {fileID: 11400000, guid: 173787240b07f6a43b67b10fbca9be03, type: 2}
+  - {fileID: 11400000, guid: 6a1ea6941d6f2ac4e8c3dca0f15f3370, type: 2}
