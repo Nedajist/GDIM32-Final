@@ -79,10 +79,15 @@ public class MultipleDialogue : MonoBehaviour
         _currentLine = 0;
         _waitingForPlayerResponse = false;
 
+        if (option == 0)
+        {
+            player.Instance.ChangeState(State.Accepted);
+        }
+
         _currentNode = _currentNode._npcReplies[option];
         AdvanceDialogue();
 
-        player.Instance.ChangeState(State.Accepted);
+        
     }
 
 }
