@@ -8,6 +8,8 @@ public class MultipleDialogue : MonoBehaviour
     [SerializeField] private Image _thoughtBubble;
     [SerializeField] private DialogueUI _dialogue;
     [SerializeField] private DialogueNode _dialogueStartNode;
+    [SerializeField] private DialogueNode _questAcceptNode;
+    public UIController _uicontroller;
 
     private DialogueNode _currentNode;
     private int _currentLine = 0;
@@ -75,16 +77,16 @@ public class MultipleDialogue : MonoBehaviour
 
     public void SelectedOption(int option)
     {
-        Debug.Log("Selected option");
         _currentLine = 0;
         _waitingForPlayerResponse = false;
 
-        if (option == 0)
+        if (_currentNode == _questAcceptNode && option == 0 )
         {
             player.Instance.ChangeState(State.Accepted);
         }
 
         _currentNode = _currentNode._npcReplies[option];
+        Debug.Log(_currentNode);
         AdvanceDialogue();
 
         

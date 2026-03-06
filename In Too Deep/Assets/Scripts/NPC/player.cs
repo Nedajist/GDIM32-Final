@@ -9,6 +9,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
 public enum State
 {
+    None,
     Accepted, 
     Ready,
     Completed
@@ -132,6 +133,7 @@ public class player : MonoBehaviour
 
     void Start()
     {
+        _currentState = State.None;
         _max_upward_momentum_vector = _max_upward_momentum * transform.up;
         _max_forward_momentum_vector = _max_forward_momentum * transform.forward;
         _ClearInteractable(0);
@@ -381,7 +383,7 @@ public class player : MonoBehaviour
 
            
         }
-
+         ChangeState(_currentState);
 
 
 
