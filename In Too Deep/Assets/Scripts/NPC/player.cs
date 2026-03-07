@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
@@ -33,6 +34,7 @@ public class player : MonoBehaviour
     [SerializeField] AudioSource _audio_manager;
     [SerializeField] AudioSource _footsteps_audio_manager;
     [SerializeField] AudioSource _music_manager;
+  
 
 
     // VFX 
@@ -87,11 +89,15 @@ public class player : MonoBehaviour
     private float _seconds_airborne;
     private float _jump_grace_period = 0;
     private int _inventory_selected_index = 0;
+    private float _target_camera_FOV = 60;
+    private float _default_camera_FOV = 60;
+    private float _player_camera_FOV_lerp_speed = 3;
 
     public float _health = 200;
     public float _maxHealth = 200;
     public float _max_air_jump_charges = 0;
     public float _air_jump_charges = 0;
+
 
     public delegate void HandDelegate(string hand);
     public event HandDelegate HandSelected;
@@ -150,6 +156,11 @@ public class player : MonoBehaviour
         if (bomb_ending)
         {
             _BombEndingProgression();
+        }
+
+        if (_playercamera.fieldOfView != _target_camera_FOV)
+        {
+            _playercamera.fieldOfView = Mathf.Lerp(_playercamera.fieldOfView, _target_camera_FOV, Time.deltaTime * _player_camera_FOV_lerp_speed);
         }
 
         _DisplayInteractable();
@@ -217,6 +228,7 @@ public class player : MonoBehaviour
             {
                 _audio_manager.clip = _tiny_explosion_SFX;
                 Instantiate(_tiny_explosion, transform.position + transform.up*2, Quaternion.identity);
+                _target_camera_FOV = _default_camera_FOV + 5;
             }
             else if (_charge_percent < 0.40)
             {
@@ -224,6 +236,7 @@ public class player : MonoBehaviour
                 Instantiate(_small_explosion, transform.position + transform.up*2, Quaternion.identity);
                 Instantiate(_heat_distortion, transform.position, Quaternion.identity);
                 Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
+                _target_camera_FOV = _default_camera_FOV + 10;
             }
             else
             {
@@ -231,6 +244,7 @@ public class player : MonoBehaviour
                 Instantiate(_large_explosion, transform.position + transform.up*2, Quaternion.identity);
                 Instantiate(_heat_distortion, transform.position, Quaternion.identity);
                 Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
+                _target_camera_FOV = _default_camera_FOV + 20;
             }
             _transition_movement_state(_movement_states.Falling);
         }
@@ -341,6 +355,7 @@ public class player : MonoBehaviour
         {
             if (_grounded == false)
             {
+                _target_camera_FOV = _default_camera_FOV;
                 float fall_distance = _starting_fall_height - transform.position.y;
                 _transition_movement_state(_movement_states.Idle);
                 Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
@@ -380,7 +395,6 @@ public class player : MonoBehaviour
             }
 
             _grounded = true;
-
            
         }
          ChangeState(_currentState);
