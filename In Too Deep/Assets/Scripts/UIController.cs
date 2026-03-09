@@ -131,6 +131,12 @@ public class UIController : MonoBehaviour
         }
 
         /////////////// _questStatusText.text = "Quest Status: " + _currentQuestStatus;
+        /// 
+        /// respawn hotkey
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Respawn();
+        }
 
     }
 
@@ -239,7 +245,7 @@ public class UIController : MonoBehaviour
     public void UpdateQuestState(State newState)
     {
         newState = player.Instance._currentState;
-        _questStatusText.text = "Quest Status: " + newState;
+/////////////////////        _questStatusText.text = "Quest Status: " + newState;
     }
     
 }

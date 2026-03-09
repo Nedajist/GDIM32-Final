@@ -359,7 +359,7 @@ public class player : MonoBehaviour
                 float fall_distance = _starting_fall_height - transform.position.y;
                 _transition_movement_state(_movement_states.Idle);
                 Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
-                if (fall_distance > 10)
+                if (fall_distance > 10 && CompareTag("Slope") == false)
                 {
                     GameController.Instance.UIController.losehealth((fall_distance - 5) / 2);
                 }
