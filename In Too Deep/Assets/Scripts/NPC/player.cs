@@ -157,6 +157,7 @@ public class player : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(_movement_state);
         if (bomb_ending)
         {
             _BombEndingProgression();
@@ -172,7 +173,7 @@ public class player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && ( (_grounded == true || _on_slope == true) || _air_jump_charges > 0)) // checks if player is holding down space bar. Can't be in the air unless has an air jump charge
         {
-            if (_space_held_frames == 0)
+            if (_movement_state != _movement_states.Charging) // Will transition to charging if at any point the player somehow leaves the charging state
             {
                 _transition_movement_state(_movement_states.Charging);
             }
@@ -279,7 +280,7 @@ public class player : MonoBehaviour
         }
 
 
-        if (Input.anyKey == false && _movement_state == _movement_states.Walking)
+        if (Input.anyKey == false && _movement_state == _movement_states.Walking) // transitions to idle if player stops walking
         {
             _transition_movement_state(_movement_states.Idle);
         }
@@ -321,7 +322,6 @@ public class player : MonoBehaviour
         {
             if (_playerInventory[_inventory_selected_index].name != "None")
             {
-                Debug.Log("SPARKS DISPLAY");
                 Instantiate(_sparks, transform.position + transform.up * 1.9f, Quaternion.identity);
             }
             _playerInventory[_inventory_selected_index].interact();
@@ -372,7 +372,10 @@ public class player : MonoBehaviour
     {
         if (_grounded == true) // checks if the player was on the ground the previous frame.
         {
-            _transition_movement_state(_movement_states.Falling);
+            if (_movement_state != _movement_states.Falling) { // the player immediately transitions to falling after releasing space, no need to double transition
+                _transition_movement_state(_movement_states.Falling);
+            }
+            
             _starting_fall_height = transform.position.y; // when the player starts to fall, sets their starting fall height. The only place where _starting_fall_height is set
         }
 
@@ -538,6 +541,7 @@ public class player : MonoBehaviour
                 break;
 
             case _movement_states.Falling:
+                Debug.Log("MOVING TO FALLING FROM" + _movement_state);
                 _charging_audio_manager.Stop();
                 _footsteps_audio_manager.Stop();
                 switch (_movement_state)
@@ -611,7 +615,6 @@ public class player : MonoBehaviour
         bomb_ending = true;
         _playercamera.GetComponent<CameraController>().bomb_ending = true;
 
-        _explosion_audio_manager.pitch = 1f;
         _explosion_audio_manager.clip = _giant_explosion_SFX;
         _explosion_audio_manager.Play();
 
