@@ -959,7 +959,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mushroomManIsland: {fileID: 1220674841}
 --- !u!108 &129908217
 Light:
   m_ObjectHideFlags: 0
@@ -4810,6 +4809,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849364539}
   m_Mesh: {fileID: 4300114, guid: 7ec775148a47c0e4bb2c8d4ef4504fee, type: 3}
+--- !u!1001 &871925103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1506167233}
+    m_Modifications:
+    - target: {fileID: 666190866519826529, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: mushroomManIsland
+      value: 
+      objectReference: {fileID: 1220674841}
+    - target: {fileID: 1214463649641571260, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_Name
+      value: Rock Variation 1 Variant (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907774385083655573, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_Radius
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 9.456612
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 8.751392
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 225.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -338.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -61.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.555204
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.55520386
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.43789116
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.43789107
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 76.526
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 5048682168276362538, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+--- !u!4 &871925104 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+  m_PrefabInstance: {fileID: 871925103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &886139059
 GameObject:
   m_ObjectHideFlags: 0
@@ -6374,7 +6452,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mushroomManIsland: {fileID: 1220674841}
 --- !u!108 &1183383253
 Light:
   m_ObjectHideFlags: 0
@@ -8349,7 +8426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mushroomManIsland: {fileID: 1842743596}
 --- !u!108 &1446784666
 Light:
   m_ObjectHideFlags: 0
@@ -8709,6 +8785,8 @@ Transform:
   - {fileID: 235440668}
   - {fileID: 811007371}
   - {fileID: 149235293}
+  - {fileID: 1953159661}
+  - {fileID: 871925104}
   - {fileID: 734638038}
   - {fileID: 568216434}
   m_Father: {fileID: 377205564}
@@ -10708,7 +10786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mushroomManIsland: {fileID: 1842743596}
 --- !u!108 &1842743600
 Light:
   m_ObjectHideFlags: 0
@@ -11366,7 +11443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mushroomManIsland: {fileID: 1220674841}
 --- !u!108 &1884148107
 Light:
   m_ObjectHideFlags: 0
@@ -11703,6 +11779,85 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &1953159660
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1506167233}
+    m_Modifications:
+    - target: {fileID: 666190866519826529, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: mushroomManIsland
+      value: 
+      objectReference: {fileID: 1220674841}
+    - target: {fileID: 1214463649641571260, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_Name
+      value: Rock Variation 1 Variant (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907774385083655573, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_Radius
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 9.456612
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 8.751392
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 234.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -331.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -96.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.555204
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.55520386
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.43789116
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.43789107
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 76.526
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 5048682168276362538, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+--- !u!4 &1953159661 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6164375847772453574, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
+  m_PrefabInstance: {fileID: 1953159660}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1953231157 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 974052183059765329, guid: 29808a9a29ce564439174fef948b544d, type: 3}
@@ -12579,7 +12734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mushroomManIsland: {fileID: 1842743596}
 --- !u!108 &2116738536
 Light:
   m_ObjectHideFlags: 0
