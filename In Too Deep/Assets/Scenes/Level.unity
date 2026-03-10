@@ -9760,7 +9760,7 @@ Transform:
   m_GameObject: {fileID: 1735523513}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.004277546, w: 0.99999094}
-  m_LocalPosition: {x: 0.597, y: -0.098, z: 0.6147}
+  m_LocalPosition: {x: -0.622, y: 0.208, z: 0.615}
   m_LocalScale: {x: 0.35593426, y: 0.28584006, z: 0.1199245}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11361,6 +11361,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cb4d4d8d8ea3f364e85db50213d1e46b, type: 2}
+    - target: {fileID: 7399461046133280130, guid: e59ef883530e3fc41828ffa28f41bcfd, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7927493527780581768, guid: e59ef883530e3fc41828ffa28f41bcfd, type: 3}
       propertyPath: m_Name
       value: Slope
