@@ -10285,7 +10285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b81ee5a29265484cb284ef76bd35a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationspeed: 8
+  _rotationspeed: 5
   _cameraSpeed: 5
   _cameraFollowSpeed: 3
   _player: {fileID: 669492620}

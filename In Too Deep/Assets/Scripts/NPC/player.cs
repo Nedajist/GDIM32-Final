@@ -34,7 +34,8 @@ public class player : MonoBehaviour
     [SerializeField] AudioSource _audio_manager;
     [SerializeField] AudioSource _footsteps_audio_manager;
     [SerializeField] AudioSource _music_manager;
-  
+    [SerializeField] AudioSource _landing_manager;
+
 
 
     // VFX 
@@ -395,27 +396,27 @@ public class player : MonoBehaviour
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
                 Instantiate(_large_dust_blast, transform.position, Quaternion.identity);
-                _audio_manager.pitch = 0.9f;
-                _audio_manager.clip = _tiny_landing_SFX;
-                _audio_manager.Play();
+                _landing_manager.pitch = 0.9f;
+                _landing_manager.clip = _tiny_landing_SFX;
+                _landing_manager.Play();
             }
 
             else if (_seconds_airborne > 2)
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.10f;
                 Instantiate(_medium_dust_blast, transform.position, Quaternion.identity);
-                _audio_manager.pitch = 0.7f;
-                _audio_manager.clip = _tiny_landing_SFX;
-                _audio_manager.Play();
+                _landing_manager.pitch = 0.7f;
+                _landing_manager.clip = _tiny_landing_SFX;
+                _landing_manager.Play();
             }
 
             else if (_seconds_airborne > 1)
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
                 Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
-                _audio_manager.pitch = 0.5f;
-                _audio_manager.clip = _tiny_landing_SFX;
-                _audio_manager.Play();
+                _landing_manager.pitch = 0.5f;
+                _landing_manager.clip = _tiny_landing_SFX;
+                _landing_manager.Play();
             }
             _seconds_airborne = 0;
         }
