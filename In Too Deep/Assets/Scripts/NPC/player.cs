@@ -92,7 +92,7 @@ public class player : MonoBehaviour
     private float _target_camera_FOV = 60;
     private float _default_camera_FOV = 60;
     private float _player_camera_FOV_lerp_speed = 3;
-
+  
     public float _health = 200;
     public float _maxHealth = 200;
     public float _max_air_jump_charges = 0;
@@ -337,67 +337,21 @@ public class player : MonoBehaviour
             _inventory_selected_index = 1;
         }
 
-        bool _groundcheck1 = (Physics.Raycast(transform.position, Vector3.down, 0.1f));
-        bool _groundcheck2 = (Physics.Raycast(transform.position - transform.forward, Vector3.down, 0.1f));
+        bool _groundcheck1 = Physics.Raycast(transform.position, Vector3.down, 0.1f);
+        bool _groundcheck2 = Physics.Raycast(transform.position - transform.forward, Vector3.down, 0.1f);
+        bool _groundcheck3 = Physics.Raycast(transform.position - transform.forward, Vector3.down, 1.0f); // ensures that colliding to the SIDE of a slope does not count as the player being on GROUND
 
-        if (_groundcheck1 == false && _groundcheck2 == false)
+
+        if (_groundcheck1 == false && _groundcheck2 == false && _on_slope == false)
         {
-            if (_grounded == true)
-            {
-                _transition_movement_state(_movement_states.Falling);
-                _starting_fall_height = transform.position.y;
-            }
-
-            _grounded = false;
-            _seconds_airborne += Time.deltaTime;
+            player_falls();
         }
-        else
+        else if (_groundcheck1 == true || _groundcheck2 == true || ( _on_slope == true && _groundcheck3 == true)) 
         {
-            if (_grounded == false)
-            {
-                _target_camera_FOV = _default_camera_FOV;
-                float fall_distance = _starting_fall_height - transform.position.y;
-                _transition_movement_state(_movement_states.Idle);
-                Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
-                if (fall_distance > 10 && CompareTag("Slope") == false)
-                {
-                    GameController.Instance.UIController.losehealth((fall_distance - 5) / 2);
-                }
-
-                if (_seconds_airborne > 2.5)
-                {
-                    _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
-                    Instantiate(_large_dust_blast, transform.position, Quaternion.identity);
-                    _audio_manager.pitch = 0.9f;
-                    _audio_manager.clip = _tiny_landing_SFX;
-                    _audio_manager.Play();
-                }
-
-                else if (_seconds_airborne > 2)
-                {
-                    _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.10f;
-                    Instantiate(_medium_dust_blast, transform.position, Quaternion.identity);
-                    _audio_manager.pitch = 0.7f;
-                    _audio_manager.clip = _tiny_landing_SFX;
-                    _audio_manager.Play();
-                }
-
-                else if (_seconds_airborne > 1)
-                {
-                    _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
-                    Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
-                    _audio_manager.pitch = 0.5f;
-                    _audio_manager.clip = _tiny_landing_SFX;
-                    _audio_manager.Play();
-                }
-
-                _seconds_airborne = 0;
-            }
-
-            _grounded = true;
-           
+            player_lands();
         }
-         ChangeState(_currentState);
+
+        //ChangeState(_currentState);
 
 
 
@@ -410,6 +364,66 @@ public class player : MonoBehaviour
 
         _playercamera.GetComponent<CameraController>().UpdateCamera();
     }
+    void player_falls()
+    {
+        if (_grounded == true)
+        {
+            Debug.Log("STARTING FALL HEIGHT REST");
+            _transition_movement_state(_movement_states.Falling);
+            _starting_fall_height = transform.position.y;
+            _charge_percent = 0;
+            _held_forward_momentum = 0;
+        }
+
+        _grounded = false;
+        _seconds_airborne += Time.deltaTime;
+    }
+
+    void player_lands()
+    {
+        if (_grounded == false)
+        {
+            _target_camera_FOV = _default_camera_FOV;
+            float fall_distance = _starting_fall_height - transform.position.y;
+            _transition_movement_state(_movement_states.Idle);
+            Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
+            if (fall_distance > 10 && CompareTag("Slope") == false)
+            {
+                GameController.Instance.UIController.losehealth((fall_distance - 5) / 2);
+            }
+
+            if (_seconds_airborne > 2.5)
+            {
+                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
+                Instantiate(_large_dust_blast, transform.position, Quaternion.identity);
+                _audio_manager.pitch = 0.9f;
+                _audio_manager.clip = _tiny_landing_SFX;
+                _audio_manager.Play();
+            }
+
+            else if (_seconds_airborne > 2)
+            {
+                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.10f;
+                Instantiate(_medium_dust_blast, transform.position, Quaternion.identity);
+                _audio_manager.pitch = 0.7f;
+                _audio_manager.clip = _tiny_landing_SFX;
+                _audio_manager.Play();
+            }
+
+            else if (_seconds_airborne > 1)
+            {
+                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
+                Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
+                _audio_manager.pitch = 0.5f;
+                _audio_manager.clip = _tiny_landing_SFX;
+                _audio_manager.Play();
+            }
+            _seconds_airborne = 0;
+        }
+        _grounded = true;
+    }
+
+
     private void OnCollisionExit(Collision collision)
     {
         if (collision.transform.CompareTag("Ground"))
@@ -440,7 +454,6 @@ public class player : MonoBehaviour
 
         if (collision.transform.CompareTag("Slope"))
         {
-            _starting_fall_height = transform.position.y;
             _list_of_colliders.Add(collision);
             _on_slope = true;
         }
@@ -572,7 +585,7 @@ public class player : MonoBehaviour
     public void ChangeState (State newState)
     {
         _currentState = newState;
-        Debug.Log ("Player state changed to: " + newState);
+        //Debug.Log ("Player state changed to: " + newState);
 
         GameController.Instance.UIController.UpdateQuestState(newState);
     }
