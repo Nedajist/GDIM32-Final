@@ -13,8 +13,8 @@ public class CheckpointController : MonoBehaviour
     /// FOR TESTING PURPOSES ONLY
     /// I am spawning the player at the mushroom man island, so I need to set the respawn point
     /// </summary>
-        UIController ui = FindObjectOfType<UIController>();
-        ui.SetRespawnPoint(mushroomManIsland.transform);
+        //UIController ui = FindObjectOfType<UIController>();
+        //ui.SetRespawnPoint(mushroomManIsland.transform);
     }
     void OnTriggerEnter(Collider other)
     {
