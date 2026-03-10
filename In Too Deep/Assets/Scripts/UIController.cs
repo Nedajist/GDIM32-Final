@@ -184,7 +184,7 @@ public class UIController : MonoBehaviour
 
     public void update_hotbar_display(List<Interactable> inventory)
     {
-        foreach (int i in Enumerable.Range(0, 2))
+        foreach (int i in Enumerable.Range(0, _item_display_list.Count))
         {
             if (inventory[i].type!="None")
             {
@@ -211,11 +211,10 @@ public class UIController : MonoBehaviour
                         break;
                 }
 
-                }
-
-            
+            }
             else
             {
+;                Debug.Log(i);
                 _item_display_list[i].gameObject.SetActive(false);
             }
 
