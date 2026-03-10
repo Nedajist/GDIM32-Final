@@ -31,10 +31,13 @@ public class player : MonoBehaviour
     [SerializeField] private float _min_forward_momentum;
     [SerializeField] float _upward_charge_velocity;
     [SerializeField] float _forward_charge_velocity;
-    [SerializeField] AudioSource _audio_manager;
+    [SerializeField] float _fall_height_threshold;
+    [SerializeField] AudioSource _explosion_audio_manager;
     [SerializeField] AudioSource _footsteps_audio_manager;
-    [SerializeField] AudioSource _music_manager;
-    [SerializeField] AudioSource _landing_manager;
+    [SerializeField] AudioSource _music_audio_manager;
+    [SerializeField] AudioSource _landing_audio_manager;
+    [SerializeField] AudioSource _charging_audio_manager;
+
 
 
 
@@ -167,7 +170,7 @@ public class player : MonoBehaviour
         _DisplayInteractable();
         _jump_grace_period += Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.Space) && ( (_grounded == true || _on_slope == true) || _air_jump_charges > 0)) // checks if player is holding down space bar. Can't be in the air. 
+        if (Input.GetKey(KeyCode.Space) && ( (_grounded == true || _on_slope == true) || _air_jump_charges > 0)) // checks if player is holding down space bar. Can't be in the air unless has an air jump charge
         {
             if (_space_held_frames == 0)
             {
@@ -180,14 +183,14 @@ public class player : MonoBehaviour
             }
 
 
-            else if (_movement_state == _movement_states.Charging && _space_held_frames > 80)
+            else if (_movement_state == _movement_states.Charging && _space_held_frames > 80) // freezes charging animation 
             {
                 _animator.speed = 0;
             }
 
-            if (_audio_manager.pitch < 1.5)
+            if (_charging_audio_manager.pitch < 1.5) // pitch of charging sound gradually increases
             {
-                _audio_manager.pitch += 0.001f;
+                _charging_audio_manager.pitch += 0.001f;
             }
 
             _space_held_time += Time.deltaTime;
@@ -228,13 +231,13 @@ public class player : MonoBehaviour
 
             if (_charge_percent < 0.20)
             {
-                _audio_manager.clip = _tiny_explosion_SFX;
+                _explosion_audio_manager.clip = _tiny_explosion_SFX;
                 Instantiate(_tiny_explosion, transform.position + transform.up*2, Quaternion.identity);
                 _target_camera_FOV = _default_camera_FOV + 5;
             }
             else if (_charge_percent < 0.40)
             {
-                _audio_manager.clip = _small_explosion_SFX;
+                _explosion_audio_manager.clip = _small_explosion_SFX;
                 Instantiate(_small_explosion, transform.position + transform.up*2, Quaternion.identity);
                 Instantiate(_heat_distortion, transform.position, Quaternion.identity);
                 Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
@@ -242,7 +245,7 @@ public class player : MonoBehaviour
             }
             else
             {
-                _audio_manager.clip = _large_explosion_SFX;
+                _explosion_audio_manager.clip = _large_explosion_SFX;
                 Instantiate(_large_explosion, transform.position + transform.up*2, Quaternion.identity);
                 Instantiate(_heat_distortion, transform.position, Quaternion.identity);
                 Instantiate(_flame_trail, transform.position + transform.up, Quaternion.identity);
@@ -258,7 +261,7 @@ public class player : MonoBehaviour
         {
             if (keylist[i] == true && _movement_state != _movement_states.Charging && _on_slope == false)
             {
-                if (_grounded == true && _jump_grace_period>0.1f)
+                if (_grounded == true && _jump_grace_period>0.1f) // moving immediately after jumping glitches things out
                 {
                     _rigidbody.velocity = normal_move_list[i];
                 }
@@ -365,60 +368,60 @@ public class player : MonoBehaviour
 
         _playercamera.GetComponent<CameraController>().UpdateCamera();
     }
-    void player_falls()
+    void player_falls() // will always set _grounded to false
     {
-        if (_grounded == true)
+        if (_grounded == true) // checks if the player was on the ground the previous frame.
         {
             _transition_movement_state(_movement_states.Falling);
-            _starting_fall_height = transform.position.y;
+            _starting_fall_height = transform.position.y; // when the player starts to fall, sets their starting fall height. The only place where _starting_fall_height is set
         }
 
         _grounded = false;
         _seconds_airborne += Time.deltaTime;
     }
 
-    void player_lands()
+    void player_lands() // will alsways set _grounded to true 
     {
-        if (_grounded == false)
+        if (_grounded == false) // checks if player was not on the ground the previous frame
         {
-            _charge_percent = 0;
+            _charge_percent = 0; // resets player momentum
             _held_forward_momentum = 0;
             _target_camera_FOV = _default_camera_FOV;
             float fall_distance = _starting_fall_height - transform.position.y;
             _transition_movement_state(_movement_states.Idle);
             Debug.Log("Fell a distance of :" + fall_distance + " to the new height of " + transform.position.y.ToString());
-            if (fall_distance > 10 && CompareTag("Slope") == false)
+            if (fall_distance > _fall_height_threshold) 
             {
-                GameController.Instance.UIController.losehealth((fall_distance - 5) / 2);
+                GameController.Instance.UIController.losehealth((fall_distance - 5) / 2); //seconds of fall damage player will take
             }
 
-            if (_seconds_airborne > 2.5)
+            if (_seconds_airborne > 2.5) //shakes camera and plays dust explosion upon landing. 
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
                 Instantiate(_large_dust_blast, transform.position, Quaternion.identity);
-                _landing_manager.pitch = 0.9f;
-                _landing_manager.clip = _tiny_landing_SFX;
-                _landing_manager.Play();
+                _landing_audio_manager.pitch = 0.9f;
+                _landing_audio_manager.clip = _tiny_landing_SFX;
+                _landing_audio_manager.Play();
             }
 
             else if (_seconds_airborne > 2)
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.10f;
                 Instantiate(_medium_dust_blast, transform.position, Quaternion.identity);
-                _landing_manager.pitch = 0.7f;
-                _landing_manager.clip = _tiny_landing_SFX;
-                _landing_manager.Play();
+                _landing_audio_manager.pitch = 0.7f;
+                _landing_audio_manager.clip = _tiny_landing_SFX;
+                _landing_audio_manager.Play();
             }
 
             else if (_seconds_airborne > 1)
             {
                 _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
                 Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
-                _landing_manager.pitch = 0.5f;
-                _landing_manager.clip = _tiny_landing_SFX;
-                _landing_manager.Play();
+                _landing_audio_manager.pitch = 0.5f;
+                _landing_audio_manager.clip = _tiny_landing_SFX;
+                _landing_audio_manager.Play();
             }
-            _seconds_airborne = 0;
+            _seconds_airborne = 0; //resets _seconds_airbone. The only place where it is reset. 
         }
         _grounded = true;
     }
@@ -472,7 +475,7 @@ public class player : MonoBehaviour
         InventoryUpdated?.Invoke(_playerInventory);
     }
 
-    private void _DisplayInteractable()
+    private void _DisplayInteractable() // if the player is holding an item, moves it above their head 
     {
         Interactable selected_interactable = _playerInventory[_inventory_selected_index];
         if (selected_interactable.type != "None")
@@ -509,11 +512,9 @@ public class player : MonoBehaviour
         {
             case _movement_states.Charging:
                 _space_held_time = 0;
-                _audio_manager.clip = _charging_SFX;
-                _audio_manager.loop = true;
                 _footsteps_audio_manager.Stop();
-                _audio_manager.Play();
-                _audio_manager.pitch = 0.9f;
+                _charging_audio_manager.Play();
+                _charging_audio_manager.pitch = 0.9f;
 
                 if (_grounded == true)
                 {
@@ -537,14 +538,13 @@ public class player : MonoBehaviour
                 break;
 
             case _movement_states.Falling:
-                _audio_manager.loop = false;
-                _audio_manager.pitch = 1f;
+                _charging_audio_manager.Stop();
                 _footsteps_audio_manager.Stop();
                 switch (_movement_state)
                 {
                     case (_movement_states.Charging):
                     {
-                        _audio_manager.Play();
+                        _explosion_audio_manager.Play();
                         break;
                     }
                 }
@@ -569,8 +569,7 @@ public class player : MonoBehaviour
 
             case _movement_states.Idle:
                 _air_jump_charges = _max_air_jump_charges;
-                _audio_manager.loop = false;
-                _audio_manager.Stop();
+                _charging_audio_manager.Stop();
                 _footsteps_audio_manager.Stop();
                 _animator.SetBool("Walking", false);
                 _animator.SetBool("Falling", false);
@@ -592,11 +591,11 @@ public class player : MonoBehaviour
     public void BigDeathExplosion()
     {
         Instantiate(_large_explosion, transform.position + transform.up * 2, Quaternion.identity);
-        _audio_manager.clip = _large_explosion_SFX;
-        _audio_manager.Play();
+        _explosion_audio_manager.clip = _large_explosion_SFX;
+        _explosion_audio_manager.Play();
     }
 
-    public void BombEnd()
+    public void BombEnd() // called ONCE when player interacts with bomb 
     {
         _transition_movement_state(_movement_states.Falling);
         Quaternion rocket_angle = Quaternion.Euler(new Vector3(-90, 0, 68));
@@ -612,36 +611,36 @@ public class player : MonoBehaviour
         bomb_ending = true;
         _playercamera.GetComponent<CameraController>().bomb_ending = true;
 
-        _audio_manager.pitch = 1f;
-        _audio_manager.clip = _giant_explosion_SFX;
-        _audio_manager.Play();
+        _explosion_audio_manager.pitch = 1f;
+        _explosion_audio_manager.clip = _giant_explosion_SFX;
+        _explosion_audio_manager.Play();
 
-        _music_manager.loop = false;
-        _music_manager.volume = 1;
-        _music_manager.clip = _large_explosion_SFX;
-        _music_manager.pitch = 0.7f;
-        _music_manager.Play();
+        _music_audio_manager.loop = false;
+        _music_audio_manager.volume = 1;
+        _music_audio_manager.clip = _large_explosion_SFX;
+        _music_audio_manager.pitch = 0.7f;
+        _music_audio_manager.Play();
     }
 
-    private void _BombEndingProgression()
+    private void _BombEndingProgression() // called every frame AFTER player has interacted with bomb
     {
         _rigidbody.velocity = transform.up * _movespeed * 4;
-        _seconds_after_ending += Time.deltaTime;
+        _seconds_after_ending += Time.deltaTime; // seconds after player has interacted with bomb 
         Debug.Log(_seconds_after_ending);
 
-        if (_seconds_after_ending > 8f && _seconds_after_ending < 9f)
+        if (_seconds_after_ending > 8f && _seconds_after_ending < 9f) // starts playing IRIS OUT 
         {
-            _music_manager.pitch = 1f;
-            _music_manager.clip = _iris_out;
-            _music_manager.Play();
+            _music_audio_manager.pitch = 1f;
+            _music_audio_manager.clip = _iris_out;
+            _music_audio_manager.Play();
         }
 
-        if (_seconds_after_ending >= 15f)
+        if (_seconds_after_ending >= 20f) // Screen fades to white 
         {
             GameController.Instance.UIController._game_end = true;
         }
 
-        if (_seconds_after_ending >= 20f)
+        if (_seconds_after_ending >= 23f) // ABSOLUTE CINEMA
         {
             GameController.Instance.UIController._display_cinema = true;
         }
