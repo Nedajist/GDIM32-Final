@@ -157,7 +157,6 @@ public class player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_movement_state);
         if (bomb_ending)
         {
             _BombEndingProgression();
@@ -184,7 +183,7 @@ public class player : MonoBehaviour
             }
 
 
-            else if (_movement_state == _movement_states.Charging && _space_held_frames > 80) // freezes charging animation 
+            else if (_movement_state == _movement_states.Charging && _space_held_frames > 70) // freezes charging animation 
             {
                 _animator.speed = 0;
             }
