@@ -4389,7 +4389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &786128053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4408,7 +4408,7 @@ MonoBehaviour:
   _dialogue: {fileID: 1576828445}
   _dialogueStartNode: {fileID: 11400000, guid: 3e82ce7ff4180224bb5ffbef300efb48, type: 2}
   _questAcceptNode: {fileID: 0}
-  _uicontroller: {fileID: 0}
+  _uicontroller: {fileID: 947291234}
 --- !u!136 &786128054
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5062,6 +5062,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934601910}
   m_Mesh: {fileID: 4300098, guid: 7ec775148a47c0e4bb2c8d4ef4504fee, type: 3}
+--- !u!114 &947291234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8605659387011306516, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+  m_PrefabInstance: {fileID: 1365182722}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4642a2002a49364e87c950630c8750c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &959345088
 GameObject:
   m_ObjectHideFlags: 0
