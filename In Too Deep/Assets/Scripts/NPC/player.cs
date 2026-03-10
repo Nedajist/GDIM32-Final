@@ -79,7 +79,7 @@ public class player : MonoBehaviour
     private bool _grounded = true;
     private ArrayList _list_of_colliders = new ArrayList();
     public bool _canMove = true;
-    private bool _on_slope = false;
+    public bool _on_slope = false;
     private float _space_held_time = 0;
     private float _space_held_frames = 0;
     private Vector3 _max_upward_momentum_vector;
@@ -166,7 +166,7 @@ public class player : MonoBehaviour
         _DisplayInteractable();
         _jump_grace_period += Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.Space) && ((_grounded == true || _on_slope == true) || _air_jump_charges > 0)) // checks if player is holding down space bar. Can't be in the air. 
+        if (Input.GetKey(KeyCode.Space) && ( (_grounded == true || _on_slope == true) || _air_jump_charges > 0)) // checks if player is holding down space bar. Can't be in the air. 
         {
             if (_space_held_frames == 0)
             {
@@ -204,8 +204,9 @@ public class player : MonoBehaviour
 
 
 
-        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && ((_grounded == true || _on_slope == true) || _air_jump_charges> 0)) // check if space was released, player jumps
+        if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && ((_grounded == true || _air_jump_charges> 0))) // check if space was released, player jumps
         {
+            _rigidbody.velocity = new Vector3(0, 0, 0);
             _jump_grace_period = 0;
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
             Vector3 _forward_momentum = (_forward_charge_velocity * transform.forward * _space_held_time) + _min_forward_momentum * transform.forward;
@@ -254,7 +255,7 @@ public class player : MonoBehaviour
 
         foreach (int i in new List<int> {0,1,2,3})
         {
-            if (keylist[i] == true && _movement_state != _movement_states.Charging)
+            if (keylist[i] == true && _movement_state != _movement_states.Charging && _on_slope == false)
             {
                 if (_grounded == true && _jump_grace_period>0.1f)
                 {
@@ -337,12 +338,12 @@ public class player : MonoBehaviour
             _inventory_selected_index = 1;
         }
 
-        bool _groundcheck1 = Physics.Raycast(transform.position, Vector3.down, 0.1f);
-        bool _groundcheck2 = Physics.Raycast(transform.position - transform.forward, Vector3.down, 0.1f);
-        bool _groundcheck3 = Physics.Raycast(transform.position - transform.forward, Vector3.down, 1.0f); // ensures that colliding to the SIDE of a slope does not count as the player being on GROUND
+        bool _groundcheck1 = Physics.Raycast(transform.position, transform.up * -1, 0.1f);
+        bool _groundcheck2 = Physics.Raycast(transform.position - transform.forward * -0.3f, transform.up * -1, 0.1f);
+        bool _groundcheck3 = Physics.Raycast(transform.position, transform.up * -1, 1.0f); // ensures that colliding to the SIDE of a slope does not count as the player being on GROUND
 
 
-        if (_groundcheck1 == false && _groundcheck2 == false && _on_slope == false)
+        if (_groundcheck1 == false && _groundcheck2==false && _on_slope == false)
         {
             player_falls();
         }
@@ -352,7 +353,6 @@ public class player : MonoBehaviour
         }
 
         //ChangeState(_currentState);
-
 
 
         if (!_canMove)
@@ -368,11 +368,8 @@ public class player : MonoBehaviour
     {
         if (_grounded == true)
         {
-            Debug.Log("STARTING FALL HEIGHT REST");
             _transition_movement_state(_movement_states.Falling);
             _starting_fall_height = transform.position.y;
-            _charge_percent = 0;
-            _held_forward_momentum = 0;
         }
 
         _grounded = false;
@@ -383,6 +380,8 @@ public class player : MonoBehaviour
     {
         if (_grounded == false)
         {
+            _charge_percent = 0;
+            _held_forward_momentum = 0;
             _target_camera_FOV = _default_camera_FOV;
             float fall_distance = _starting_fall_height - transform.position.y;
             _transition_movement_state(_movement_states.Idle);
@@ -515,7 +514,7 @@ public class player : MonoBehaviour
                 _audio_manager.Play();
                 _audio_manager.pitch = 0.9f;
 
-                if (_grounded == true || _on_slope == true)
+                if (_grounded == true)
                 {
                     _animator.SetBool("Falling", false);
                 }
@@ -552,7 +551,6 @@ public class player : MonoBehaviour
                 if (_grounded == false && _on_slope == false)
                 {
                     _air_jump_charges -= 1;
-                    _rigidbody.velocity = new Vector3(0, 0, 0);
                 }
 
                 _space_held_frames = 0;

@@ -103,7 +103,7 @@ public class UIController : MonoBehaviour
         }
 
 
-        if (player._movement_state==player._movement_states.Charging)
+        if (player._movement_state==player._movement_states.Charging || player._on_slope)
         {
             _chargebar.value = player._charge_percent * 200;
             _chargebarfill.color = new Color( (38 + player._charge_percent * (255 -38)) / 255, (255 - player._charge_percent * (255 - 38)) / 255, (59 - player._charge_percent * (59-38)) / 255, 1);

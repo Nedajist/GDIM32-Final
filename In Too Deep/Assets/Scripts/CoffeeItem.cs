@@ -15,6 +15,8 @@ public class Coffee : Interactable
     {
         Debug.Log("Drank coffee");
         GameController.Instance.Player._max_air_jump_charges += 1;
+        GameController.Instance.Player._air_jump_charges += 1;
+
     }
 
 }

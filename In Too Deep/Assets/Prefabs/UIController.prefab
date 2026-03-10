@@ -2375,7 +2375,7 @@ MonoBehaviour:
   _chargebar: {fileID: 3675334596498849859}
   _chargebarfill: {fileID: 932825298057165154}
   _healingrate: 10
-  _damagerate: 20
+  _damagerate: 15
   _maximum_height: 420
   _depth_text: {fileID: 5661496705417311705}
   _questStatusText: {fileID: 0}
