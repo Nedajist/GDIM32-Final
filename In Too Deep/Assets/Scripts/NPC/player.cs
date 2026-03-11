@@ -540,7 +540,6 @@ public class player : MonoBehaviour
                 break;
 
             case _movement_states.Falling:
-                Debug.Log("MOVING TO FALLING FROM" + _movement_state);
                 _charging_audio_manager.Stop();
                 _footsteps_audio_manager.Stop();
                 switch (_movement_state)
