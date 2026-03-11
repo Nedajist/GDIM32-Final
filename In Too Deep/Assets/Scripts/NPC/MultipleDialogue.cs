@@ -7,8 +7,12 @@ public class MultipleDialogue : MonoBehaviour
     [SerializeField] private Sprite _interactionPromptSprite;
     [SerializeField] private Image _thoughtBubble;
     [SerializeField] private DialogueUI _dialogue;
-    [SerializeField] private DialogueNode _dialogueStartNode;
+    [SerializeField] private DialogueNode _dialogueStartNode1;
+    [SerializeField] private DialogueNode _dialogueStartNode2;
+    [SerializeField] private DialogueNode _dialogueStartNode3;
+    
     [SerializeField] private DialogueNode _questAcceptNode;
+    
     public UIController _uicontroller;
 
     private DialogueNode _currentNode;
@@ -18,7 +22,6 @@ public class MultipleDialogue : MonoBehaviour
 
     private void Start ()
     {
-        _currentNode = _dialogueStartNode;
     }
 
     private void Update ()
@@ -29,6 +32,12 @@ public class MultipleDialogue : MonoBehaviour
         {
             _thoughtBubble.gameObject.SetActive(true);
 
+           
+           if (!_runningDialogue)
+            {
+                CheckNPC();
+            }
+            
             if(!_waitingForPlayerResponse && Input.GetKeyDown(KeyCode.Mouse0))
             {
                 AdvanceDialogue();
@@ -36,7 +45,17 @@ public class MultipleDialogue : MonoBehaviour
             else if(!_runningDialogue)
             {
                 _thoughtBubble.sprite = _interactionPromptSprite;
+            }            
+
+            /*CheckNPC();
+            if(!_waitingForPlayerResponse && Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                AdvanceDialogue();
             }
+            else if(!_runningDialogue)
+            {
+                _thoughtBubble.sprite = _interactionPromptSprite;
+            }*/
         }
         else
         {
@@ -69,7 +88,7 @@ public class MultipleDialogue : MonoBehaviour
     {
         _runningDialogue = false;
         _waitingForPlayerResponse = false;
-        _currentNode = _dialogueStartNode;
+        //_currentNode = _dialogueStartNode;
         _currentLine = 0;
         _dialogue.HideDialogue();
         _thoughtBubble.gameObject.SetActive(false);
@@ -88,8 +107,20 @@ public class MultipleDialogue : MonoBehaviour
         _currentNode = _currentNode._npcReplies[option];
         Debug.Log(_currentNode);
         AdvanceDialogue();
-
-        
     }
-
+    public void CheckNPC()
+    {
+        if (CompareTag("Mushroom Man"))
+        {
+            _currentNode = _dialogueStartNode1;
+        }
+        else if (CompareTag("HOP HOP"))
+        {
+            _currentNode = _dialogueStartNode2;
+        }
+        else if (CompareTag("Monster"))
+        {
+            _currentNode = _dialogueStartNode3;
+        }
+    }
 }
