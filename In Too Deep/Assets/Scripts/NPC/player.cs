@@ -203,7 +203,6 @@ public class player : MonoBehaviour
             }
 
             _charge_percent = (_held_forward_momentum / (_max_forward_momentum));
-            Debug.Log(_held_forward_momentum);
 
         }
 
