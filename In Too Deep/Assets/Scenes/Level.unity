@@ -3362,15 +3362,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 594933957020710338, guid: 8a77b090b79505e45bfa8fd6ef25ccf6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 288.4
+      value: 270.2
       objectReference: {fileID: 0}
     - target: {fileID: 594933957020710338, guid: 8a77b090b79505e45bfa8fd6ef25ccf6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -342.9
+      value: -350.8
       objectReference: {fileID: 0}
     - target: {fileID: 594933957020710338, guid: 8a77b090b79505e45bfa8fd6ef25ccf6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.5
+      value: 14.2
       objectReference: {fileID: 0}
     - target: {fileID: 594933957020710338, guid: 8a77b090b79505e45bfa8fd6ef25ccf6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5439,7 +5439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc202e4c18a74cc43adf662d5aa7ab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playtestShortcut: 1
+  playtestShortcut: 0
 --- !u!108 &700585581
 Light:
   m_ObjectHideFlags: 0
