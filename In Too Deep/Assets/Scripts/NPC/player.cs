@@ -183,7 +183,7 @@ public class player : MonoBehaviour
             }
 
 
-            else if (_movement_state == _movement_states.Charging && _space_held_frames > 45) // freezes charging animation 
+            else if (_movement_state == _movement_states.Charging && _space_held_frames > 70) // freezes charging animation 
             {
                 _animator.speed = 0;
             }
