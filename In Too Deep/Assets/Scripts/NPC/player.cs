@@ -202,7 +202,8 @@ public class player : MonoBehaviour
                 _held_forward_momentum = _max_forward_momentum;
             }
 
-            _charge_percent = (_held_forward_momentum / (_max_forward_momentum - _min_forward_momentum));
+            _charge_percent = (_held_forward_momentum / (_max_forward_momentum));
+            Debug.Log(_held_forward_momentum);
 
         }
 
@@ -213,7 +214,7 @@ public class player : MonoBehaviour
             _rigidbody.velocity = new Vector3(0, 0, 0);
             _jump_grace_period = 0;
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
-            Vector3 _forward_momentum = (_forward_charge_velocity * transform.forward * _space_held_time) + _min_forward_momentum * transform.forward;
+            Vector3 _forward_momentum = (_held_forward_momentum * transform.forward) + _min_forward_momentum * transform.forward;
 
             if (_upward_momentum.y > _max_upward_momentum_vector.y){
                 _upward_momentum = _max_upward_momentum_vector;
