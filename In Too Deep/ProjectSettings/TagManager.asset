@@ -10,6 +10,9 @@ TagManager:
   - Slope
   - UIController
   - Interactable
+  - Mushroom Man
+  - HOP HOP
+  - Monster
   layers:
   - Default
   - TransparentFX
