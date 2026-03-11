@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -103,7 +102,7 @@ public class UIController : MonoBehaviour
         }
 
 
-        if (player._movement_state==player._movement_states.Charging)
+        if (player._movement_state==player._movement_states.Charging || player._on_slope)
         {
             _chargebar.value = player._charge_percent * 200;
             _chargebarfill.color = new Color( (38 + player._charge_percent * (255 -38)) / 255, (255 - player._charge_percent * (255 - 38)) / 255, (59 - player._charge_percent * (59-38)) / 255, 1);
@@ -131,6 +130,12 @@ public class UIController : MonoBehaviour
         }
 
         /////////////// _questStatusText.text = "Quest Status: " + _currentQuestStatus;
+        /// 
+        /// respawn hotkey
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Respawn();
+        }
 
     }
 
@@ -179,7 +184,7 @@ public class UIController : MonoBehaviour
 
     public void update_hotbar_display(List<Interactable> inventory)
     {
-        foreach (int i in Enumerable.Range(0, 2))
+        foreach (int i in Enumerable.Range(0, _item_display_list.Count))
         {
             if (inventory[i].type!="None")
             {
@@ -206,11 +211,10 @@ public class UIController : MonoBehaviour
                         break;
                 }
 
-                }
-
-            
+            }
             else
             {
+;                Debug.Log(i);
                 _item_display_list[i].gameObject.SetActive(false);
             }
 
@@ -239,7 +243,7 @@ public class UIController : MonoBehaviour
     public void UpdateQuestState(State newState)
     {
         newState = player.Instance._currentState;
-        _questStatusText.text = "Quest Status: " + newState;
+/////////////////////        _questStatusText.text = "Quest Status: " + newState;
     }
     
 }
