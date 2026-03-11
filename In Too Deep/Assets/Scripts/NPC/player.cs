@@ -484,7 +484,7 @@ public class player : MonoBehaviour
         {
             selected_interactable.gameObject.SetActive(true);
             selected_interactable.transform.position = transform.position + new Vector3(0, 2, 0);
-            selected_interactable.transform.rotation = transform.rotation;
+            selected_interactable.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + selected_interactable.carry_vector);
         }
     }
 
