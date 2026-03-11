@@ -606,7 +606,7 @@ public class player : MonoBehaviour
         Instantiate(_giant_explosion, transform.position, Quaternion.identity);
 
         transform.position += transform.up * 4.5f;
-
+        RenderSettings.fog = false;
 
         _playercamera.GetComponent<CameraController>()._cameraFollowSpeed = 10;
         _camera_destination.transform.localPosition = transform.up * 12 + transform.forward * -3;
@@ -658,6 +658,6 @@ public class player : MonoBehaviour
     {
         _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += seconds;
     }
-
+    
 }
         
