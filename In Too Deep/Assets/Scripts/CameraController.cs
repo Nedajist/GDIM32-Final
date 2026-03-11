@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float _rotationspeed = 20;
-    [SerializeField] private float _cameraSpeed = 10;
+    [SerializeField] private float _rotationspeed = 5;
+    [SerializeField] private float _cameraSpeed = 5;
     [SerializeField] public float _cameraFollowSpeed = 3;
     [SerializeField] private GameObject _player;
     private Transform destination;
