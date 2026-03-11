@@ -8916,7 +8916,7 @@ Transform:
   m_GameObject: {fileID: 1220674841}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5370489, y: 0.4599767, z: 0.4599766, w: 0.53704894}
-  m_LocalPosition: {x: 174.4, y: -61.600006, z: 39.799988}
+  m_LocalPosition: {x: 173.2, y: -61.600006, z: 39.799988}
   m_LocalScale: {x: 18.867004, y: 20.924637, z: 6.520671}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9201,9 +9201,9 @@ Transform:
   m_GameObject: {fileID: 1262089920}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5370489, y: 0.4599767, z: 0.4599766, w: 0.53704894}
-  m_LocalPosition: {x: 115.7, y: -57.1, z: 50.3}
-  m_LocalScale: {x: 5.293699, y: 6.0925198, z: 6.520671}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 112.6, y: -57.1, z: 50.3}
+  m_LocalScale: {x: 5.5, y: 6.329952, z: 6.7747884}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1795676021}
   - {fileID: 1396529678}
@@ -16074,6 +16074,10 @@ PrefabInstance:
     - target: {fileID: 1663381317222618107, guid: b9c147bf3640a354d96e2ecb7662cc20, type: 3}
       propertyPath: _max_air_jump_charges
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663381317222618107, guid: b9c147bf3640a354d96e2ecb7662cc20, type: 3}
+      propertyPath: _max_forward_momentum
+      value: 650
       objectReference: {fileID: 0}
     - target: {fileID: 1663381317222618107, guid: b9c147bf3640a354d96e2ecb7662cc20, type: 3}
       propertyPath: _footsteps_audio_manager
