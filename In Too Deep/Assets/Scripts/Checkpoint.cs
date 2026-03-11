@@ -5,8 +5,16 @@ using UnityEngine;
 
 public class CheckpointController : MonoBehaviour
 {
-
-
+    [SerializeField] private bool playtestShortcut = false;
+    void Start()
+    {
+        if (playtestShortcut)
+        {
+            UIController ui = FindObjectOfType<UIController>();
+            ui.SetRespawnPoint(transform);
+            Debug.Log("respawn point set to " + transform.position);
+        }
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
