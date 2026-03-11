@@ -227,7 +227,7 @@ public class player : MonoBehaviour
             _rigidbody.AddForce(_forward_momentum);
 
 
-            _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += _charge_percent;
+            add_camera_shake(_charge_percent);
 
             if (_charge_percent < 0.20)
             {
@@ -322,8 +322,9 @@ public class player : MonoBehaviour
             if (_playerInventory[_inventory_selected_index].name != "None")
             {
                 Instantiate(_sparks, transform.position + transform.up * 1.9f, Quaternion.identity);
+                _playerInventory[_inventory_selected_index].interact();
+
             }
-            _playerInventory[_inventory_selected_index].interact();
             _ClearInteractable(_inventory_selected_index);
         }
 
@@ -399,7 +400,7 @@ public class player : MonoBehaviour
 
             if (_seconds_airborne > 2.5) //shakes camera and plays dust explosion upon landing. 
             {
-                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.12f;
+                add_camera_shake(0.12f);
                 Instantiate(_large_dust_blast, transform.position, Quaternion.identity);
                 _landing_audio_manager.pitch = 0.9f;
                 _landing_audio_manager.clip = _tiny_landing_SFX;
@@ -408,7 +409,7 @@ public class player : MonoBehaviour
 
             else if (_seconds_airborne > 2)
             {
-                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.10f;
+                add_camera_shake(0.10f);
                 Instantiate(_medium_dust_blast, transform.position, Quaternion.identity);
                 _landing_audio_manager.pitch = 0.7f;
                 _landing_audio_manager.clip = _tiny_landing_SFX;
@@ -417,7 +418,7 @@ public class player : MonoBehaviour
 
             else if (_seconds_airborne > 1)
             {
-                _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 0.08f;
+                add_camera_shake(0.08f);
                 Instantiate(_tiny_dust_blast, transform.position, Quaternion.identity);
                 _landing_audio_manager.pitch = 0.5f;
                 _landing_audio_manager.clip = _tiny_landing_SFX;
@@ -609,7 +610,7 @@ public class player : MonoBehaviour
 
         _playercamera.GetComponent<CameraController>()._cameraFollowSpeed = 10;
         _camera_destination.transform.localPosition = transform.up * 12 + transform.forward * -3;
-        _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += 60;
+        add_camera_shake(60);
         bomb_ending = true;
         _playercamera.GetComponent<CameraController>().bomb_ending = true;
 
@@ -646,6 +647,16 @@ public class player : MonoBehaviour
             GameController.Instance.UIController._display_cinema = true;
         }
 
+    }
+
+    public Rigidbody get_rigidbody()
+    {
+        return (_rigidbody);
+    }
+
+    public void add_camera_shake(float seconds)
+    {
+        _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += seconds;
     }
 
 }

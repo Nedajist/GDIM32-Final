@@ -34,6 +34,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Sprite _stew;
     [SerializeField] private Sprite _coffee;
     [SerializeField] private Sprite _warning;
+    [SerializeField] private Sprite _plushie;
 
     [SerializeField] private Image _pure_white;
 
@@ -208,6 +209,9 @@ public class UIController : MonoBehaviour
                         break;
                     case "Bomb":
                         _item_display_list[i].sprite = _warning;
+                        break;
+                    case "Makibean":
+                        _item_display_list[i].sprite = _plushie;
                         break;
                 }
 
