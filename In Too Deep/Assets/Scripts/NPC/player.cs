@@ -179,7 +179,7 @@ public class player : MonoBehaviour
 
             if (_grounded == false && _on_slope == false) // if in air, slows player down 
             {
-                _rigidbody.AddForce(new Vector3(0, 0.4f, 0) * Mathf.Abs(_rigidbody.velocity.y));
+                _rigidbody.AddForce(new Vector3(0, 0.5f, 0) * Mathf.Abs(_rigidbody.velocity.y));
             }
 
 
