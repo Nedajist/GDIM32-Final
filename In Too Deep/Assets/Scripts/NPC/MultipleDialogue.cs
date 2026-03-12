@@ -2,6 +2,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum NPCType
+{
+    MushroomMan,
+    HopHop,
+    Monster
+}
 public class MultipleDialogue : MonoBehaviour
 {
     [SerializeField] private float _interactionDistance = 2.0f;
@@ -11,6 +17,7 @@ public class MultipleDialogue : MonoBehaviour
     [SerializeField] private DialogueNode _startNode;
     
     [SerializeField] private DialogueNode _questAcceptNode;
+    [SerializeField] private NPCType _npcType;
     
     public UIController _uicontroller;
 
@@ -96,8 +103,23 @@ public class MultipleDialogue : MonoBehaviour
     {
         _currentLine = 0;
         _waitingForPlayerResponse = false;
+        //Mushroom Man gives quest 1
+        if (_npcType == NPCType.MushroomMan && _currentNode == _questAcceptNode && option == 0)
+        {
+            player.Instance.quest1Stage = 1;
+            Debug.Log("quest 1 stage = 1");
+        }
 
-    
+        //Hop Hop gives quest 2
+        if(_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1)
+        {
+            player.Instance.quest1Stage = 2;
+        }
+
+        if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 2 && _currentNode == _questAcceptNode && option == 0)
+        {
+            player.Instance.quest2Stage = 1;
+        }
 
         _currentNode = _currentNode._npcReplies[option];
         Debug.Log(_currentNode);

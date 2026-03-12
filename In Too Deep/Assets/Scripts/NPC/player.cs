@@ -60,6 +60,17 @@ public class player : MonoBehaviour
     [SerializeField] AudioClip _tiny_landing_SFX;
     [SerializeField] AudioClip _iris_out;
 
+    //QUEST
+    public int quest1Stage = 0;
+    // stage 0 = Quest not started
+    // stage 1 = Accepted from Mushroom Man
+    // stage 2 = Completed by talking to HOP HOP
+    public int quest2Stage = 0;
+    // stage 0 = quest not started
+    // stage 1 = accepted from HOP HOP
+    // stage 2 = item collected
+    // stage 3 = item delivered
+
 
 
 
@@ -132,6 +143,7 @@ public class player : MonoBehaviour
         }
 
         Instance = this;
+        Debug.Log(quest1Stage);
     }
 
 

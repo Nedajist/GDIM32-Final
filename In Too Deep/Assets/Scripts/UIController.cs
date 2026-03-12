@@ -129,7 +129,7 @@ public class UIController : MonoBehaviour
             _cinema.color = new Color(1, 1, 1, new_a);
         }
 
-        _questStatusText.text = "Quest Status: " + _currentQuestStatus;
+        
         
         
         if (Input.GetKeyDown(KeyCode.R))
