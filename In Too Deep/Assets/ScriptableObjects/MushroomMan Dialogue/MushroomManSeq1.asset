@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
+  m_Name: MushroomManSeq1
+  m_EditorClassIdentifier: 
+  _lines:
+  - Hello fellow traveler
+  - How do you do?
+  _thoughtBubbleSprite: {fileID: 0}
+  _playerReplyOptions:
+  - I'm good on this fine day
+  - I'm alright.
+  - Don't talk to me
+  _npcReplies:
+  - {fileID: 11400000, guid: 17905488731ea3245a18b1f49c5cdfc1, type: 2}
+  - {fileID: 11400000, guid: 1c8fc74be09214a478bab502434eb716, type: 2}
+  - {fileID: 11400000, guid: c566b7f9e39d6574ba8eda36915d7297, type: 2}

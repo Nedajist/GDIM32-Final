@@ -8,13 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
-public enum State
-{
-    None,
-    Accepted, 
-    Ready,
-    Completed
-}
+
 
 
 public class player : MonoBehaviour
@@ -126,7 +120,7 @@ public class player : MonoBehaviour
     [SerializeField] public bool _dialogueActive;
     [SerializeField] private bool _nearNPC;
 
-    private NPC _currentNPC;
+    
 
 
     private void Awake()
@@ -143,7 +137,6 @@ public class player : MonoBehaviour
 
     void Start()
     {
-        _currentState = State.None;
         _max_upward_momentum_vector = _max_upward_momentum * transform.up;
         _max_forward_momentum_vector = _max_forward_momentum * transform.forward;
         _ClearInteractable(0);
@@ -304,8 +297,6 @@ public class player : MonoBehaviour
             Ray interaction_detector = _playercamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(interaction_detector, out _raycast_results, 30f)){
                 if (_raycast_results.transform.CompareTag("NPC") && _dialogueActive == false){
-                    _currentNPC = _raycast_results.transform.GetComponent<NPC>();
-                    TalkToNPC(_currentNPC);
                     Debug.Log("talking to npc");
                 }
 
@@ -355,7 +346,7 @@ public class player : MonoBehaviour
             player_lands();
         }
 
-        //ChangeState(_currentState);
+      
 
 
         if (!_canMove)
@@ -503,10 +494,7 @@ public class player : MonoBehaviour
         }
     }
 
-    public void TalkToNPC(NPC npc)
-    {
-        
-    }
+    
 
     public void _transition_movement_state(_movement_states new_state)
     {
@@ -582,13 +570,7 @@ public class player : MonoBehaviour
     }
 
 
-    public void ChangeState (State newState)
-    {
-        _currentState = newState;
-        //Debug.Log ("Player state changed to: " + newState);
-
-        GameController.Instance.UIController.UpdateQuestState(newState);
-    }
+    
 
     public void BigDeathExplosion()
     {
