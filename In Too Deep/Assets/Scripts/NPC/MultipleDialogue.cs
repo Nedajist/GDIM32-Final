@@ -57,35 +57,44 @@ public class MultipleDialogue : MonoBehaviour
         }
     }
 
-    private void AdvanceDialogue ()
+private void AdvanceDialogue()
+{
+    // If dialogue is already running somewhere else, don't start another
+    if (player.Instance._dialogueActive && !_runningDialogue)
+        return;
+
+    // Start dialogue
+    if (!_runningDialogue)
     {
-        if (!_runningDialogue)
-        {
-            _currentNode = _startNode;
-        }
-
-        if(_currentNode == null) return;
-
+        _currentNode = _startNode;
+        _currentLine = 0;
         _runningDialogue = true;
-
-        _runningDialogue = true;
-        _thoughtBubble.sprite = _currentNode._thoughtBubbleSprite;
-
-        if(_currentLine < _currentNode._lines.Length)
-        {
-            _dialogue.ShowDialogue(_currentNode._lines[_currentLine]);
-            _currentLine++;
-        }
-        else if(_currentNode._playerReplyOptions != null && _currentNode._playerReplyOptions.Length > 0)
-        {
-            _waitingForPlayerResponse = true;
-            _dialogue.ShowPlayerOptions(_currentNode._playerReplyOptions);
-        }
-        else 
-        {
-            EndDialogue();
-        }
+        player.Instance._dialogueActive = true;
     }
+
+    if (_currentNode == null) return;
+
+    _thoughtBubble.sprite = _currentNode._thoughtBubbleSprite;
+
+    // Show next NPC dialogue line
+    if (_currentLine < _currentNode._lines.Length)
+    {
+        _dialogue.ShowDialogue(_currentNode._lines[_currentLine]);
+        _currentLine++;
+        return;
+    }
+
+    // Show player response options
+    if (_currentNode._playerReplyOptions != null && _currentNode._playerReplyOptions.Length > 0)
+    {
+        _waitingForPlayerResponse = true;
+        _dialogue.ShowPlayerOptions(_currentNode._playerReplyOptions);
+        return;
+    }
+
+    // End dialogue if nothing else remains
+    EndDialogue();
+}
 
     private void EndDialogue ()
     {
@@ -111,7 +120,7 @@ public class MultipleDialogue : MonoBehaviour
         }
 
         //Hop Hop gives quest 2
-        if(_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1)
+        if(_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1 && _currentNode == _questAcceptNode)
         {
             player.Instance.quest1Stage = 2;
         }
@@ -119,6 +128,13 @@ public class MultipleDialogue : MonoBehaviour
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 2 && _currentNode == _questAcceptNode && option == 0)
         {
             player.Instance.quest2Stage = 1;
+            Debug.Log("Quest 2 Started");
+        }
+
+        if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 2)
+        {
+            player.Instance.quest2Stage = 3;
+            Debug.Log("Quest 2 Complete");
         }
 
         _currentNode = _currentNode._npcReplies[option];

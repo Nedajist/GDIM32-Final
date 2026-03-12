@@ -24,15 +24,7 @@ public class DialogueUI : MonoBehaviour
 
         _npcText.text = dialogue;
     }
-
-    public void ShowPlayerOptions()
-    {
-        gameObject.SetActive(true);
-
-        _npcDialogue.SetActive(false);
-        _playerOptions.SetActive(true);
-        _playerMultiOptions.SetActive(false);
-    }   
+   
 
     public void ShowPlayerOptions(string[] options)
     {
