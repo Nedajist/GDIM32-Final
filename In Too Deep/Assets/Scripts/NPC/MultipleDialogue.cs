@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,138 +7,145 @@ public enum NPCType
     HopHop,
     Monster
 }
+
 public class MultipleDialogue : MonoBehaviour
 {
     [SerializeField] private float _interactionDistance = 2.0f;
     [SerializeField] private Sprite _interactionPromptSprite;
     [SerializeField] private Image _thoughtBubble;
     [SerializeField] private DialogueUI _dialogue;
+
     [SerializeField] private DialogueNode _startNode;
-    
     [SerializeField] private DialogueNode _questAcceptNode;
+
     [SerializeField] private NPCType _npcType;
-    
-    public UIController _uicontroller;
+    [SerializeField] private int _requiredQuest1Stage = 0;
+    [SerializeField] private int _requiredQuest2Stage = 0;
 
     private DialogueNode _currentNode;
     private int _currentLine = 0;
+
+
     private bool _runningDialogue;
     private bool _waitingForPlayerResponse;
 
-    private void Start ()
+    private void Update()
     {
-        
-    }
+        if (player.Instance == null) return;
 
-    private void Update ()
-    {
-        if(player.Instance == null) return;
+        float distance = Vector3.Distance(transform.position, player.Instance.transform.position);
 
-        if(Vector3.Distance(transform.position, player.Instance.transform.position) < _interactionDistance)
+        if (distance < _interactionDistance)
         {
-            _thoughtBubble.gameObject.SetActive(true);
-
-           
-            if(!_waitingForPlayerResponse && Input.GetKeyDown(KeyCode.Mouse0))
+            if (!_runningDialogue)
             {
-                AdvanceDialogue();
-            }
-            else if(!_runningDialogue)
-            {
+                _thoughtBubble.gameObject.SetActive(true);
                 _thoughtBubble.sprite = _interactionPromptSprite;
-            }            
+            }
 
-    
+            if (!_waitingForPlayerResponse && Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (CanInteract())
+                {
+                    AdvanceDialogue();
+                }
+            }
         }
-        else
+        else if (_runningDialogue)
         {
             EndDialogue();
         }
     }
 
-private void AdvanceDialogue()
-{
-    // If dialogue is already running somewhere else, don't start another
-    if (player.Instance._dialogueActive && !_runningDialogue)
-        return;
-
-    // Start dialogue
-    if (!_runningDialogue)
+    private void AdvanceDialogue()
     {
-        _currentNode = _startNode;
-        _currentLine = 0;
-        _runningDialogue = true;
-        player.Instance._dialogueActive = true;
-    }
+        if (player.Instance._dialogueActive && !_runningDialogue)
+            return;
 
-    if (_currentNode == null) return;
+        if (!_runningDialogue)
+        {
+            _currentNode = _startNode;
+            _currentLine = 0;
+            _runningDialogue = true;
+            player.Instance._dialogueActive = true;
+        }
 
-    _thoughtBubble.sprite = _currentNode._thoughtBubbleSprite;
+        if (_currentNode == null) return;
 
-    // Show next NPC dialogue line
-    if (_currentLine < _currentNode._lines.Length)
-    {
-        _dialogue.ShowDialogue(_currentNode._lines[_currentLine]);
-        _currentLine++;
-        return;
-    }
+        _thoughtBubble.sprite = _currentNode._thoughtBubbleSprite;
 
-    // Show player response options
-    if (_currentNode._playerReplyOptions != null && _currentNode._playerReplyOptions.Length > 0)
-    {
-        _waitingForPlayerResponse = true;
-        _dialogue.ShowPlayerOptions(_currentNode._playerReplyOptions);
-        return;
-    }
+        if (_currentLine < _currentNode._lines.Length)
+        {
+            _dialogue.ShowDialogue(_currentNode._lines[_currentLine]);
+            _currentLine++;
+            return;
+        }
 
-    // End dialogue if nothing else remains
-    EndDialogue();
-}
+        if (_currentNode._playerReplyOptions != null && _currentNode._playerReplyOptions.Length > 0)
+        {
+            _waitingForPlayerResponse = true;
+            _dialogue.ShowPlayerOptions(_currentNode._playerReplyOptions);
+            return;
+        }
 
-    private void EndDialogue ()
-    {
-        _runningDialogue = false;
-        _waitingForPlayerResponse = false;
-        _currentLine = 0;
-
-        _currentNode = null;
-
-        _dialogue.HideDialogue();
-        _thoughtBubble.gameObject.SetActive(false);
+        EndDialogue();
     }
 
     public void SelectedOption(int option)
     {
         _currentLine = 0;
         _waitingForPlayerResponse = false;
-        //Mushroom Man gives quest 1
+
+        // Quest logic
         if (_npcType == NPCType.MushroomMan && _currentNode == _questAcceptNode && option == 0)
         {
             player.Instance.quest1Stage = 1;
-            Debug.Log("quest 1 stage = 1");
+            Debug.Log("Quest 1 started");
         }
 
-        //Hop Hop gives quest 2
-        if(_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1 && _currentNode == _questAcceptNode)
+        if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1)
         {
             player.Instance.quest1Stage = 2;
+            Debug.Log("Quest 1 complete");
         }
 
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 2 && _currentNode == _questAcceptNode && option == 0)
         {
             player.Instance.quest2Stage = 1;
-            Debug.Log("Quest 2 Started");
+            Debug.Log("Quest 2 started");
         }
 
         if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 2)
         {
             player.Instance.quest2Stage = 3;
-            Debug.Log("Quest 2 Complete");
+            Debug.Log("Quest 2 complete");
         }
 
         _currentNode = _currentNode._npcReplies[option];
-        Debug.Log(_currentNode);
         AdvanceDialogue();
     }
 
+    private void EndDialogue()
+    {
+        _runningDialogue = false;
+        _waitingForPlayerResponse = false;
+        _currentLine = 0;
+        _currentNode = null;
+
+        player.Instance._dialogueActive = false;
+
+        _dialogue.HideDialogue();
+        _thoughtBubble.gameObject.SetActive(false);
+    }
+
+    private bool CanInteract()
+    {
+        if (player.Instance.quest1Stage < _requiredQuest1Stage)
+        return false;
+
+        if (player.Instance.quest2Stage < _requiredQuest2Stage)
+        return false;
+
+        return true;
+    }
 }

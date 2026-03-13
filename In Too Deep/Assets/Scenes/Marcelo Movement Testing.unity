@@ -297,7 +297,7 @@ Transform:
   m_GameObject: {fileID: 500809749}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.71, y: 61.05, z: -5.56}
+  m_LocalPosition: {x: 1.71, y: 61.05, z: -6.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -323,7 +323,8 @@ MonoBehaviour:
   _startNode: {fileID: 11400000, guid: 4ee5197c6be81c34fa8ae79b77a43284, type: 2}
   _questAcceptNode: {fileID: 11400000, guid: 564db9cf0fbdfe746bd00ac981b40998, type: 2}
   _npcType: 1
-  _uicontroller: {fileID: 1355099913}
+  _requiredQuest1Stage: 1
+  _requiredQuest2Stage: 0
 --- !u!1 &601696849
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,17 +969,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9c147bf3640a354d96e2ecb7662cc20, type: 3}
---- !u!114 &1355099913 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8605659387011306516, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
-  m_PrefabInstance: {fileID: 8338752829544529074}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4642a2002a49364e87c950630c8750c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1596700811 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 974052183059765329, guid: 29808a9a29ce564439174fef948b544d, type: 3}
@@ -1892,7 +1882,7 @@ Transform:
   m_GameObject: {fileID: 1948638286}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.62, y: 61.05, z: -10.99}
+  m_LocalPosition: {x: -22.87, y: 61.05, z: -10.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2027,7 +2017,8 @@ MonoBehaviour:
   _startNode: {fileID: 11400000, guid: 3e82ce7ff4180224bb5ffbef300efb48, type: 2}
   _questAcceptNode: {fileID: 11400000, guid: 17905488731ea3245a18b1f49c5cdfc1, type: 2}
   _npcType: 0
-  _uicontroller: {fileID: 1355099913}
+  _requiredQuest1Stage: 0
+  _requiredQuest2Stage: 0
 --- !u!1 &2006409800
 GameObject:
   m_ObjectHideFlags: 0
