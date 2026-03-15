@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
-  m_Name: DialogueEnd_Reply1
+  m_Name: Line 8
   m_EditorClassIdentifier: 
   _lines:
-  - Have a good day.
+  - '"I shall speak in signs, I suppose." (Even though I know you have already regenerated
+    your ears, you monster.)'
   _thoughtBubbleSprite: {fileID: 0}
-  _playerReplyOptions: []
-  _npcReplies: []
+  _playerReplyOptions:
+  - ...
+  _npcReplies:
+  - {fileID: 11400000, guid: 3e82ce7ff4180224bb5ffbef300efb48, type: 2}

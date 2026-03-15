@@ -10,17 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
-  m_Name: DIalogueLine_NPC1_Seq1
+  m_Name: Line 12
   m_EditorClassIdentifier: 
   _lines:
-  - Hello fellow traveler
-  - How do you do?
+  - '"Hmmm...I know.....You speak true. I know you do not seek *That* for your own
+    gain. Very well then. Descend. Meet my underling, Hophop. They are a far better
+    judge of character. Entreat them, convince them, and they shall send you on your
+    way"'
   _thoughtBubbleSprite: {fileID: 0}
-  _playerReplyOptions:
-  - I'm good on this fine day
-  - I'm alright.
-  - Don't talk to me
-  _npcReplies:
-  - {fileID: 11400000, guid: 17905488731ea3245a18b1f49c5cdfc1, type: 2}
-  - {fileID: 11400000, guid: 1c8fc74be09214a478bab502434eb716, type: 2}
-  - {fileID: 11400000, guid: c566b7f9e39d6574ba8eda36915d7297, type: 2}
+  _playerReplyOptions: []
+  _npcReplies: []

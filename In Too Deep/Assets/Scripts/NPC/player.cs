@@ -8,13 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
-public enum State
-{
-    None,
-    Accepted, 
-    Ready,
-    Completed
-}
+
 
 
 public class player : MonoBehaviour
@@ -65,6 +59,17 @@ public class player : MonoBehaviour
     [SerializeField] AudioClip _giant_explosion_SFX;
     [SerializeField] AudioClip _tiny_landing_SFX;
     [SerializeField] AudioClip _iris_out;
+
+    //QUEST
+    public int quest1Stage = 0;
+    // stage 0 = Quest not started
+    // stage 1 = Accepted from Mushroom Man
+    // stage 2 = Completed by talking to HOP HOP
+    public int quest2Stage = 0;
+    // stage 0 = quest not started
+    // stage 1 = accepted from HOP HOP
+    // stage 2 = item collected
+    // stage 3 = item delivered
 
 
 
@@ -126,7 +131,7 @@ public class player : MonoBehaviour
     [SerializeField] public bool _dialogueActive;
     [SerializeField] private bool _nearNPC;
 
-    private NPC _currentNPC;
+    
 
 
     private void Awake()
@@ -138,12 +143,12 @@ public class player : MonoBehaviour
         }
 
         Instance = this;
+        Debug.Log(quest1Stage);
     }
 
 
     void Start()
     {
-        _currentState = State.None;
         _max_upward_momentum_vector = _max_upward_momentum * transform.up;
         _max_forward_momentum_vector = _max_forward_momentum * transform.forward;
         _ClearInteractable(0);
@@ -304,8 +309,6 @@ public class player : MonoBehaviour
             Ray interaction_detector = _playercamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(interaction_detector, out _raycast_results, 30f)){
                 if (_raycast_results.transform.CompareTag("NPC") && _dialogueActive == false){
-                    _currentNPC = _raycast_results.transform.GetComponent<NPC>();
-                    TalkToNPC(_currentNPC);
                     Debug.Log("talking to npc");
                 }
 
@@ -356,7 +359,7 @@ public class player : MonoBehaviour
             player_lands();
         }
 
-        //ChangeState(_currentState);
+      
 
 
         if (!_canMove)
@@ -504,10 +507,7 @@ public class player : MonoBehaviour
         }
     }
 
-    public void TalkToNPC(NPC npc)
-    {
-        
-    }
+    
 
     public void _transition_movement_state(_movement_states new_state)
     {
@@ -583,13 +583,7 @@ public class player : MonoBehaviour
     }
 
 
-    public void ChangeState (State newState)
-    {
-        _currentState = newState;
-        //Debug.Log ("Player state changed to: " + newState);
-
-        GameController.Instance.UIController.UpdateQuestState(newState);
-    }
+    
 
     public void BigDeathExplosion()
     {
