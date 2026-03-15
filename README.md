@@ -72,4 +72,6 @@ Put your individual final Devlog here.
 - [Falling Impact SFX](https://pixabay.com/sound-effects/film-special-effects-fast-body-fall-impact-352725/)
 - [Siren and Nuke SFX](https://pixabay.com/sound-effects/film-special-effects-siren-and-nuke-326461/)
 - [Iris Out Piano Arrangement](https://onlinesequencer.net/5227672)
+- [The First Layer Piano Arrangement](https://onlinesequencer.net/3628612)
 - [Footsteps on Gravel](https://pixabay.com/sound-effects/film-special-effects-running-on-gravel-301880/)
+- [Ambient Music](https://crowshade.itch.io/liminal-horror-dreamcore-ambient-pack-post-dream)
