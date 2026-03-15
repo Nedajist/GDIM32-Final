@@ -472,7 +472,16 @@ public class player : MonoBehaviour
             _list_of_colliders.Add(collision);
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("MusicGate") && _music_audio_manager.clip != other.transform.GetComponent<MusicGate>().track) // If collides with MusicGate, plays new track unless it is already playing
+        {
+            _music_audio_manager.clip = other.transform.GetComponent<MusicGate>().track;
+            _music_audio_manager.Play();
+        }
+    }
+
     private void _ClearInteractable(int index)
     {
         _playerInventory[index].name = "None";
