@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
+  m_Name: Line 1 and 2
+  m_EditorClassIdentifier: 
+  _lines:
+  - The mushroom-being's skin is tinged with the light from far above. You wonder
+    if it's spores are affecting your mental faculties, or if you truly are in the
+    presence of a perfect being.
+  - '"I know what you are. You ought to have come from below. And I know what you
+    seek. *That* thing"'
+  _thoughtBubbleSprite: {fileID: 0}
+  _playerReplyOptions:
+  - Yes
+  - Stay Silent
+  - No
+  _npcReplies:
+  - {fileID: 11400000, guid: 17905488731ea3245a18b1f49c5cdfc1, type: 2}
+  - {fileID: 11400000, guid: 1c8fc74be09214a478bab502434eb716, type: 2}
+  - {fileID: 11400000, guid: c566b7f9e39d6574ba8eda36915d7297, type: 2}

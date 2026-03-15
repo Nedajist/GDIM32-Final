@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
-  m_Name: DialogueLine_NPC1_Reply1
+  m_Name: Line 6
   m_EditorClassIdentifier: 
   _lines:
-  - That's great to hear! I have a quest for you. Do you accept?
+  - '"All of you ''boom''s and ''ekusupuroshon''s must have torn out your eardrums.
+    But even in your silence, I know you guilt! And even if you are innocent - guilt
+    of eating away my time!"'
   _thoughtBubbleSprite: {fileID: 0}
   _playerReplyOptions:
-  - Yes
-  - No
+  - Point to your ears
+  - Apologize
   _npcReplies:
-  - {fileID: 11400000, guid: 173787240b07f6a43b67b10fbca9be03, type: 2}
-  - {fileID: 11400000, guid: 6a1ea6941d6f2ac4e8c3dca0f15f3370, type: 2}
+  - {fileID: 11400000, guid: e19447e17815c2347b050cbb2ca01d5f, type: 2}
+  - {fileID: 11400000, guid: 4fcb5321966d2f44d8c45460cddc63f4, type: 2}
