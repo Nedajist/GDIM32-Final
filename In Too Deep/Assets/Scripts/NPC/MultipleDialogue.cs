@@ -27,6 +27,7 @@ public class MultipleDialogue : MonoBehaviour
     [SerializeField] private NPCType _npcType;
     [SerializeField] private int _requiredQuest1Stage = 0;
     [SerializeField] private int _requiredQuest2Stage = 0;
+    private bool activateFinalLine;
 
     private DialogueNode _currentNode;
     private int _currentLine = 0;
@@ -90,6 +91,12 @@ public class MultipleDialogue : MonoBehaviour
             if (player.Instance.quest1Stage < _requiredQuest1Stage || player.Instance.quest2Stage < _requiredQuest2Stage)
             {
                 _currentNode = _oneLineNode;
+                activateFinalLine = true;
+
+                if (activateFinalLine && player.Instance.quest1Stage > _requiredQuest1Stage || player.Instance.quest2Stage > _requiredQuest2Stage)
+                {
+                    _currentNode = _finalNode;
+                }
             }
 
             else if (player.Instance.quest1Stage > _requiredQuest1Stage || player.Instance.quest2Stage > _requiredQuest2Stage)
@@ -145,6 +152,7 @@ public class MultipleDialogue : MonoBehaviour
             player.Instance.quest1Stage = 1;
             Debug.Log("Quest 1 started");
             Debug.Log("Quest stage = 1");
+            Debug.Log(player.Instance.quest1Stage);
         }
         //completed quest 1 by finding and talking to hop hop
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1 && player.Instance.quest1Stage < 2)
@@ -152,18 +160,21 @@ public class MultipleDialogue : MonoBehaviour
             player.Instance.quest1Stage = 2;
             Debug.Log("Quest 1 complete");
             Debug.Log("Quest stage = 2");
+            Debug.Log(player.Instance.quest1Stage);
         }
         //accepted quest 2 by talking to hop hop and choosing quest accept node in dialogue
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 2 && _currentNode == _questAcceptNode && option == 0)
         {
             player.Instance.quest2Stage = 1;
             Debug.Log("Quest 2 started");
+            Debug.Log(player.Instance.quest2Stage);
         }
         //completed quest 2 by talking to monster
         if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 1)
         {
             player.Instance.quest2Stage = 2;
             Debug.Log("Quest 2 complete");
+            Debug.Log(player.Instance.quest1Stage);
         }
 
         if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 2 && _currentNode == _questAcceptNode && option == 0)
@@ -173,7 +184,7 @@ public class MultipleDialogue : MonoBehaviour
         }
         if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 4)
         {
-            
+            player.Instance.ClearBomb();
             Debug.Log("Quest 3 Completed");
         }
 
