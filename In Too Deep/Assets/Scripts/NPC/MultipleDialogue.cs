@@ -128,7 +128,10 @@ private void AdvanceDialogue()
                 _currentNode = _finalNode;   // quest 3 active
 
             else if (player.Instance.quest2Stage == 4)
-                _currentNode = _endGameNode; // bomb obtained
+                _currentNode = _endGameNode;
+                
+                player.Instance.ClearBomb();
+                 // bomb obtained
         }
     }
 
@@ -200,11 +203,7 @@ private void AdvanceDialogue()
             player.Instance.quest2Stage = 3;
             Debug.Log("Quest 3 started");
         }
-        if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 4)
-        {
-            player.Instance.ClearBomb();
-            Debug.Log("Quest 3 Completed");
-        }
+        
 
 
         if(_currentNode._npcReplies == null || option >= _currentNode._npcReplies.Length)
