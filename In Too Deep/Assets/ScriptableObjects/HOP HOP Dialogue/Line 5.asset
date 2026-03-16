@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Line 5
   m_EditorClassIdentifier: 
   _lines:
-  - Ight Shoo!
-  _thoughtBubbleSprite: {fileID: 0}
+  - '"Ight Shoo!"'
   _playerReplyOptions: []
   _npcReplies: []
