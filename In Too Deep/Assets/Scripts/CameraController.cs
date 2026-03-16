@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _rotationspeed = 5;
     [SerializeField] private float _cameraSpeed = 5;
     [SerializeField] public float _cameraFollowSpeed = 3;
+    [SerializeField] public float _minimum_pursue_distance = 0.1f;
+
     [SerializeField] private GameObject _player;
     private Transform destination;
     private Vector3 _camera_rotation = new Vector3(0f, 0f, 0f);
@@ -28,8 +30,11 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     public void UpdateCamera()
     {
-        
-        transform.position=Vector3.Lerp(transform.position, destination.transform.position, Time.deltaTime * _cameraFollowSpeed);
+        if (Vector3.Distance(transform.position, destination.transform.position) > _minimum_pursue_distance)
+        {
+            transform.position = Vector3.Lerp(transform.position, destination.transform.position, Time.deltaTime * _cameraFollowSpeed);
+        }
+
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             _camera_rotation.x += Input.GetAxis("Mouse X") * _rotationspeed;

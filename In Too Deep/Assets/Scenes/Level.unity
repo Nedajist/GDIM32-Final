@@ -19412,6 +19412,7 @@ MonoBehaviour:
   _rotationspeed: 5
   _cameraSpeed: 5
   _cameraFollowSpeed: 3
+  _minimum_pursue_distance: 0.1
   _player: {fileID: 669492620}
   _seconds_of_camera_shake: 0
   _frozen_rotation: {x: 0, y: 0, z: 0, w: 0}
