@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,68 +77,79 @@ public class MultipleDialogue : MonoBehaviour
         }
     }
 
-    private void AdvanceDialogue()
+private void AdvanceDialogue()
+{
+    _thoughtBubble.sprite = _speakingSprite;
+
+    if (player.Instance._dialogueActive && !_runningDialogue)
+        return;
+
+    if (!_runningDialogue)
     {
-        _thoughtBubble.sprite = _speakingSprite;
-        if (player.Instance._dialogueActive && !_runningDialogue)
+        if (_activeNPC != null && _activeNPC != this)
             return;
 
-        if (!_runningDialogue)
+        _activeNPC = this;
+        _runningDialogue = true;
+        _currentLine = 0;
+
+        // Mushi
+        if (_npcType == NPCType.MushroomMan)
         {
-            if(_activeNPC != null && _activeNPC != this)
-                return;
-            
-            _activeNPC = this;
+            if (player.Instance.quest1Stage == 0)
+                _currentNode = _startNode;   // gives quest
+            else
+                _currentNode = _oneLineNode; // after quest accepted
+        }
 
-            if (player.Instance.quest1Stage < _requiredQuest1Stage || player.Instance.quest2Stage < _requiredQuest2Stage)
-            {
-                _currentNode = _oneLineNode;
-                activateFinalLine = true;
+        // Hop Hop
+        else if (_npcType == NPCType.HopHop)
+        {
+            if (player.Instance.quest1Stage < 1)
+                _currentNode = _oneLineNode; // pre-quest line
 
-                if (activateFinalLine && player.Instance.quest1Stage > _requiredQuest1Stage || player.Instance.quest2Stage > _requiredQuest2Stage)
-                {
-                    _currentNode = _finalNode;
-                }
-            }
+            else if (player.Instance.quest2Stage == 0)
+                _currentNode = _startNode;   // gives quest 2
 
-            else if (player.Instance.quest1Stage > _requiredQuest1Stage || player.Instance.quest2Stage > _requiredQuest2Stage)
-            {
-                _currentNode = _finalNode;
-            }
+            else
+                _currentNode = _finalNode;   // after quest 2 accepted
+        }
+
+        // Monster
+        else if (_npcType == NPCType.Monster)
+        {
+            if (player.Instance.quest2Stage < 1)
+                _currentNode = _oneLineNode; // won't talk yet
+
+            else if (player.Instance.quest2Stage == 1)
+                _currentNode = _startNode;   // completes quest 2
+
+            else if (player.Instance.quest2Stage == 3)
+                _currentNode = _finalNode;   // quest 3 active
 
             else if (player.Instance.quest2Stage == 4)
-            {
-                _currentNode = _endGameNode;
-            }
-            else
-            {
-                _currentNode = _startNode;
-                _currentLine = 0;
-                _runningDialogue = true;
-            }
-
+                _currentNode = _endGameNode; // bomb obtained
         }
-
-        if (_currentNode == null) return;
-
-        _thoughtBubble.sprite = _speakingSprite;
-
-        if (_currentLine < _currentNode._lines.Length)
-        {
-            _dialogue.ShowDialogue(_currentNode._lines[_currentLine]);
-            _currentLine++;
-            return;
-        }
-
-        if (_currentNode._playerReplyOptions != null && _currentNode._playerReplyOptions.Length > 0)
-        {
-            _waitingForPlayerResponse = true;
-            _dialogue.ShowPlayerOptions(_currentNode._playerReplyOptions);
-            return;
-        }
-
-        EndDialogue();
     }
+
+    if (_currentNode == null) return;
+
+    if (_currentLine < _currentNode._lines.Length)
+    {
+        _dialogue.ShowDialogue(_currentNode._lines[_currentLine]);
+        _currentLine++;
+        return;
+    }
+
+    if (_currentNode._playerReplyOptions != null && _currentNode._playerReplyOptions.Length > 0)
+    {
+        _waitingForPlayerResponse = true;
+        _dialogue.ShowPlayerOptions(_currentNode._playerReplyOptions);
+        return;
+    }
+
+    EndDialogue();
+}
 
     public void SelectedOption(int option)
     {

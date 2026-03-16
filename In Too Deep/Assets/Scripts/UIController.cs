@@ -247,10 +247,5 @@ public class UIController : MonoBehaviour
 
    
 
-    public void UpdateQuestState(State newState)
-    {
-        newState = player.Instance._currentState;
-        _questStatusText.text = "Quest Status: " + newState;
-    }
     
 }
