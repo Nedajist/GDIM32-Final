@@ -15,8 +15,8 @@ MonoBehaviour:
   _lines:
   - '"You lie! If I possessed any modicum of martial prowes, I know you would lie
     fertilizing the soft soil upon which I stand..."'
-  _thoughtBubbleSprite: {fileID: 0}
+  - "<i> My contract with the future devil proves useful once more\u2026 </i>"
   _playerReplyOptions:
-  - My contract with the future devil proves useful once more...
+  - <i>My contract with the future devil proves useful once more...</i>
   _npcReplies:
   - {fileID: 11400000, guid: 3e82ce7ff4180224bb5ffbef300efb48, type: 2}

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: End Conversation
   m_EditorClassIdentifier: 
   _lines:
-  - Good day.
-  _thoughtBubbleSprite: {fileID: 0}
+  - '"Good Day."'
   _playerReplyOptions: []
   _npcReplies: []

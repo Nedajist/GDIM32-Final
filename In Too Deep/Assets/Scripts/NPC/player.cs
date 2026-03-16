@@ -67,9 +67,10 @@ public class player : MonoBehaviour
     // stage 2 = Completed by talking to HOP HOP
     public int quest2Stage = 0;
     // stage 0 = quest not started
-    // stage 1 = accepted from HOP HOP
-    // stage 2 = item collected
-    // stage 3 = item delivered
+    // stage 1 = accepted HOP HOP's quest
+    // stage 2 = Completed HOP HOP's quest by talking to the monster
+    // stage 3 = Accepted Monster's quest
+    // stage 4 = item collected
 
 
 
@@ -492,6 +493,19 @@ public class player : MonoBehaviour
         _playerInventory[index].type = "None";
         _playerInventory[index].GetComponent<MeshRenderer>().gameObject.SetActive(false);
         InventoryUpdated?.Invoke(_playerInventory);
+    }
+
+    public void ClearBomb()
+    {
+        foreach (int i in Enumerable.Range(0, _playerInventory.Count))
+        {
+            if (_playerInventory[i].name == "Bomb")
+            {
+                _ClearInteractable(i);
+                break;
+            }
+        }
+
     }
 
     private void _DisplayInteractable() // if the player is holding an item, moves it above their head 
