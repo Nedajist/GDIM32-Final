@@ -21,6 +21,7 @@ public class MultipleDialogue : MonoBehaviour
     [SerializeField] private DialogueNode _startNode;
     [SerializeField] private DialogueNode _oneLineNode;
     [SerializeField] private DialogueNode _finalNode;
+    [SerializeField] private DialogueNode _endGameNode;
 
     [SerializeField] private DialogueNode _questAcceptNode;
 
@@ -102,6 +103,11 @@ public class MultipleDialogue : MonoBehaviour
             else if (player.Instance.quest1Stage > _requiredQuest1Stage || player.Instance.quest2Stage > _requiredQuest2Stage)
             {
                 _currentNode = _finalNode;
+            }
+
+            else if (player.Instance.quest2Stage == 4)
+            {
+                _currentNode = _endGameNode;
             }
             else
             {
