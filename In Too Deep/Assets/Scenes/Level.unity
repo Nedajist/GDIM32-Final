@@ -7838,9 +7838,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactionDistance: 4
   _interactionPromptSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _speakingSprite: {fileID: 0}
   _thoughtBubble: {fileID: 1764785769}
   _dialogue: {fileID: 1576828445}
   _startNode: {fileID: 0}
+  _oneLineNode: {fileID: 0}
   _questAcceptNode: {fileID: 0}
   _npcType: 0
   _requiredQuest1Stage: 0
@@ -20020,7 +20022,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 666190866519826529, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
       propertyPath: playtestShortcut
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 666190866519826529, guid: 6aa2b11ceb00a2d4a80a9fc8f36ce9e1, type: 3}
       propertyPath: mushroomManIsland
