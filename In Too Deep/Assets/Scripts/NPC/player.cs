@@ -691,6 +691,7 @@ public class player : MonoBehaviour
         return (_rigidbody);
     }
 
+
     public void add_camera_shake(float seconds)
     {
         _playercamera.GetComponent<CameraController>()._seconds_of_camera_shake += seconds;
