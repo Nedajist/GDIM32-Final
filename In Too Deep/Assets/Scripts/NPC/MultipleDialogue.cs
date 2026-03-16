@@ -28,9 +28,13 @@ public class MultipleDialogue : MonoBehaviour
 
     private bool _runningDialogue;
     private bool _waitingForPlayerResponse;
+    private static MultipleDialogue _activeNPC;
 
     private void Update()
     {
+        if (_activeNPC != null && _activeNPC != this)
+            return;
+        
         if (player.Instance == null) return;
 
         float distance = Vector3.Distance(transform.position, player.Instance.transform.position);
@@ -64,10 +68,14 @@ public class MultipleDialogue : MonoBehaviour
 
         if (!_runningDialogue)
         {
+            if(_activeNPC != null && _activeNPC != this)
+                return;
+            
+            _activeNPC = this;
+
             _currentNode = _startNode;
             _currentLine = 0;
             _runningDialogue = true;
-            player.Instance._dialogueActive = true;
         }
 
         if (_currentNode == null) return;
@@ -95,6 +103,12 @@ public class MultipleDialogue : MonoBehaviour
     {
         _currentLine = 0;
         _waitingForPlayerResponse = false;
+
+        if (_currentNode == null)
+        {
+            Debug.Log("Current node is NULL");
+            return;
+        }
 
         // Quest logic
         if (_npcType == NPCType.MushroomMan && _currentNode == _questAcceptNode && option == 0)
@@ -130,9 +144,11 @@ public class MultipleDialogue : MonoBehaviour
         _runningDialogue = false;
         _waitingForPlayerResponse = false;
         _currentLine = 0;
+
         _currentNode = null;
 
-        player.Instance._dialogueActive = false;
+        if (_activeNPC == this) 
+            _activeNPC = null;
 
         _dialogue.HideDialogue();
         _thoughtBubble.gameObject.SetActive(false);

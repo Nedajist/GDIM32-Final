@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
+  m_Name: Line 1
+  m_EditorClassIdentifier: 
+  _lines:
+  - Ribbit
+  - Ribbit Ribbit
+  - Ribbit Ribbit Ribbit
+  _thoughtBubbleSprite: {fileID: 0}
+  _playerReplyOptions:
+  - Hello HopHop
+  - i hate you
+  - Ribbit
+  _npcReplies:
+  - {fileID: 11400000, guid: 564db9cf0fbdfe746bd00ac981b40998, type: 2}
+  - {fileID: 11400000, guid: 9604a626a5b4a9d47a65ca459a68bb70, type: 2}
+  - {fileID: 11400000}

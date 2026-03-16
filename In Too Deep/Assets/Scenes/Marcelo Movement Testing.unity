@@ -321,7 +321,7 @@ MonoBehaviour:
   _thoughtBubble: {fileID: 601696851}
   _dialogue: {fileID: 1607415724}
   _startNode: {fileID: 11400000, guid: 4ee5197c6be81c34fa8ae79b77a43284, type: 2}
-  _questAcceptNode: {fileID: 11400000, guid: 564db9cf0fbdfe746bd00ac981b40998, type: 2}
+  _questAcceptNode: {fileID: 11400000, guid: f5d12502eb344a64c96d6becc2d48535, type: 2}
   _npcType: 1
   _requiredQuest1Stage: 1
   _requiredQuest2Stage: 0
