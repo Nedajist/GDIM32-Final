@@ -207,6 +207,10 @@ public class UIController : MonoBehaviour
                         _item_display_list[i].sprite = _coffee;
                         break;
                     case "Bomb":
+                        if (GameController.Instance.Player.quest2Stage == 3)
+                        {
+                            GameController.Instance.Player.quest2Stage = 4;
+                        }
                         _item_display_list[i].sprite = _warning;
                         break;
                     case "Makibean":

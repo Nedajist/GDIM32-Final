@@ -67,9 +67,10 @@ public class player : MonoBehaviour
     // stage 2 = Completed by talking to HOP HOP
     public int quest2Stage = 0;
     // stage 0 = quest not started
-    // stage 1 = accepted from HOP HOP
-    // stage 2 = item collected
-    // stage 3 = item delivered
+    // stage 1 = accepted HOP HOP's quest
+    // stage 2 = Completed HOP HOP's quest by talking to the monster
+    // stage 3 = Accepted Monster's quest
+    // stage 4 = item collected
 
 
 
