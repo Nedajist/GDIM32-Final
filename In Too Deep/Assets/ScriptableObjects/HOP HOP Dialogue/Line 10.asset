@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: Line 10
   m_EditorClassIdentifier: 
   _lines:
+<<<<<<< HEAD
   - Ribbit.  Seek out Terri, He-Who-Lies-Below, and bestow upon him *That*
   _playerReplyOptions:
   - Okey
   _npcReplies:
   - {fileID: 11400000, guid: 6c91525d60c2f2c47894967d51d13f07, type: 2}
+=======
+  - '"Ribbit."'
+  _playerReplyOptions: []
+  _npcReplies: []
+>>>>>>> 6c992a2ed1c09beaf130de59fd8cea2651d71427

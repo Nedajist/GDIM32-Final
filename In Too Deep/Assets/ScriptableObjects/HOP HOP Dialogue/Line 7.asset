@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Line 7
   m_EditorClassIdentifier: 
   _lines:
-  - Genuinely wtf is your problem
-  _thoughtBubbleSprite: {fileID: 0}
+  - '"Genuinely what the freak is your problem"'
   _playerReplyOptions: []
   _npcReplies: []

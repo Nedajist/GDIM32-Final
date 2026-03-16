@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Line 11
   m_EditorClassIdentifier: 
   _lines:
-  - Robbit
+  - '"Robbit."'
   _playerReplyOptions: []
   _npcReplies: []

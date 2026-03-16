@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Line 6
   m_EditorClassIdentifier: 
   _lines:
-  - Oh I see. An interesting motive you possess. I cannot reveal the exact wherabouts
-    of the sacred item, however it lies deep within the abyss
-  _thoughtBubbleSprite: {fileID: 0}
+  - '"Oh I see. An interesting motive you possess. I cannot reveal the exact wherabouts
+    of the sacred item, however it lies deep within the <i>abyss</i>."'
   _playerReplyOptions:
-  - I will hop to it
-  - I have mixed feelings about you
+  - '"I will hop to it."'
+  - '"I have mixed feelings about you."'
   _npcReplies:
   - {fileID: 11400000, guid: 12e94535d7e1fee4486181af0829813c, type: 2}
   - {fileID: 11400000, guid: 2c843f75c8bde2a41b0009594a3b5f6f, type: 2}

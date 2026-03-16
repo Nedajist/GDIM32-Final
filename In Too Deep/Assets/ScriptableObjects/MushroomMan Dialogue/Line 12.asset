@@ -16,7 +16,6 @@ MonoBehaviour:
   - '"Hmmm...I know.....You speak true. I know you do not seek *That* for your own
     gain. Very well then. Descend. Meet my underling, Hophop. They are a far better
     judge of character. Entreat them, convince them, and they shall send you on your
-    way"'
-  _thoughtBubbleSprite: {fileID: 0}
+    way."'
   _playerReplyOptions: []
   _npcReplies: []
