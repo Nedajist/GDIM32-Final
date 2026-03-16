@@ -16,9 +16,8 @@ MonoBehaviour:
   - '"You...lie? You truly do not seek *That*? I know, perhaps, I supposed, I, Mushi
     Man, could grant you an audience anew. Why have you delved here, being-not-from-this-world?
     I already know why, of course, so there is no use lying"'
-  _thoughtBubbleSprite: {fileID: 0}
   _playerReplyOptions:
   - '"I represent an otherwordly, extra dimensional public-safety division, sent
-    here to neutralize *That*'
+    here to neutralize *That*"'
   _npcReplies:
   - {fileID: 11400000, guid: 173787240b07f6a43b67b10fbca9be03, type: 2}
