@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
   m_Name: MonsterLineBeforeBomb
   m_EditorClassIdentifier: 
-  _lines: []
+  _lines:
+  - Find *That*
   _playerReplyOptions: []
   _npcReplies: []

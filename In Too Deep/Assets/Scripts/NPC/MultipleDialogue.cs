@@ -99,7 +99,7 @@ private void AdvanceDialogue()
             if (player.Instance.quest1Stage == 0)
                 _currentNode = _startNode;   // gives quest
             else
-                _currentNode = _oneLineNode; // after quest accepted
+                _currentNode = _finalNode; // after quest accepted
         }
 
         // Hop Hop

@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
   m_Name: Line 10
   m_EditorClassIdentifier: 
-  _lines: []
-  _playerReplyOptions: []
-  _npcReplies: []
+  _lines:
+  - '"Ribbit. Seek out Terri, He-Who-Lies-Below, and bestow upon him *That*"'
+  _playerReplyOptions:
+  - Okey ^v^
+  _npcReplies:
+  - {fileID: 11400000, guid: 6c91525d60c2f2c47894967d51d13f07, type: 2}

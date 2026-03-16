@@ -141,15 +141,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8405894992603883065, guid: ffdee7c7632048344aeb3e3e5bbef4d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.555174
+      value: -4.92
       objectReference: {fileID: 0}
     - target: {fileID: 8405894992603883065, guid: ffdee7c7632048344aeb3e3e5bbef4d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 59.829254
+      value: 60.2
       objectReference: {fileID: 0}
     - target: {fileID: 8405894992603883065, guid: ffdee7c7632048344aeb3e3e5bbef4d6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.928616
+      value: -14.749
       objectReference: {fileID: 0}
     - target: {fileID: 8405894992603883065, guid: ffdee7c7632048344aeb3e3e5bbef4d6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1970,10 +1970,10 @@ MonoBehaviour:
   _dialogue: {fileID: 1607415724}
   _startNode: {fileID: 11400000, guid: 9532790df60d8764eaa01e206b9896b6, type: 2}
   _oneLineNode: {fileID: 11400000, guid: ec19f84e6748fdc4ca5cc0087147677a, type: 2}
-  _finalNode: {fileID: 11400000, guid: 79cce37d880175c43a81061a98f8a290, type: 2}
-  _endGameNode: {fileID: 0}
+  _finalNode: {fileID: 11400000, guid: 417554d9c6f4f5444970432d6dab1e97, type: 2}
+  _endGameNode: {fileID: 11400000, guid: 79cce37d880175c43a81061a98f8a290, type: 2}
   _questAcceptNode: {fileID: 11400000, guid: c1f8808c1c20f934cbe1cd7cda753ec3, type: 2}
-  _npcType: 0
+  _npcType: 2
   _requiredQuest1Stage: 2
   _requiredQuest2Stage: 1
 --- !u!1 &1961349969
