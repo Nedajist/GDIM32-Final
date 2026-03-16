@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Line 8
   m_EditorClassIdentifier: 
   _lines:
-  - 'Okay, get some caffeien in your system, it will enable you to blow yourself
-    up in the air. '
-  - Good luck
-  _thoughtBubbleSprite: {fileID: 0}
+  - '"Okay, get some caffeine in your system, it will enable you to blow yourself
+    up in the air." '
+  - '"Good luck."'
   _playerReplyOptions:
-  - Ribbit
+  - '"Ribbit."'
   _npcReplies:
   - {fileID: 11400000, guid: f5d12502eb344a64c96d6becc2d48535, type: 2}

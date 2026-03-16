@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Line 4
   m_EditorClassIdentifier: 
   _lines:
-  - I have failed to deceive you. What urges you to collaborate?
-  _thoughtBubbleSprite: {fileID: 0}
+  - '"Hophop has failed to deceive you. What urges you to collaborate?"'
   _playerReplyOptions:
-  - I was directed here by Mushi Man
-  - I love you
-  - Ribbit
+  - '"I was directed here by Mushi Man."'
+  - '"I love you <3"'
+  - '"Ribbit."'
   _npcReplies:
   - {fileID: 11400000, guid: ca6f06153845f0b46851f240caf99e67, type: 2}
   - {fileID: 11400000, guid: be221a6f3acd8a147bca4c59c041c2c9, type: 2}

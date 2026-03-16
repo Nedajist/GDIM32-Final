@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
   m_Name: Line 10
   m_EditorClassIdentifier: 
-  _lines:
-  - Ribbit
-  _thoughtBubbleSprite: {fileID: 0}
+  _lines: []
   _playerReplyOptions: []
   _npcReplies: []

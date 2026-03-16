@@ -13,16 +13,15 @@ MonoBehaviour:
   m_Name: Line 1 and 2
   m_EditorClassIdentifier: 
   _lines:
-  - The mushroom-being's skin is tinged with the light from far above. You wonder
-    if it's spores are affecting your mental faculties, or if you truly are in the
-    presence of a perfect being.
+  - "<i>The mushroom-being\u2019s skin is tinged with the light from far above. You
+    wonder if its spores are affecting your mental faculties, or if you truly are
+    in the presence of a perfect being.</i>"
   - '"I know what you are. You ought to have come from below. And I know what you
-    seek. *That* thing"'
-  _thoughtBubbleSprite: {fileID: 0}
+    seek. *That* thing."'
   _playerReplyOptions:
-  - Yes
-  - Stay Silent
-  - No
+  - Yes (Lie)
+  - Stay Silent (Lie)
+  - No (Lie
   _npcReplies:
   - {fileID: 11400000, guid: 17905488731ea3245a18b1f49c5cdfc1, type: 2}
   - {fileID: 11400000, guid: 1c8fc74be09214a478bab502434eb716, type: 2}
