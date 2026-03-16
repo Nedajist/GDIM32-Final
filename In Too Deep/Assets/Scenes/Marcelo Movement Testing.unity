@@ -382,6 +382,7 @@ MonoBehaviour:
   _oneLineNode: {fileID: 11400000, guid: e6a0730c37cc29345bc7b2ebd3751a19, type: 2}
   _finalNode: {fileID: 11400000, guid: fba26798d14a43c40bf54d08362ada35, type: 2}
   _endGameNode: {fileID: 0}
+  _FINALENode: {fileID: 0}
   _questAcceptNode: {fileID: 11400000, guid: f5d12502eb344a64c96d6becc2d48535, type: 2}
   _npcType: 1
   _requiredQuest1Stage: 1
@@ -1972,6 +1973,7 @@ MonoBehaviour:
   _oneLineNode: {fileID: 11400000, guid: ec19f84e6748fdc4ca5cc0087147677a, type: 2}
   _finalNode: {fileID: 11400000, guid: 417554d9c6f4f5444970432d6dab1e97, type: 2}
   _endGameNode: {fileID: 11400000, guid: 79cce37d880175c43a81061a98f8a290, type: 2}
+  _FINALENode: {fileID: 11400000, guid: 79cce37d880175c43a81061a98f8a290, type: 2}
   _questAcceptNode: {fileID: 11400000, guid: c1f8808c1c20f934cbe1cd7cda753ec3, type: 2}
   _npcType: 2
   _requiredQuest1Stage: 2
@@ -2106,6 +2108,7 @@ MonoBehaviour:
   _oneLineNode: {fileID: 0}
   _finalNode: {fileID: 11400000, guid: 5c6aa5cef9f183b42bed6f3065f26401, type: 2}
   _endGameNode: {fileID: 0}
+  _FINALENode: {fileID: 0}
   _questAcceptNode: {fileID: 11400000, guid: 17905488731ea3245a18b1f49c5cdfc1, type: 2}
   _npcType: 0
   _requiredQuest1Stage: 0

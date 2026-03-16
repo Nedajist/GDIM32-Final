@@ -23,6 +23,7 @@ public class MultipleDialogue : MonoBehaviour
     [SerializeField] private DialogueNode _oneLineNode;
     [SerializeField] private DialogueNode _finalNode;
     [SerializeField] private DialogueNode _endGameNode;
+    [SerializeField] private DialogueNode _FINALENode;
 
     [SerializeField] private DialogueNode _questAcceptNode;
 
@@ -202,6 +203,10 @@ private void AdvanceDialogue()
         {
             player.Instance.quest2Stage = 3;
             Debug.Log("Quest 3 started");
+        }
+        if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 4 && _currentNode == _FINALENode && option == 0)
+        {
+            Debug.Log("final method");
         }
         
 
