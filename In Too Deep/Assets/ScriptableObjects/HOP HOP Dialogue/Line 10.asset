@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Line 10
   m_EditorClassIdentifier: 
   _lines:
-  - Ribbit
-  _thoughtBubbleSprite: {fileID: 0}
-  _playerReplyOptions: []
-  _npcReplies: []
+  - Ribbit.  Seek out Terri, He-Who-Lies-Below, and bestow upon him *That*
+  _playerReplyOptions:
+  - Okey
+  _npcReplies:
+  - {fileID: 11400000, guid: 6c91525d60c2f2c47894967d51d13f07, type: 2}

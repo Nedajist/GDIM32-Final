@@ -20,6 +20,8 @@ public class MultipleDialogue : MonoBehaviour
 
     [SerializeField] private DialogueNode _startNode;
     [SerializeField] private DialogueNode _oneLineNode;
+    [SerializeField] private DialogueNode _finalNode;
+
     [SerializeField] private DialogueNode _questAcceptNode;
 
     [SerializeField] private NPCType _npcType;
@@ -88,6 +90,11 @@ public class MultipleDialogue : MonoBehaviour
             if (player.Instance.quest1Stage < _requiredQuest1Stage || player.Instance.quest2Stage < _requiredQuest2Stage)
             {
                 _currentNode = _oneLineNode;
+            }
+
+            else if (player.Instance.quest1Stage > _requiredQuest1Stage || player.Instance.quest2Stage > _requiredQuest2Stage)
+            {
+                _currentNode = _finalNode;
             }
             else
             {
@@ -164,6 +171,12 @@ public class MultipleDialogue : MonoBehaviour
             player.Instance.quest2Stage = 3;
             Debug.Log("Quest 3 started");
         }
+        if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 4)
+        {
+            
+            Debug.Log("Quest 3 Completed");
+        }
+
 
         if(_currentNode._npcReplies == null || option >= _currentNode._npcReplies.Length)
         {
