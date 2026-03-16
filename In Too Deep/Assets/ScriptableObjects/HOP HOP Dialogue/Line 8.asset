@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
-  m_Name: HOPHOPEnd
+  m_Name: Line 8
   m_EditorClassIdentifier: 
   _lines:
-  - Go find him at the bottom of the world
+  - 'Okay, get some caffeien in your system, it will enable you to blow yourself
+    up in the air. '
+  - Good luck
   _thoughtBubbleSprite: {fileID: 0}
-  _playerReplyOptions: []
-  _npcReplies: []
+  _playerReplyOptions:
+  - Ribbit
+  _npcReplies:
+  - {fileID: 11400000, guid: f5d12502eb344a64c96d6becc2d48535, type: 2}

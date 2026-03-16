@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
+  m_Name: Line 4
+  m_EditorClassIdentifier: 
+  _lines:
+  - I have failed to deceive you. What urges you to collaborate?
+  _thoughtBubbleSprite: {fileID: 0}
+  _playerReplyOptions:
+  - I was directed here by Mushi Man
+  - I love you
+  - Ribbit
+  _npcReplies:
+  - {fileID: 11400000, guid: ca6f06153845f0b46851f240caf99e67, type: 2}
+  - {fileID: 11400000, guid: be221a6f3acd8a147bca4c59c041c2c9, type: 2}
+  - {fileID: 11400000, guid: 4ee5197c6be81c34fa8ae79b77a43284, type: 2}
