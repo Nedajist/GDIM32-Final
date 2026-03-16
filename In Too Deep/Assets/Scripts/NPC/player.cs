@@ -220,7 +220,6 @@ public class player : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && ((_grounded == true || _air_jump_charges> 0))) // check if space was released, player jumps
         {
-            TimeRewind();
             _rigidbody.velocity = new Vector3(0, 0, 0);
 
             _jump_grace_period = 0;
