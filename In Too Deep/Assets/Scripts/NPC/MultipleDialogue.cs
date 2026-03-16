@@ -12,6 +12,7 @@ public class MultipleDialogue : MonoBehaviour
 {
     [SerializeField] private float _interactionDistance = 2.0f;
     [SerializeField] private Sprite _interactionPromptSprite;
+    [SerializeField] private Sprite _speakingSprite;
     [SerializeField] private Image _thoughtBubble;
     [SerializeField] private DialogueUI _dialogue;
 
@@ -30,6 +31,12 @@ public class MultipleDialogue : MonoBehaviour
     private bool _waitingForPlayerResponse;
     private static MultipleDialogue _activeNPC;
 
+    private void Start()
+    {
+        _thoughtBubble.enabled = false;
+        _thoughtBubble.sprite = _interactionPromptSprite;
+    }
+
     private void Update()
     {
         if (_activeNPC != null && _activeNPC != this)
@@ -43,8 +50,7 @@ public class MultipleDialogue : MonoBehaviour
         {
             if (!_runningDialogue)
             {
-                _thoughtBubble.gameObject.SetActive(true);
-                _thoughtBubble.sprite = _interactionPromptSprite;
+                _thoughtBubble.enabled = true;
             }
 
             if (!_waitingForPlayerResponse && Input.GetKeyDown(KeyCode.Mouse0))
@@ -59,10 +65,16 @@ public class MultipleDialogue : MonoBehaviour
         {
             EndDialogue();
         }
+
+        else
+        {
+            _thoughtBubble.enabled = false;
+        }
     }
 
     private void AdvanceDialogue()
     {
+        _thoughtBubble.sprite = _speakingSprite;
         if (player.Instance._dialogueActive && !_runningDialogue)
             return;
 
@@ -80,7 +92,7 @@ public class MultipleDialogue : MonoBehaviour
 
         if (_currentNode == null) return;
 
-        _thoughtBubble.sprite = _currentNode._thoughtBubbleSprite;
+        _thoughtBubble.sprite = _speakingSprite;
 
         if (_currentLine < _currentNode._lines.Length)
         {
@@ -162,7 +174,7 @@ public class MultipleDialogue : MonoBehaviour
             _activeNPC = null;
 
         _dialogue.HideDialogue();
-        _thoughtBubble.gameObject.SetActive(false);
+        _thoughtBubble.sprite = _interactionPromptSprite;
     }
 
     private bool CanInteract()
