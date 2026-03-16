@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Line 1
   m_EditorClassIdentifier: 
   _lines:
-  - 'What brings you here, and why are you talking to me '
+  - '"What brings you here, and why are you talking to me?" '
   _playerReplyOptions:
-  - 'Hop hop sent me down a perilous journey of darkness into the depths of this
-    abyss '
+  - '"Hop hop sent me down a perilous journey of darkness into the depths of this
+    abyss." '
   _npcReplies:
   - {fileID: 11400000, guid: d69a7b0036089f0468b1305f160f715f, type: 2}
