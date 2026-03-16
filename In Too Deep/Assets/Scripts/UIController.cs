@@ -210,6 +210,7 @@ public class UIController : MonoBehaviour
                         if (GameController.Instance.Player.quest2Stage == 3)
                         {
                             GameController.Instance.Player.quest2Stage = 4;
+                            Debug.Log("Quest2Stage = 4");
                         }
                         _item_display_list[i].sprite = _warning;
                         break;
@@ -247,10 +248,5 @@ public class UIController : MonoBehaviour
 
    
 
-    public void UpdateQuestState(State newState)
-    {
-        newState = player.Instance._currentState;
-        _questStatusText.text = "Quest Status: " + newState;
-    }
     
 }
