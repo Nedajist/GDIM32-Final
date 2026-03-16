@@ -326,6 +326,7 @@ MonoBehaviour:
   _upward_charge_velocity: 600
   _forward_charge_velocity: 300
   _fall_height_threshold: 10
+  _bomb: {fileID: 2363787679177776832, guid: ffdee7c7632048344aeb3e3e5bbef4d6, type: 3}
   _explosion_audio_manager: {fileID: 1724584513063088631}
   _footsteps_audio_manager: {fileID: 7032793562248649206}
   _music_audio_manager: {fileID: 3528922372985125139}

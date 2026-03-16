@@ -206,6 +206,7 @@ private void AdvanceDialogue()
         if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 4 && _currentNode == _FINALENode && option == 0)
         {
             Debug.Log("final method");
+            player.Instance.TimeRewind();
         }
         
 
