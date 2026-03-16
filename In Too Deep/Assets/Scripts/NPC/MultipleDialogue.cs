@@ -101,6 +101,7 @@ public class MultipleDialogue : MonoBehaviour
 
     public void SelectedOption(int option)
     {
+        Debug.Log("SelectedOption called on: " + gameObject.name);
         _currentLine = 0;
         _waitingForPlayerResponse = false;
 
@@ -111,28 +112,36 @@ public class MultipleDialogue : MonoBehaviour
         }
 
         // Quest logic
+        //accepted quest 1 by talking to mushroom man
         if (_npcType == NPCType.MushroomMan && _currentNode == _questAcceptNode && option == 0)
         {
             player.Instance.quest1Stage = 1;
             Debug.Log("Quest 1 started");
         }
-
+        //completed quest 1 by finding and talking to hop hop
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1)
         {
             player.Instance.quest1Stage = 2;
             Debug.Log("Quest 1 complete");
         }
-
+        //accepted quest 2 by talking to hop hop and choosing quest accept node in dialogue
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 2 && _currentNode == _questAcceptNode && option == 0)
         {
             player.Instance.quest2Stage = 1;
             Debug.Log("Quest 2 started");
         }
-
+        //completed quest 2 by talking to monster
         if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 2)
         {
             player.Instance.quest2Stage = 3;
             Debug.Log("Quest 2 complete");
+        }
+
+        if(_currentNode._npcReplies == null || option >= _currentNode._npcReplies.Length)
+        {
+            Debug.LogError("Dialogue node missing for option: " + option);
+            EndDialogue();
+            return;
         }
 
         _currentNode = _currentNode._npcReplies[option];
@@ -164,4 +173,14 @@ public class MultipleDialogue : MonoBehaviour
 
         return true;
     }
+    public static void SelectOptionFromUI(int option)
+{
+    if (_activeNPC == null)
+    {
+        Debug.LogWarning("No active NPC dialogue.");
+        return;
+    }
+
+    _activeNPC.SelectedOption(option);
+}
 }
