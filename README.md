@@ -43,8 +43,22 @@ Put your group Devlog here.
 Put your individual final Devlog here.
 ### Team Member Name 2
 Put your individual final Devlog here.
-### Team Member Name 3
-Put your individual final Devlog here.
+### Marcelo Tolosa
+Since the Check-In, I've improved the NPC dialogue by adding every single node that uniquely correlates with the scripts that each team member created for the NPC's. I created all of Terri's dialogue and implemented one line start nodes. In AdvanceDialogue() method, it first checks whether the player's quest scores are less than or greater than the required quest scores in order to interact with the NPC. If not, then the player will only be able to interact with the NPC with a one liner. This is only changed until the player completes a previous quest in order to unlock the nodes with multiple dialogue. 
+
+Addiitionally, created the logic for NPC's that talk to the player which increment the queststage values based on which NPC's you talk to and which option you choose seen in the SelectedOption() method. New methods, variables, and gameobjects I created include: SelectedOptionsfromUI(), (changing AdvanceDialogue()), adding _onlineNode variable, both requiredquest1stage and requiredquest2stage, as well as quest1stage and quest2stage in the player variable. The logic for the player quest stages below:     
+public int quest1Stage = 0;
+    // stage 0 = Quest not started
+    // stage 1 = Accepted from Mushroom Man
+    // stage 2 = Completed by talking to HOP HOP
+public int quest2Stage = 0;
+    // stage 0 = quest not started
+    // stage 1 = accepted from HOP HOP
+    // stage 2 = item collected
+    // stage 3 = item delivered
+
+Terri's dialogue:
+([In Too Deep Dialogue] https://docs.google.com/document/d/1X34PPDPiaFY0Egpk9Z-WLCvEmmA_12GL5txa25ktmrA/edit?usp=sharing)
 
 
 ## Open-Source Assets

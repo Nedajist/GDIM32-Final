@@ -8,6 +8,8 @@ public enum NPCType
     Monster
 }
 
+
+
 public class MultipleDialogue : MonoBehaviour
 {
     [SerializeField] private float _interactionDistance = 2.0f;
@@ -17,6 +19,7 @@ public class MultipleDialogue : MonoBehaviour
     [SerializeField] private DialogueUI _dialogue;
 
     [SerializeField] private DialogueNode _startNode;
+    [SerializeField] private DialogueNode _oneLineNode;
     [SerializeField] private DialogueNode _questAcceptNode;
 
     [SerializeField] private NPCType _npcType;
@@ -55,10 +58,7 @@ public class MultipleDialogue : MonoBehaviour
 
             if (!_waitingForPlayerResponse && Input.GetKeyDown(KeyCode.Mouse0))
             {
-                if (CanInteract())
-                {
-                    AdvanceDialogue();
-                }
+                AdvanceDialogue();
             }
         }
         else if (_runningDialogue && !_waitingForPlayerResponse)
@@ -85,9 +85,17 @@ public class MultipleDialogue : MonoBehaviour
             
             _activeNPC = this;
 
-            _currentNode = _startNode;
-            _currentLine = 0;
-            _runningDialogue = true;
+            if (player.Instance.quest1Stage < _requiredQuest1Stage || player.Instance.quest2Stage < _requiredQuest2Stage)
+            {
+                _currentNode = _oneLineNode;
+            }
+            else
+            {
+                _currentNode = _startNode;
+                _currentLine = 0;
+                _runningDialogue = true;
+            }
+
         }
 
         if (_currentNode == null) return;
@@ -113,7 +121,6 @@ public class MultipleDialogue : MonoBehaviour
 
     public void SelectedOption(int option)
     {
-        Debug.Log("SelectedOption called on: " + gameObject.name);
         _currentLine = 0;
         _waitingForPlayerResponse = false;
 
@@ -125,14 +132,15 @@ public class MultipleDialogue : MonoBehaviour
 
         // Quest logic
         //accepted quest 1 by talking to mushroom man
-        if (_npcType == NPCType.MushroomMan && _currentNode == _questAcceptNode && option == 0)
+        if (_npcType == NPCType.MushroomMan && _currentNode == _questAcceptNode && option == 0 && player.Instance.quest1Stage < 1) 
         {
+
             player.Instance.quest1Stage = 1;
             Debug.Log("Quest 1 started");
             Debug.Log("Quest stage = 1");
         }
         //completed quest 1 by finding and talking to hop hop
-        if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1)
+        if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1 && player.Instance.quest1Stage < 2)
         {
             player.Instance.quest1Stage = 2;
             Debug.Log("Quest 1 complete");
@@ -145,10 +153,16 @@ public class MultipleDialogue : MonoBehaviour
             Debug.Log("Quest 2 started");
         }
         //completed quest 2 by talking to monster
-        if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 2)
+        if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 1)
+        {
+            player.Instance.quest2Stage = 2;
+            Debug.Log("Quest 2 complete");
+        }
+
+        if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 2 && _currentNode == _questAcceptNode && option == 0)
         {
             player.Instance.quest2Stage = 3;
-            Debug.Log("Quest 2 complete");
+            Debug.Log("Quest 3 started");
         }
 
         if(_currentNode._npcReplies == null || option >= _currentNode._npcReplies.Length)
@@ -177,16 +191,7 @@ public class MultipleDialogue : MonoBehaviour
         _thoughtBubble.sprite = _interactionPromptSprite;
     }
 
-    private bool CanInteract()
-    {
-        if (player.Instance.quest1Stage < _requiredQuest1Stage)
-        return false;
 
-        if (player.Instance.quest2Stage < _requiredQuest2Stage)
-        return false;
-
-        return true;
-    }
     public static void SelectOptionFromUI(int option)
 {
     if (_activeNPC == null)
