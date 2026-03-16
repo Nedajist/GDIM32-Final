@@ -8,7 +8,8 @@ public class BombItem : Interactable
     [SerializeField] Rigidbody _rigidbody;
     private void Start()
     {
-        type = "bomb";
+        type = "Bomb";
+        
     }
 
     public override void interact()

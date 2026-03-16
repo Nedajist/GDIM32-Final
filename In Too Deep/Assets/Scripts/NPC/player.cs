@@ -495,6 +495,19 @@ public class player : MonoBehaviour
         InventoryUpdated?.Invoke(_playerInventory);
     }
 
+    public void ClearBomb()
+    {
+        foreach (int i in Enumerable.Range(0, _playerInventory.Count))
+        {
+            if (_playerInventory[i].name == "Bomb")
+            {
+                _ClearInteractable(i);
+                break;
+            }
+        }
+
+    }
+
     private void _DisplayInteractable() // if the player is holding an item, moves it above their head 
     {
         Interactable selected_interactable = _playerInventory[_inventory_selected_index];
