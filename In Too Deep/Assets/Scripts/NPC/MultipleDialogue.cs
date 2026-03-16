@@ -61,7 +61,7 @@ public class MultipleDialogue : MonoBehaviour
                 }
             }
         }
-        else if (_runningDialogue)
+        else if (_runningDialogue && !_waitingForPlayerResponse)
         {
             EndDialogue();
         }
