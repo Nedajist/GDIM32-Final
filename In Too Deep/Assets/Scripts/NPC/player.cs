@@ -219,10 +219,9 @@ public class player : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && ((_grounded == true || _air_jump_charges> 0))) // check if space was released, player jumps
         {
-            if (_grounded == false && _air_jump_charges > 0)
-            {
-                _rigidbody.velocity = new Vector3(0, 0, 0);
-            }
+           
+            _rigidbody.velocity = new Vector3(0, 0, 0);
+            
 
             _jump_grace_period = 0;
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
