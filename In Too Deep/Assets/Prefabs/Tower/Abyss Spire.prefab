@@ -311,6 +311,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2154894925784860202}
   - {fileID: 2365876778569980575}
   - {fileID: 26282937500584387}
   - {fileID: 1919474901319881250}
@@ -341,6 +342,76 @@ Transform:
   - {fileID: 7755124031581213371}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &385751688707609422
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8180490912973584507}
+    m_Modifications:
+    - target: {fileID: 948011419114096960, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: track
+      value: 
+      objectReference: {fileID: 8300000, guid: dbe0872b3d50a474580e656958d9a214, type: 3}
+    - target: {fileID: 1072389637499402370, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_Name
+      value: ' MusicGate'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 33.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8348514
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5504755
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 66.799
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147719758610736754, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+--- !u!4 &2154894925784860202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+  m_PrefabInstance: {fileID: 385751688707609422}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &437391549925728269
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,13 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.VFX;
-public enum State
-{
-    None,
-    Accepted, 
-    Ready,
-    Completed
-}
+
 
 
 public class player : MonoBehaviour
@@ -65,6 +59,17 @@ public class player : MonoBehaviour
     [SerializeField] AudioClip _giant_explosion_SFX;
     [SerializeField] AudioClip _tiny_landing_SFX;
     [SerializeField] AudioClip _iris_out;
+
+    //QUEST
+    public int quest1Stage = 0;
+    // stage 0 = Quest not started
+    // stage 1 = Accepted from Mushroom Man
+    // stage 2 = Completed by talking to HOP HOP
+    public int quest2Stage = 0;
+    // stage 0 = quest not started
+    // stage 1 = accepted from HOP HOP
+    // stage 2 = item collected
+    // stage 3 = item delivered
 
 
 
@@ -126,7 +131,7 @@ public class player : MonoBehaviour
     [SerializeField] public bool _dialogueActive;
     [SerializeField] private bool _nearNPC;
 
-    private NPC _currentNPC;
+    
 
 
     private void Awake()
@@ -138,12 +143,12 @@ public class player : MonoBehaviour
         }
 
         Instance = this;
+        Debug.Log(quest1Stage);
     }
 
 
     void Start()
     {
-        _currentState = State.None;
         _max_upward_momentum_vector = _max_upward_momentum * transform.up;
         _max_forward_momentum_vector = _max_forward_momentum * transform.forward;
         _ClearInteractable(0);
@@ -202,7 +207,7 @@ public class player : MonoBehaviour
                 _held_forward_momentum = _max_forward_momentum;
             }
 
-            _charge_percent = (_held_forward_momentum / (_max_forward_momentum - _min_forward_momentum));
+            _charge_percent = (_held_forward_momentum / (_max_forward_momentum));
 
         }
 
@@ -210,10 +215,14 @@ public class player : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && ((_grounded == true || _air_jump_charges> 0))) // check if space was released, player jumps
         {
-            _rigidbody.velocity = new Vector3(0, 0, 0);
+            if (_grounded == false && _air_jump_charges > 0)
+            {
+                _rigidbody.velocity = new Vector3(0, 0, 0);
+            }
+
             _jump_grace_period = 0;
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
-            Vector3 _forward_momentum = (_forward_charge_velocity * transform.forward * _space_held_time) + _min_forward_momentum * transform.forward;
+            Vector3 _forward_momentum = (_held_forward_momentum * transform.forward) + _min_forward_momentum * transform.forward;
 
             if (_upward_momentum.y > _max_upward_momentum_vector.y){
                 _upward_momentum = _max_upward_momentum_vector;
@@ -304,8 +313,6 @@ public class player : MonoBehaviour
             Ray interaction_detector = _playercamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(interaction_detector, out _raycast_results, 30f)){
                 if (_raycast_results.transform.CompareTag("NPC") && _dialogueActive == false){
-                    _currentNPC = _raycast_results.transform.GetComponent<NPC>();
-                    TalkToNPC(_currentNPC);
                     Debug.Log("talking to npc");
                 }
 
@@ -356,7 +363,7 @@ public class player : MonoBehaviour
             player_lands();
         }
 
-        //ChangeState(_currentState);
+      
 
 
         if (!_canMove)
@@ -454,8 +461,8 @@ public class player : MonoBehaviour
             _starting_fall_height = transform.position.y;
             _list_of_colliders.Add(collision);
             bouncy_object obstacle = collision.transform.GetComponent<bouncy_object>();
-            _rigidbody.AddExplosionForce(obstacle.repel_force, transform.position, 100);
-
+            _rigidbody.AddExplosionForce(obstacle.repel_force, transform.position + transform.up * -1, 200);
+            add_camera_shake(0.1f);
         }
 
         if (collision.transform.CompareTag("Slope"))
@@ -469,7 +476,16 @@ public class player : MonoBehaviour
             _list_of_colliders.Add(collision);
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("MusicGate") && _music_audio_manager.clip != other.transform.GetComponent<MusicGate>().track) // If collides with MusicGate, plays new track unless it is already playing
+        {
+            _music_audio_manager.clip = other.transform.GetComponent<MusicGate>().track;
+            _music_audio_manager.Play();
+        }
+    }
+
     private void _ClearInteractable(int index)
     {
         _playerInventory[index].name = "None";
@@ -504,10 +520,7 @@ public class player : MonoBehaviour
         }
     }
 
-    public void TalkToNPC(NPC npc)
-    {
-        
-    }
+    
 
     public void _transition_movement_state(_movement_states new_state)
     {
@@ -583,13 +596,7 @@ public class player : MonoBehaviour
     }
 
 
-    public void ChangeState (State newState)
-    {
-        _currentState = newState;
-        //Debug.Log ("Player state changed to: " + newState);
-
-        GameController.Instance.UIController.UpdateQuestState(newState);
-    }
+    
 
     public void BigDeathExplosion()
     {

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
+  m_Name: Line 4
+  m_EditorClassIdentifier: 
+  _lines:
+  - '"You lie! If I possessed any modicum of martial prowes, I know you would lie
+    fertilizing the soft soil upon which I stand..."'
+  _thoughtBubbleSprite: {fileID: 0}
+  _playerReplyOptions:
+  - My contract with the future devil proves useful once more...
+  _npcReplies:
+  - {fileID: 11400000, guid: 3e82ce7ff4180224bb5ffbef300efb48, type: 2}
