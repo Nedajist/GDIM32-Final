@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
-  m_Name: Line 5
+  m_Name: HopHop
   m_EditorClassIdentifier: 
   _lines:
-  - Find me *That* located down the slopes, and bring it to me by flexing the R muscle
-  - Only I can disable the bomb, and do NOT USE IT!
-  _playerReplyOptions:
-  - Okay, I promise...
-  _npcReplies:
-  - {fileID: 11400000, guid: 11f4f90df37aa7b459f0161c8f6fe641, type: 2}
+  - GO DOWN THE ABYSS...*TIBBIR
+  _playerReplyOptions: []
+  _npcReplies: []

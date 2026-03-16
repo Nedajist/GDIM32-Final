@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4e8aa789e15854daf4decdc27f321e, type: 3}
   m_Name: Line 3
   m_EditorClassIdentifier: 
-  _lines: []
-  _playerReplyOptions: []
-  _npcReplies: []
+  _lines:
+  - 'I see. You of all people? It seems Hop hop sees something in you that I cannot '
+  - 'After such a long journey, it would be cruel of me to waste your strength any
+    further. I shall grant you a quest of an item I have long desired to obtain.  '
+  _playerReplyOptions:
+  - ...
+  _npcReplies:
+  - {fileID: 11400000, guid: c1f8808c1c20f934cbe1cd7cda753ec3, type: 2}
