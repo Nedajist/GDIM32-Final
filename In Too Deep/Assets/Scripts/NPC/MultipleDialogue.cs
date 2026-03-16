@@ -117,12 +117,14 @@ public class MultipleDialogue : MonoBehaviour
         {
             player.Instance.quest1Stage = 1;
             Debug.Log("Quest 1 started");
+            Debug.Log("Quest stage = 1");
         }
         //completed quest 1 by finding and talking to hop hop
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1)
         {
             player.Instance.quest1Stage = 2;
             Debug.Log("Quest 1 complete");
+            Debug.Log("Quest stage = 2");
         }
         //accepted quest 2 by talking to hop hop and choosing quest accept node in dialogue
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 2 && _currentNode == _questAcceptNode && option == 0)
