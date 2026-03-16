@@ -21,12 +21,15 @@ public class MultipleDialogue : MonoBehaviour
     [SerializeField] private DialogueNode _startNode;
     [SerializeField] private DialogueNode _oneLineNode;
     [SerializeField] private DialogueNode _finalNode;
+    [SerializeField] private DialogueNode _endGameNode;
+    [SerializeField] private DialogueNode _FINALENode;
 
     [SerializeField] private DialogueNode _questAcceptNode;
 
     [SerializeField] private NPCType _npcType;
     [SerializeField] private int _requiredQuest1Stage = 0;
     [SerializeField] private int _requiredQuest2Stage = 0;
+    private bool activateFinalLine;
 
     private DialogueNode _currentNode;
     private int _currentLine = 0;
@@ -74,57 +77,82 @@ public class MultipleDialogue : MonoBehaviour
         }
     }
 
-    private void AdvanceDialogue()
+private void AdvanceDialogue()
+{
+    _thoughtBubble.sprite = _speakingSprite;
+
+    if (player.Instance._dialogueActive && !_runningDialogue)
+        return;
+
+    if (!_runningDialogue)
     {
-        _thoughtBubble.sprite = _speakingSprite;
-        if (player.Instance._dialogueActive && !_runningDialogue)
+        if (_activeNPC != null && _activeNPC != this)
             return;
 
-        if (!_runningDialogue)
+        _activeNPC = this;
+        _runningDialogue = true;
+        _currentLine = 0;
+
+        // Mushi
+        if (_npcType == NPCType.MushroomMan)
         {
-            if(_activeNPC != null && _activeNPC != this)
-                return;
-            
-            _activeNPC = this;
-
-            if (player.Instance.quest1Stage < _requiredQuest1Stage || player.Instance.quest2Stage < _requiredQuest2Stage)
-            {
-                _currentNode = _oneLineNode;
-            }
-
-            else if (player.Instance.quest1Stage > _requiredQuest1Stage || player.Instance.quest2Stage > _requiredQuest2Stage)
-            {
-                _currentNode = _finalNode;
-            }
+            if (player.Instance.quest1Stage == 0)
+                _currentNode = _startNode;   // gives quest
             else
-            {
-                _currentNode = _startNode;
-                _currentLine = 0;
-                _runningDialogue = true;
-            }
-
+                _currentNode = _finalNode; // after quest accepted
         }
 
-        if (_currentNode == null) return;
-
-        _thoughtBubble.sprite = _speakingSprite;
-
-        if (_currentLine < _currentNode._lines.Length)
+        // Hop Hop
+        else if (_npcType == NPCType.HopHop)
         {
-            _dialogue.ShowDialogue(_currentNode._lines[_currentLine]);
-            _currentLine++;
-            return;
+            if (player.Instance.quest1Stage < 1)
+                _currentNode = _oneLineNode; // pre-quest line
+
+            else if (player.Instance.quest2Stage == 0)
+                _currentNode = _startNode;   // gives quest 2
+
+            else
+                _currentNode = _finalNode;   // after quest 2 accepted
         }
 
-        if (_currentNode._playerReplyOptions != null && _currentNode._playerReplyOptions.Length > 0)
+        // Monster
+        else if (_npcType == NPCType.Monster)
         {
-            _waitingForPlayerResponse = true;
-            _dialogue.ShowPlayerOptions(_currentNode._playerReplyOptions);
-            return;
-        }
+            if (player.Instance.quest2Stage < 1)
+                _currentNode = _oneLineNode; // won't talk yet
 
-        EndDialogue();
+            else if (player.Instance.quest2Stage == 1)
+                _currentNode = _startNode;   // completes quest 2
+
+            else if (player.Instance.quest2Stage == 3)
+                _currentNode = _finalNode;   // quest 3 active
+
+            else if (player.Instance.quest2Stage == 4)
+                _currentNode = _endGameNode;
+                
+                player.Instance.ClearBomb();
+                 // bomb obtained
+        }
     }
+
+    if (_currentNode == null) return;
+
+    if (_currentLine < _currentNode._lines.Length)
+    {
+        _dialogue.ShowDialogue(_currentNode._lines[_currentLine]);
+        _currentLine++;
+        return;
+    }
+
+    if (_currentNode._playerReplyOptions != null && _currentNode._playerReplyOptions.Length > 0)
+    {
+        _waitingForPlayerResponse = true;
+        _dialogue.ShowPlayerOptions(_currentNode._playerReplyOptions);
+        return;
+    }
+
+    EndDialogue();
+}
 
     public void SelectedOption(int option)
     {
@@ -145,6 +173,7 @@ public class MultipleDialogue : MonoBehaviour
             player.Instance.quest1Stage = 1;
             Debug.Log("Quest 1 started");
             Debug.Log("Quest stage = 1");
+            Debug.Log(player.Instance.quest1Stage);
         }
         //completed quest 1 by finding and talking to hop hop
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 1 && player.Instance.quest1Stage < 2)
@@ -152,18 +181,21 @@ public class MultipleDialogue : MonoBehaviour
             player.Instance.quest1Stage = 2;
             Debug.Log("Quest 1 complete");
             Debug.Log("Quest stage = 2");
+            Debug.Log(player.Instance.quest1Stage);
         }
         //accepted quest 2 by talking to hop hop and choosing quest accept node in dialogue
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 2 && _currentNode == _questAcceptNode && option == 0)
         {
             player.Instance.quest2Stage = 1;
             Debug.Log("Quest 2 started");
+            Debug.Log(player.Instance.quest2Stage);
         }
         //completed quest 2 by talking to monster
         if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 1)
         {
             player.Instance.quest2Stage = 2;
             Debug.Log("Quest 2 complete");
+            Debug.Log(player.Instance.quest1Stage);
         }
 
         if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 2 && _currentNode == _questAcceptNode && option == 0)
@@ -171,11 +203,11 @@ public class MultipleDialogue : MonoBehaviour
             player.Instance.quest2Stage = 3;
             Debug.Log("Quest 3 started");
         }
-        if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 4)
+        if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 4 && _currentNode == _FINALENode && option == 0)
         {
-            
-            Debug.Log("Quest 3 Completed");
+            Debug.Log("final method");
         }
+        
 
 
         if(_currentNode._npcReplies == null || option >= _currentNode._npcReplies.Length)

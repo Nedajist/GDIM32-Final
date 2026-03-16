@@ -31,6 +31,9 @@ public class player : MonoBehaviour
     [SerializeField] AudioSource _music_audio_manager;
     [SerializeField] AudioSource _landing_audio_manager;
     [SerializeField] AudioSource _charging_audio_manager;
+    [SerializeField] AudioSource _air_travel_audio_manager;
+    [SerializeField] AudioSource _sizzle_travel_audio_manager;
+
 
 
 
@@ -331,6 +334,7 @@ public class player : MonoBehaviour
             {
                 Instantiate(_sparks, transform.position + transform.up * 1.9f, Quaternion.identity);
                 _playerInventory[_inventory_selected_index].interact();
+                _sizzle_travel_audio_manager.Play();
 
             }
             _ClearInteractable(_inventory_selected_index);
@@ -570,6 +574,8 @@ public class player : MonoBehaviour
             case _movement_states.Falling:
                 _charging_audio_manager.Stop();
                 _footsteps_audio_manager.Stop();
+                _air_travel_audio_manager.time = 0;
+                _air_travel_audio_manager.Play();
                 switch (_movement_state)
                 {
                     case (_movement_states.Charging):
@@ -591,6 +597,7 @@ public class player : MonoBehaviour
                 break;
 
             case _movement_states.Walking:
+                _air_travel_audio_manager.Stop();
                 _air_jump_charges = _max_air_jump_charges;
                 _footsteps_audio_manager.Play();
                 _animator.SetBool("Falling", false);
@@ -601,6 +608,7 @@ public class player : MonoBehaviour
                 _air_jump_charges = _max_air_jump_charges;
                 _charging_audio_manager.Stop();
                 _footsteps_audio_manager.Stop();
+                _air_travel_audio_manager.Stop();
                 _animator.SetBool("Walking", false);
                 _animator.SetBool("Falling", false);
                 break;
@@ -617,6 +625,15 @@ public class player : MonoBehaviour
         Instantiate(_large_explosion, transform.position + transform.up * 2, Quaternion.identity);
         _explosion_audio_manager.clip = _large_explosion_SFX;
         _explosion_audio_manager.Play();
+    }
+
+    public void BoringEnd()
+    {
+        quest2Stage = 3;
+
+
+
+
     }
 
     public void BombEnd() // called ONCE when player interacts with bomb 
@@ -643,6 +660,9 @@ public class player : MonoBehaviour
         _music_audio_manager.clip = _large_explosion_SFX;
         _music_audio_manager.pitch = 0.7f;
         _music_audio_manager.Play();
+
+        _air_travel_audio_manager.loop = true;
+        _air_travel_audio_manager.Play();
     }
 
     private void _BombEndingProgression() // called every frame AFTER player has interacted with bomb
