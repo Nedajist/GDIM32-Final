@@ -318,6 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactionDistance: 4
   _interactionPromptSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _speakingSprite: {fileID: 21300000, guid: 93a3b8fd5e61ee8449e46b2dd735bd8e, type: 3}
   _thoughtBubble: {fileID: 601696851}
   _dialogue: {fileID: 1607415724}
   _startNode: {fileID: 11400000, guid: 4ee5197c6be81c34fa8ae79b77a43284, type: 2}
@@ -382,7 +383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d61ec704d097b68438dfeae5043ac861, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -863,7 +864,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d61ec704d097b68438dfeae5043ac861, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1904,6 +1905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactionDistance: 2
   _interactionPromptSprite: {fileID: 0}
+  _speakingSprite: {fileID: 0}
   _thoughtBubble: {fileID: 0}
   _dialogue: {fileID: 0}
   _startNode: {fileID: 0}
@@ -2034,6 +2036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactionDistance: 4
   _interactionPromptSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _speakingSprite: {fileID: 21300000, guid: 93a3b8fd5e61ee8449e46b2dd735bd8e, type: 3}
   _thoughtBubble: {fileID: 1071189812}
   _dialogue: {fileID: 1607415724}
   _startNode: {fileID: 11400000, guid: 3e82ce7ff4180224bb5ffbef300efb48, type: 2}
@@ -2183,6 +2186,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1961349977}
+    - target: {fileID: 2738678499400551197, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectOptionFromUI
+      objectReference: {fileID: 0}
     - target: {fileID: 3021917337044614065, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: m_fontSize
       value: 24
@@ -2365,12 +2372,16 @@ PrefabInstance:
       objectReference: {fileID: 1961349977}
     - target: {fileID: 6864415923447211608, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectedOption
+      value: SelectOptionFromUI
       objectReference: {fileID: 0}
     - target: {fileID: 7272364551336881250, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1961349977}
+    - target: {fileID: 7272364551336881250, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectOptionFromUI
+      objectReference: {fileID: 0}
     - target: {fileID: 7288960346267000823, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: m_fontSize
       value: 24

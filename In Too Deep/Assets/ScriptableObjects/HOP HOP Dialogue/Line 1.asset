@@ -16,7 +16,6 @@ MonoBehaviour:
   - Ribbit
   - Ribbit Ribbit
   - Ribbit Ribbit Ribbit
-  _thoughtBubbleSprite: {fileID: 0}
   _playerReplyOptions:
   - Hello HopHop
   - i hate you
