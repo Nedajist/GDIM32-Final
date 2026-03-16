@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Line 3
   m_EditorClassIdentifier: 
   _lines:
-  - 'I see. You of all people? It seems Hop hop sees something in you that I cannot '
-  - 'After such a long journey, it would be cruel of me to waste your strength any
-    further. I shall grant you a quest of an item I have long desired to obtain.  '
+  - '"I see. You of all people? It seems Hop hop sees something in you that I cannot." '
+  - '"After such a long journey, it would be cruel of me to waste your strength any
+    further. I shall grant you a most mutually beneficial quest."'
   _playerReplyOptions:
   - ...
   _npcReplies:

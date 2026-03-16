@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Line 5
   m_EditorClassIdentifier: 
   _lines:
-  - Find me *That* located down the slopes, and bring it to me by flexing the R muscle
-  - Only I can disable the bomb, and do NOT USE IT!
+  - '"Find me *That* located down the slopes, and bring it to me by flexing your
+    ''R''  muscle."'
+  - '"Only I can disarm it, and do NOT USE IT!"'
   _playerReplyOptions:
-  - Okay, I promise...
+  - '"Okay, I promise..."'
   _npcReplies:
   - {fileID: 11400000, guid: 11f4f90df37aa7b459f0161c8f6fe641, type: 2}

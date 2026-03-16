@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Line 7
   m_EditorClassIdentifier: 
   _lines:
-  - <i> *hisss <i>
+  - <i> *hisss* <i>
   _playerReplyOptions: []
   _npcReplies: []
