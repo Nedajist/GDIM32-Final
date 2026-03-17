@@ -37,8 +37,6 @@ public class player : MonoBehaviour
 
 
 
-
-
     // VFX 
     [SerializeField] GameObject _tiny_explosion;
     [SerializeField] GameObject _small_explosion;
@@ -64,6 +62,8 @@ public class player : MonoBehaviour
     [SerializeField] AudioClip _tiny_landing_SFX;
     [SerializeField] AudioClip _iris_out;
 
+
+
     //QUEST
     public int quest1Stage = 0;
     // stage 0 = Quest not started
@@ -75,7 +75,6 @@ public class player : MonoBehaviour
     // stage 2 = Completed HOP HOP's quest by talking to the monster
     // stage 3 = Accepted Monster's quest
     // stage 4 = item collected
-
 
 
 
@@ -124,19 +123,11 @@ public class player : MonoBehaviour
     private bool bomb_ending = false;
     private float _seconds_after_ending = 0;
 
-    //Quest variables
-
-    public State _currentState { get; private set; }
-
-    //UI variables
-
-
     //NPC variables
     [SerializeField] public bool _dialogueActive;
     [SerializeField] private bool _nearNPC;
 
     
-
 
     private void Awake()
     {
