@@ -246,7 +246,4 @@ public class UIController : MonoBehaviour
         _respawnPoint = respawn;
     }
 
-   
-
-    
 }
