@@ -3846,7 +3846,7 @@ Transform:
   m_GameObject: {fileID: 324285720}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.0042775455, w: 0.9999909}
-  m_LocalPosition: {x: 0.471, y: -0.288, z: 0.204}
+  m_LocalPosition: {x: 0.471, y: -0.288, z: 0.223}
   m_LocalScale: {x: 0.09203815, y: 0.09188711, z: 0.5317094}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5859,7 +5859,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 535617555}
   m_LocalRotation: {x: -0.00000045448536, y: 0.09871571, z: 0.0000008344649, w: 0.9951157}
-  m_LocalPosition: {x: 0, y: 0, z: 0.483}
+  m_LocalPosition: {x: 0, y: 0, z: 0.93}
   m_LocalScale: {x: 0.9293024, y: 1, z: 1.0755328}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5868,7 +5868,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 11.33, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.564, y: 1.11}
+  m_AnchoredPosition: {x: 0.11, y: 1.11}
   m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &535617557
@@ -15275,6 +15275,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1543372962339059011, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b9ef7242e8ca72d469abfe2bb13dfc94, type: 2}
+    - target: {fileID: 1543372962339059011, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1608491119621713706, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b9ef7242e8ca72d469abfe2bb13dfc94, type: 2}
+    - target: {fileID: 1608491119621713706, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3060793099168986294, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -15359,6 +15375,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5106453945796389524, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b9ef7242e8ca72d469abfe2bb13dfc94, type: 2}
+    - target: {fileID: 5106453945796389524, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6792038712179062136, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: m_Name
       value: UIController
@@ -15402,6 +15426,14 @@ PrefabInstance:
     - target: {fileID: 8605659387011306516, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
       propertyPath: _maximum_height
       value: 430
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909742159407469978, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b9ef7242e8ca72d469abfe2bb13dfc94, type: 2}
+    - target: {fileID: 8909742159407469978, guid: fef07f24973f2c54593e5598d3bb21f3, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16625,7 +16657,7 @@ Transform:
   m_GameObject: {fileID: 1504600803}
   serializedVersion: 2
   m_LocalRotation: {x: -0.15473722, y: 0.880402, z: 0.41661158, w: -0.16547976}
-  m_LocalPosition: {x: 300.1, y: -395.7, z: -46.1}
+  m_LocalPosition: {x: 306.64, y: -395.7, z: -46.1}
   m_LocalScale: {x: 12, y: 10.254926, z: 24.730547}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -21888,7 +21920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7230962928278349132, guid: 7a131f7863b98374d8ab4294a1ff5125, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -26.94
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
