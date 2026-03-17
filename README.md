@@ -60,10 +60,6 @@ Finally, I've added a 'Charge Slider' gameobject to the UIController, and it dis
 For level design, I added the giant tower and the final slope jump platforming sections. Combined, they form around 1/4 - 1/3 of the overrall level. 
 
 ### Nathan Hernandez
-Final Devlog
-
-#### Individual Prompt
-
 For the remainder of the making of In Too Deep, I focused on finalizing the level design process. I implemented unique gameplay elements, (with the help of Kai) through the use of slopes. Kai also created consumables that provided unique abilities which I kept in mind to take advantage of in the rest of the level. As for specific game objects, I created platform variations for the lower, Abyss portion of the game (they were initially called rock variation 1,2,3, however in the final version they were renamed to platform1,2,3). These objects are prefabs that could be used in the scene to construct the level. I also added decorations such as the giant ice pillars (IceSpike1,2) at the very bottom of the level. Overall I focused mostly on just designing the level through prefabs I created and pasted throughout the level, also taking into account the many new mechanics Kai added into the game. 
 
 Another minor contribution I made to the final version was the respawn button. I barely touched visual studio during the back half of the project, due to the fact that I was tasked with finishing the level, however I did add in a call to the Respawn() method whenever R is pressed. This isn’t impressive, just something I happened to add in.
@@ -120,3 +116,5 @@ Terri's dialogue:
 - [Iris Out Piano Arrangement](https://onlinesequencer.net/5227672)
 - [The First Layer Piano Arrangement](https://onlinesequencer.net/3628612)
 - [Ambient Music](https://crowshade.itch.io/liminal-horror-dreamcore-ambient-pack-post-dream)
+
+- [VCR OSD Mono Font](https://www.dafont.com/vcr-osd-mono.font)
