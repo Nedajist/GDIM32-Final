@@ -68,36 +68,7 @@ For the remainder of the making of In Too Deep, I focused on finalizing the leve
 
 Another minor contribution I made to the final version was the respawn button. I barely touched visual studio during the back half of the project, due to the fact that I was tasked with finishing the level, however I did add in a call to the Respawn() method whenever R is pressed. This isn’t impressive, just something I happened to add in.
 
-#### Peer Reviews
-Marcelo
 
-Contributions: 3
-
-Perseverance: 3
-
-Communication: 3
-
-Marcelo put a lot of effort into creating the dialogue system throughout the development process. While implementing the NPC interaction was a very difficult process, he was able to get it done and work properly. He worked primarily within the scripts, focusing on using polymorphism to implement NPC behaviours. His perseverance was also a notable element of his contributions, due to the fact that he struggled a lot working out the bugs of the dialogue system. He reached out for help and worked late in the night to not let the team down. Lastly his communication was on point too. He showed up to every team meeting, and checked in to make sure that his work in visual studio reflected the artistic vision of In Too Deep.
-
-Kai
-
-Contributions: 3
-
-Perseverance: 3
-
-Communication: 3
-
-Kai contribution wise proved to me that this man is already industry ready. He implemented so many cool and unique features at such a rapid pace, making it clear that he was passionate about the development process. His skill was a huge help and made In Too Deep a genuinely fun experience. He added in many unique mechanics such as the caffeine, added in cool jump sound effects, crazy particles, etc. This bleeds into his perseverance as well, as he puts a ton of effort constantly into improving the experience. He absolutely went above and beyond with the features he added. As for communication, Kai was not only a major contributor for his commits, but also as a teacher for Marcelo and I. He helped me deal with my strange GitHub situation, and he helped Marcelo in creating the dialogue system. Overall if there was anyone deserving of a perfect score it is absolutely Kai.
-
-Me (Nathan)
-
-Contributions: 1
-
-Perseverance: 2
-
-Communication: 2
-
-While I definitely made contributions to the project, overall most of my work came within the scene itself, rather than through visual studio. While I attempted to help with code and technical elements of the project, I don’t think I did enough to stand out in this area. Both Marcelo and Kai felt that they were able to handle their own tasks without much help from me, however I think that I could have contributed in other areas by adding new mechanics that wouldn’t necessarily interfere with what Kai and Marcelo were working on. As for perseverance, I feel as though I was decent in this area. There was never a task I was delegated that I failed to complete, but again I didn’t go above and beyond as I would have wanted to. And lastly, for communication, I think I was satisfactory as I did continuously check in with my team regarding the artistic vision of In Too Deep, however I did miss one meeting we had scheduled on our own due to the fact that I had a shift at my job that time. Overall I don’t think I provided as much support as I could have, and while I can accredit a lot of that to the fact that I had my GitHub account banned multiple times during the development process, I feel as though I should have done a better job taking initiative.
 
 
 ### Marcelo Tolosa
