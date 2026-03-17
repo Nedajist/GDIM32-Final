@@ -26,6 +26,7 @@ public class player : MonoBehaviour
     [SerializeField] float _upward_charge_velocity;
     [SerializeField] float _forward_charge_velocity;
     [SerializeField] float _fall_height_threshold;
+    [SerializeField] GameObject _bomb;
     [SerializeField] AudioSource _explosion_audio_manager;
     [SerializeField] AudioSource _footsteps_audio_manager;
     [SerializeField] AudioSource _music_audio_manager;
@@ -110,7 +111,6 @@ public class player : MonoBehaviour
     public float _maxHealth = 200;
     public float _max_air_jump_charges = 0;
     public float _air_jump_charges = 0;
-
 
     public delegate void HandDelegate(string hand);
     public event HandDelegate HandSelected;
@@ -219,10 +219,7 @@ public class player : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && _space_held_time > 0 && ((_grounded == true || _air_jump_charges> 0))) // check if space was released, player jumps
         {
-            if (_grounded == false && _air_jump_charges > 0)
-            {
-                _rigidbody.velocity = new Vector3(0, 0, 0);
-            }
+            _rigidbody.velocity = new Vector3(0, 0, 0);
 
             _jump_grace_period = 0;
             Vector3 _upward_momentum = (_upward_charge_velocity * transform.up * _space_held_time) + _min_upward_momentum * transform.up;
@@ -503,7 +500,7 @@ public class player : MonoBehaviour
     {
         foreach (int i in Enumerable.Range(0, _playerInventory.Count))
         {
-            if (_playerInventory[i].name == "Bomb")
+            if (_playerInventory[i].item_name == "Bomb")
             {
                 _ClearInteractable(i);
                 break;
@@ -627,13 +624,11 @@ public class player : MonoBehaviour
         _explosion_audio_manager.Play();
     }
 
-    public void BoringEnd()
+    public void TimeRewind()
     {
         quest2Stage = 3;
-
-
-
-
+        Instantiate(_bomb, new Vector3(547.9f, 9.9f, 481.9f), Quaternion.Euler(new Vector3(-90, 0, 0)));
+        transform.position = new Vector3(554.49f, 9.9f, 477.83f);
     }
 
     public void BombEnd() // called ONCE when player interacts with bomb 
@@ -694,6 +689,7 @@ public class player : MonoBehaviour
     {
         return (_rigidbody);
     }
+
 
     public void add_camera_shake(float seconds)
     {

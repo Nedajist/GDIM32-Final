@@ -19,9 +19,9 @@ MonoBehaviour:
   - '"I know what you are. You ought to have come from below. And I know what you
     seek. *That* thing."'
   _playerReplyOptions:
-  - Yes (Lie)
-  - Stay Silent (Lie)
-  - No (Lie
+  - '"Yes." (Lie)'
+  - <i>Stay Silent</i> (Lie)
+  - '"No." (Lie)'
   _npcReplies:
   - {fileID: 11400000, guid: 17905488731ea3245a18b1f49c5cdfc1, type: 2}
   - {fileID: 11400000, guid: 1c8fc74be09214a478bab502434eb716, type: 2}

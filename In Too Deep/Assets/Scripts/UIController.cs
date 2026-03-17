@@ -207,7 +207,7 @@ public class UIController : MonoBehaviour
                         _item_display_list[i].sprite = _coffee;
                         break;
                     case "Bomb":
-                        if (GameController.Instance.Player.quest2Stage == 3)
+                        if (GameController.Instance.Player.quest2Stage > 1)
                         {
                             GameController.Instance.Player.quest2Stage = 4;
                             Debug.Log("Quest2Stage = 4");

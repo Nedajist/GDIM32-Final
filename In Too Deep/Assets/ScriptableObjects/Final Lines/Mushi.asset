@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Mushi
   m_EditorClassIdentifier: 
   _lines:
-  - Seek HopHop
+  - '"Seek the toad marauder, Hophop."'
   _playerReplyOptions: []
   _npcReplies: []

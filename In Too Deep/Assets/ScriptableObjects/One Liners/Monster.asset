@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Monster
   m_EditorClassIdentifier: 
   _lines:
-  - Leave me alone.
+  - '"This isn''t happening."'
   _playerReplyOptions: []
   _npcReplies: []

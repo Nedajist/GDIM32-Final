@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MonsterLineBeforeBomb
   m_EditorClassIdentifier: 
   _lines:
-  - Find *That*
+  - '"We must act post-haste."'
   _playerReplyOptions: []
   _npcReplies: []

@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Monster
   m_EditorClassIdentifier: 
   _lines:
-  - 'I will disarm it. Thank you for your help '
-  - i finally see what Hop Hop sees in you.
+  - '"I will disarm it. Your services are appreciated."'
+  - '"I finally see what Hop Hop sees in you."'
   _playerReplyOptions:
-  - <i> This future is so boring. I shall exercise my contract with the future devil,
-    and see some fireworks</i>
+  - <i> This future is so boring. I came here to see some fireworks.</i>
   _npcReplies:
   - {fileID: 11400000, guid: d146453632da7264791fc9b3d92c081d, type: 2}
