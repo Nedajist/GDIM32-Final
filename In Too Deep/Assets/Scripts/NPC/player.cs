@@ -627,6 +627,15 @@ public class player : MonoBehaviour
         _explosion_audio_manager.Play();
     }
 
+    public void BoringEnd()
+    {
+        quest2Stage = 3;
+
+
+
+
+    }
+
     public void BombEnd() // called ONCE when player interacts with bomb 
     {
         _transition_movement_state(_movement_states.Falling);

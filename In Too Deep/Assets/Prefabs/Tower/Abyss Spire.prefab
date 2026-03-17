@@ -358,6 +358,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ' MusicGate'
       objectReference: {fileID: 0}
+    - target: {fileID: 1072389637499402370, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
+      propertyPath: m_TagString
+      value: MusicGate
+      objectReference: {fileID: 0}
     - target: {fileID: 1782808185835246948, guid: 8198f127f815b82498a96738e0d28b9a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.41
