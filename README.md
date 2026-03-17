@@ -57,8 +57,28 @@ Finally, I've added a 'Charge Slider' gameobject to the UIController, and it dis
 
 For level design, I added the giant tower and the final slope jump platforming sections. Combined, they form around ~1/3 of the overrall level. 
 
-### Team Member Name 2
-Put your individual final Devlog here.
+### Nathan Hernandez
+Final Devlog
+Individual Prompt
+For the remainder of the making of In Too Deep, I focused on finalizing the level design process. I implemented unique gameplay elements, (with the help of Kai) through the use of slopes. Kai also created consumables that provided unique abilities which I kept in mind to take advantage of in the rest of the level. As for specific game objects, I created platform variations for the lower, Abyss portion of the game (they were initially called rock variation 1,2,3, however in the final version they were renamed to platform1,2,3). These objects are prefabs that could be used in the scene to construct the level. I also added decorations such as the giant ice pillars (IceSpike1,2) at the very bottom of the level. Overall I focused mostly on just designing the level through prefabs I created and pasted throughout the level, also taking into account the many new mechanics Kai added into the game. 
+Another minor contribution I made to the final version was the respawn button. I barely touched visual studio during the back half of the project, due to the fact that I was tasked with finishing the level, however I did add in a call to the Respawn() method whenever R is pressed. This isn’t impressive, just something I happened to add in.
+Marcelo
+Contributions: 3
+Perseverance: 3
+Communication: 3
+Marcelo put a lot of effort into creating the dialogue system throughout the development process. While implementing the NPC interaction was a very difficult process, he was able to get it done and work properly. He worked primarily within the scripts, focusing on using polymorphism to implement NPC behaviours. His perseverance was also a notable element of his contributions, due to the fact that he struggled a lot working out the bugs of the dialogue system. He reached out for help and worked late in the night to not let the team down. Lastly his communication was on point too. He showed up to every team meeting, and checked in to make sure that his work in visual studio reflected the artistic vision of In Too Deep.
+Kai
+Contributions: 3
+Perseverance: 3
+Communication: 3
+Kai contribution wise proved to me that this man is already industry ready. He implemented so many cool and unique features at such a rapid pace, making it clear that he was passionate about the development process. His skill was a huge help and made In Too Deep a genuinely fun experience. He added in many unique mechanics such as the caffeine, added in cool jump sound effects, crazy particles, etc. This bleeds into his perseverance as well, as he puts a ton of effort constantly into improving the experience. He absolutely went above and beyond with the features he added. As for communication, Kai was not only a major contributor for his commits, but also as a teacher for Marcelo and I. He helped me deal with my strange GitHub situation, and he helped Marcelo in creating the dialogue system. Overall if there was anyone deserving of a perfect score it is absolutely Kai.
+Me (Nathan)
+Contributions: 1
+Perseverance: 2
+Communication: 2
+While I definitely made contributions to the project, overall most of my work came within the scene itself, rather than through visual studio. While I attempted to help with code and technical elements of the project, I don’t think I did enough to stand out in this area. Both Marcelo and Kai felt that they were able to handle their own tasks without much help from me, however I think that I could have contributed in other areas by adding new mechanics that wouldn’t necessarily interfere with what Kai and Marcelo were working on. As for perseverance, I feel as though I was decent in this area. There was never a task I was delegated that I failed to complete, but again I didn’t go above and beyond as I would have wanted to. And lastly, for communication, I think I was satisfactory as I did continuously check in with my team regarding the artistic vision of In Too Deep, however I did miss one meeting we had scheduled on our own due to the fact that I had a shift at my job that time. Overall I don’t think I provided as much support as I could have, and while I can accredit a lot of that to the fact that I had my GitHub account banned multiple times during the development process, I feel as though I should have done a better job taking initiative.
+
+
 ### Marcelo Tolosa
 Since the Check-In, I've improved the NPC dialogue by adding every single node that uniquely correlates with the scripts that each team member created for the NPC's. I created all of Terri's dialogue and implemented one line start nodes. In AdvanceDialogue() method, it first checks whether the player's quest scores are less than or greater than the required quest scores in order to interact with the NPC. If not, then the player will only be able to interact with the NPC with a one liner. This is only changed until the player completes a previous quest in order to unlock the nodes with multiple dialogue. 
 
