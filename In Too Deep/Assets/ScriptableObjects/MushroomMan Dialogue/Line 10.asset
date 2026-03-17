@@ -17,7 +17,7 @@ MonoBehaviour:
     Man, could grant you an audience anew. Why have you delved here, being-not-from-this-world?
     I already know why, of course, so there is no use lying."'
   _playerReplyOptions:
-  - '"I represent an otherwordly, extra dimensional public-safety division, sent
-    here to neutralize *That*"'
+  - '"I represent an otherwordly public-safety division, sent here to neutralize
+    *That*."'
   _npcReplies:
   - {fileID: 11400000, guid: 173787240b07f6a43b67b10fbca9be03, type: 2}

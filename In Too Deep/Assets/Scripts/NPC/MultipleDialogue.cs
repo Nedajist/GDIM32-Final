@@ -27,8 +27,6 @@ public class MultipleDialogue : MonoBehaviour
     [SerializeField] private DialogueNode _questAcceptNode;
 
     [SerializeField] private NPCType _npcType;
-    [SerializeField] private int _requiredQuest1Stage = 0;
-    [SerializeField] private int _requiredQuest2Stage = 0;
     private bool activateFinalLine;
 
     private DialogueNode _currentNode;
@@ -182,6 +180,7 @@ private void AdvanceDialogue()
             Debug.Log("Quest 1 complete");
             Debug.Log("Quest stage = 2");
             Debug.Log(player.Instance.quest1Stage);
+            transform.GetComponent<Hophop>().spawn_coffee();
         }
         //accepted quest 2 by talking to hop hop and choosing quest accept node in dialogue
         if (_npcType == NPCType.HopHop && player.Instance.quest1Stage == 2 && _currentNode == _questAcceptNode && option == 0)
@@ -203,15 +202,16 @@ private void AdvanceDialogue()
             player.Instance.quest2Stage = 3;
             Debug.Log("Quest 3 started");
         }
+
         if (_npcType == NPCType.Monster && player.Instance.quest2Stage == 4 && _currentNode == _FINALENode && option == 0)
         {
             Debug.Log("final method");
+            player.Instance.ClearBomb();
             player.Instance.TimeRewind();
         }
-        
 
 
-        if(_currentNode._npcReplies == null || option >= _currentNode._npcReplies.Length)
+        if (_currentNode._npcReplies == null || option >= _currentNode._npcReplies.Length)
         {
             Debug.LogError("Dialogue node missing for option: " + option);
             EndDialogue();

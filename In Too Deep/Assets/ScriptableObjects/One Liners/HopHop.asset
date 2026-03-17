@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HopHop
   m_EditorClassIdentifier: 
   _lines:
-  - tibbiR !!!!!
+  - '"TibbiR!!!"'
   _playerReplyOptions: []
   _npcReplies: []

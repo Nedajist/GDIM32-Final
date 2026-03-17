@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Line 6
   m_EditorClassIdentifier: 
   _lines:
-  - '"All of you ''boom''s and ''ekusupuroshon''s must have torn out your eardrums.
-    But even in your silence, I know you guilt! And even if you are innocent - guilty
-    of eating away my time!"'
+  - '"All of your explosions must have torn out your eardrums. But even in your silence,
+    I know you guilt! And even if you are innocent - guilty of eating away my time!"'
   _playerReplyOptions:
   - <i>Point to your ears</i>
   - Apologize

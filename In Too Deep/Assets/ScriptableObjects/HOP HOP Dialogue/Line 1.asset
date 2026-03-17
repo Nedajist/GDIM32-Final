@@ -17,9 +17,9 @@ MonoBehaviour:
   - '"Ribbit Ribbit."'
   - '"Ribbit Ribbit Ribbit."'
   _playerReplyOptions:
-  - '"Hello HopHop"'
-  - '"i hate you"'
-  - '"Ribbit"'
+  - '"Hello HopHop."'
+  - '"i hate you."'
+  - '"Ribbit."'
   _npcReplies:
   - {fileID: 11400000, guid: 564db9cf0fbdfe746bd00ac981b40998, type: 2}
   - {fileID: 11400000, guid: 9604a626a5b4a9d47a65ca459a68bb70, type: 2}

@@ -112,7 +112,6 @@ public class player : MonoBehaviour
     public float _max_air_jump_charges = 0;
     public float _air_jump_charges = 0;
 
-
     public delegate void HandDelegate(string hand);
     public event HandDelegate HandSelected;
 
@@ -501,7 +500,7 @@ public class player : MonoBehaviour
     {
         foreach (int i in Enumerable.Range(0, _playerInventory.Count))
         {
-            if (_playerInventory[i].name == "Bomb")
+            if (_playerInventory[i].item_name == "Bomb")
             {
                 _ClearInteractable(i);
                 break;
