@@ -15,6 +15,6 @@ MonoBehaviour:
   _lines:
   - '"Ribbit. Seek out Terri, He-Who-Lies-Below, and bestow upon him *That*"'
   _playerReplyOptions:
-  - Okey ^v^
+  - '"Okey ^v^"'
   _npcReplies:
   - {fileID: 11400000, guid: 6c91525d60c2f2c47894967d51d13f07, type: 2}

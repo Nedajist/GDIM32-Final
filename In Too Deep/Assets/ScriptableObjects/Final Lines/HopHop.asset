@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HopHop
   m_EditorClassIdentifier: 
   _lines:
-  - GO DOWN THE ABYSS...*TIBBIR
+  - '"Go ply the abyssal plane...*TIBBIR*"'
   _playerReplyOptions: []
   _npcReplies: []
