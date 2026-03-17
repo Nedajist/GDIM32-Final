@@ -38,6 +38,7 @@ In terms of the NPC Dialogue in the project proposal, there were changes that we
 
 ### Note
 Our project does not meet this requirement: "The player can turn in the task to the NPC, which triggers new dialogue from the NPC." In our game, NPCs give the player quests which are to be turned in to a different NPC, unlocking new dialogue for them, not the original questgiver. We have received permission from Professor Reid to do this. 
+
 Also, one of our light source types is the directional light, which is omnipresent throughout the scene. 
 
 ### Group Devlog
@@ -56,8 +57,6 @@ Finally, I've added a 'Charge Slider' gameobject to the UIController, and it dis
 
 For level design, I added the giant tower and the final slope jump platforming sections. Combined, they form around ~1/3 of the overrall level. 
 
-
-[Level Design Commit]
 ### Team Member Name 2
 Put your individual final Devlog here.
 ### Marcelo Tolosa
