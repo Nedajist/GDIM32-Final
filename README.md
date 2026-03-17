@@ -47,9 +47,13 @@ Also, one of our light source types is the directional light, which is omniprese
 
 ### Kai Meng
 My primary contributions since the previous check-in have been with the 'player.cs' script. I've added raycasts named '_groundcheck1' through '_groundcheck3' which the game casts every frame to detect if the player is actually on the ground / on a slope. The player now has 7 audio listeners  (.e.g '_explosion_audio_manager'), which play over a dozen sound effects and music tracks at the appropriate times. I made the entirety of the player's movement state machine and the '_transition_movement_state()' method which handles state changes. Based on the current and new states, the method changes the player's animation triggers and booleans as well as the audio clips playing from their audio sources.
+
 The 'player_lands()' method calculates fall damage, shakes the player's camera, plays a landing audio clip based on their fall height, instantiates the appropriate dust explosion VFX, and is called when the player lands.
+
 The 'BombEnd' and 'BombEndingProgression' methods handle the bomb detonation ending, which involves a giant nuclear explosion, the player being propelled to the sky by a rocket trail, and the screen fading to white. 
+
 Finally, I've added a 'Charge Slider' gameobject to the UIController, and it displays the current amount of jump charge held by the player (handled in the UIController's 'Update()' method).
+
 For level design, I added the giant tower and the final slope jump platforming sections. Combined, they form around ~1/3 of the overrall level. 
 
 
