@@ -35,12 +35,25 @@ I created the different NPC's found in Marcelo Testing Scene, and created the di
 In terms of the NPC Dialogue in the project proposal, there were changes that were made to the original plan. Originally our plan was to have quest content that started with, "Given by NPC #1, turn in to NPC #3. Find the mysterious treasure somewhere near the bottom of the hole. Given by NPC #2, turn in to NPC #3. Escape the hole, and return to the surface. Given by NPC #3, turn in to NPC #1." Recent changes were made and now the player is supposed to reach NPC #2 given by the NPC #1, and after that must give a treasure to NPC #3. We used Trello, and discord messages to communitcate with eachother, and keep track of progress as a group. In the future, I will definitely try to meet up in person more often as it keeps me and the group productive, plus ensures that everyone is working together.
 
 ## Final Submission
+
+### Note
+Our project does not meet this requirement: "The player can turn in the task to the NPC, which triggers new dialogue from the NPC." In our game, NPCs give the player quests which are to be turned in to a different NPC, unlocking new dialogue for them, not the original questgiver. We have received permission from Professor Reid to do this. 
+Also, one of our light source types is the directional light, which is omnipresent throughout the scene. 
+
 ### Group Devlog
-Put your group Devlog here.
+1. Our singleton is located in the GameController script in the GameController gameobject in the Level scene. Any script in the level scene can access the 'Player' and 'UIController' scripts from it. This helps in de-coupling our project, as otherwise scripts who wished to access the Player or UI would need to define individual references to them in their scripts, such as through a SerializedField variable. A change in the Player or UI might need one to also change every single place they are referenced. A singleton ensures that I only need to define the Player and UIController in one place, rather than several. The GameController also receives any signals sent by the player, such as 'PlayerHandSelected' (when the player selects an inventory slot), and forwards the results to the appropriate gameobject (in this case, the UI). With 'GameController' acting as an intermediary, the player is less coupled with the UI. 
+2. The 'player.cs' script contains a movement state machine, with its state stored as a '_movement_states' enum. It contains four mutually exclusive states the player can be in: 'charging', 'walking', 'falling', and 'idle'. Without a state machine, each time we wanted to determine the player's movement status, we would have to use many booleans like _grounded, _canmove, or _seconds_airborne. This created many exceptions and edge-cases that we would need to check for each time, as the truth value of any one boolean does not guarantee the truth value of the others. Now we have a single centralized _transition_movement_state() method which checks and changes the appropriate booleans as well as managing the player's animations. Having a mutually exclusive enum states guarantees us that when the player is in the falling state, they cannot also be in the charging state. One state check is much more efficient than a half-dozen if-else statements. For example, to see if the player is charging, we simply check if their movement state is '_movement_states.Charging' rather than checking their '_charge_held_time', '_seconds_airborne', and many other booleans. 
+3. Our 'BombItem', 'MakiBean', and 'FoodItem' scripts all inherit from an abstract parent 'Interactable' script. The parent script has 'type' and 'item_name' variables which are edited in inspector, and it has a virtual 'interact' method which plays when the player uses an item. Polymorphism occurs in each of the child classes, as they all have different interactions with the player. A food item heals the player, whereas a bomb explodes. Each child class overrides the virtual 'interact()' method with its own interaction mechanics. Polymorphism simplifies the process of creating new interactable objects and reduces redundancy, as we did not have to repeatedly define the same 'item_name' and 'type' variables for each item. Without a parent Interactable class, the game would have to check for each interactable type before running the 'interact()' method, as Unity does not have duck typing (to our knowledge). Thus, to run 'interact()', a script would need to specify the specific interactable class. A parent means we can run 'interact()' without worrying about the specific interactable type.
+
+### Kai Meng
+My primary contributions since the previous check-in have been with the 'player.cs' script. I've added raycasts named '_groundcheck1' through '_groundcheck3' which the game casts every frame to detect if the player is actually on the ground / on a slope. The player now has 7 audio listeners  (.e.g '_explosion_audio_manager'), which play over a dozen sound effects and music tracks at the appropriate times. I made the entirety of the player's movement state machine and the '_transition_movement_state()' method which handles state changes. Based on the current and new states, the method changes the player's animation triggers and booleans as well as the audio clips playing from their audio sources.
+The 'player_lands()' method calculates fall damage, shakes the player's camera, plays a landing audio clip based on their fall height, instantiates the appropriate dust explosion VFX, and is called when the player lands.
+The 'BombEnd' and 'BombEndingProgression' methods handle the bomb detonation ending, which involves a giant nuclear explosion, the player being propelled to the sky by a rocket trail, and the screen fading to white. 
+Finally, I've added a 'Charge Slider' gameobject to the UIController, and it displays the current amount of jump charge held by the player (handled in the UIController's 'Update()' method).
+For level design, I added the giant tower and the final slope jump platforming sections. Combined, they form around ~1/3 of the overrall level. 
 
 
-### Team Member Name 1
-Put your individual final Devlog here.
+[Level Design Commit]
 ### Team Member Name 2
 Put your individual final Devlog here.
 ### Marcelo Tolosa
@@ -58,7 +71,7 @@ public int quest2Stage = 0;
     // stage 3 = item delivered
 
 Terri's dialogue:
-([In Too Deep Dialogue] https://docs.google.com/document/d/1X34PPDPiaFY0Egpk9Z-WLCvEmmA_12GL5txa25ktmrA/edit?usp=sharing)
+[In Too Deep Dialogue](https://docs.google.com/document/d/1X34PPDPiaFY0Egpk9Z-WLCvEmmA_12GL5txa25ktmrA/edit?usp=sharing)
 
 
 ## Open-Source Assets

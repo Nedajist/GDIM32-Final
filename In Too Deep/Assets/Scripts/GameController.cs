@@ -26,7 +26,6 @@ public class GameController : MonoBehaviour
 
         Instance.Player.HandSelected += PlayerHandSelected;
         Instance.Player.InventoryUpdated += PlayerInventoryUpdated;
-
     }
 
     void PlayerHandSelected(string hand)
